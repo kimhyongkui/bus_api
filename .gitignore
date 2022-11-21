@@ -134,9 +134,10 @@ env.bak/
 venv.bak/
 /Scripts/
 /__pycache__/
-/.gitignore/
 /Scripts/
 /.idea/
+.gitignore/
+
 # Spyder project settings
 .spyderproject
 .spyproject

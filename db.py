@@ -3,9 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from dotenv import load_dotenv
 from bus_api import getBusAll
-
 import os
-
 
 load_dotenv()
 

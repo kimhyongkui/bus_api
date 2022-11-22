@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 
 
+
 load_dotenv()
 key = os.getenv('key')
 # key = os.environ.get('key')

@@ -24,12 +24,22 @@ def getBusRouteId(bus_number):
     for bus in jsonObj:
         bus_name = bus['busRouteNm']
         bus_Id = bus['busRouteId']
-        bus_dict[bus_name] = bus_Id
+        bus_dict[bus_name] = bus_Id   #{bus_name : bus_Id}라는 딕셔너리 생성
         if bus_number == bus_name:
             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
             break
 
-getBusRouteId(6001)
+
+def getBusList() :
+    bus_dict = {}
+    for i in range(len(jsonObj)):
+         bus_dict[jsonObj[i]['busRouteNm']] = jsonObj[i]['busRouteId']
+    print(bus_dict)
+
+getBusList()
 
 
-
+def getBusList2() :
+    for i in range(len(jsonObj)):
+        bus_dict[jsonObj[i]['busRouteNm']] = jsonObj[i]['busRouteId']
+        print(bus_dict)

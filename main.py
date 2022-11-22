@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
 from typing import List
 from db import session
 from models import BusTable, Bus
@@ -7,14 +6,6 @@ from models import BusTable, Bus
 
 app = FastAPI()
 
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 
@@ -24,8 +15,8 @@ def read_buses():
     return buses
 
 @app.get("/buses/{bus_id}")
-def read_bus(busid: int):
-    bus = session.query(BusTable).filter(BusTable.bus_id == busid).first()
+def read_bus(bus_id: int):
+    bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).first()
     return bus
 
 @app.post("/bus")
@@ -34,6 +25,7 @@ def create_bus(bus_name: str, bus_id: int):
     bus = BusTable()
     bus.bus_name = bus_name
     bus.bus_id = bus_id
+
 
     session.add(bus)
     session.commit()

@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from dotenv import load_dotenv
-from bus_api import getBusRouteId
-from models import BusTable
+from bus_api import getBusAll
+
 import os
 
 
@@ -38,7 +38,8 @@ Base.query = session.query_property()
 
 def db_insert(bus_name: str, bus_id: int):
     bus = BusTable()
-    getBusRouteId(6001)
+    getBusAll()
+
     bus.bus_name = bus_name
     bus.bus_id = bus_id
 

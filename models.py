@@ -11,6 +11,7 @@ class BusTable(Base):
     bus_id = Column(Integer)
 
 
+
 class Bus(BaseModel):
     # id : int
     bus_name  : str

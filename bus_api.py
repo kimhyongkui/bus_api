@@ -18,6 +18,9 @@ dict = xmltodict.parse(content) # XML을 dictionary로 파싱
 jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False) # dict을 json으로 변환
 jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
+
+# ---------------------------------------------------------------------
+
 # def getBusRouteId(bus_number):
 #     bus_number = str(bus_number)
 #     bus_dict = {}
@@ -31,6 +34,8 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 #     print(bus_dict)
 # getBusRouteId(6001)
 
+# ---------------------------------------------------------------------
+
 bus_dict = {}
 def getBusAll():
     global bus_dict
@@ -42,8 +47,22 @@ def getBusAll():
 
 getBusAll()
 
+# ---------------------------------------------------------------------
+
 def printBusDict() :
     for bus_name, bus_Id in bus_dict.items() :
         print(bus_name, bus_Id)
 
 printBusDict()
+
+# ---------------------------------------------------------------------
+
+# def getBusAll():
+#     bus_list = []
+#     for i in range(len(jsonObj)):
+#         bus_name = (jsonObj[i]['busRouteNm'])
+#         bus_Id = (jsonObj[i]['busRouteId'])
+#         bus_list.append(bus_name)
+#         bus_list.append(bus_Id)
+#     print(bus_list)
+# getBusAll()

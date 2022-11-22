@@ -138,6 +138,7 @@ venv.bak/
 /.idea/
 .gitignore/
 
+
 # Spyder project settings
 .spyderproject
 .spyproject

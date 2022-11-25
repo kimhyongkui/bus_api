@@ -58,6 +58,17 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
 # ---------------------------------------------------------------------
 
+# def getBusAll():
+#     bus_list = []
+#     for i in range(len(jsonObj)):
+#         bus_name = (jsonObj[i]['busRouteNm'])
+#         bus_Id = (jsonObj[i]['busRouteId'])
+#         bus_list.append(bus_name)
+#         bus_list.append(bus_Id)
+#     return bus_list
+
+
+
 def getBusAll():
     bus_list = []
     for i in range(len(jsonObj)):
@@ -65,5 +76,10 @@ def getBusAll():
         bus_Id = (jsonObj[i]['busRouteId'])
         bus_list.append(bus_name)
         bus_list.append(bus_Id)
-    return bus_list
+    return bus_list # 위의 반복문으로 만들어진 bus_list를 리턴해준다.
+
+bus_list = getBusAll()
+n = 0
+print(bus_list[n+1])
+
 

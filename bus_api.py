@@ -36,33 +36,34 @@ jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
 # ---------------------------------------------------------------------
 
-bus_dict = {}
-def getBusAll():
-    global bus_dict
-    bus_dict = {}
-    for bus in jsonObj:
-        bus_name = bus['busRouteNm']
-        bus_Id = bus['busRouteId']
-        bus_dict[bus_name] = bus_Id   #{bus_name : bus_Id}라는 딕셔너리 생성
-
-getBusAll()
-
-# ---------------------------------------------------------------------
-
-def printBusDict() :
-    for bus_name, bus_Id in bus_dict.items() :
-        print(bus_name, bus_Id)
-
-printBusDict()
-
-# ---------------------------------------------------------------------
-
+# bus_dict = {}
 # def getBusAll():
-#     bus_list = []
-#     for i in range(len(jsonObj)):
-#         bus_name = (jsonObj[i]['busRouteNm'])
-#         bus_Id = (jsonObj[i]['busRouteId'])
-#         bus_list.append(bus_name)
-#         bus_list.append(bus_Id)
-#     print(bus_list)
+#     global bus_dict
+#     bus_dict = {}
+#     for bus in jsonObj:
+#         bus_name = bus['busRouteNm']
+#         bus_Id = bus['busRouteId']
+#         bus_dict[bus_name] = bus_Id   #{bus_name : bus_Id}라는 딕셔너리 생성
+#     print(bus_dict)
+#
 # getBusAll()
+
+# ---------------------------------------------------------------------
+
+# def printBusDict() :
+#     for bus_name, bus_Id in bus_dict.items() :
+#         print(bus_name, bus_Id)
+#
+# printBusDict()
+
+# ---------------------------------------------------------------------
+
+def getBusAll():
+    bus_list = []
+    for i in range(len(jsonObj)):
+        bus_name = (jsonObj[i]['busRouteNm'])
+        bus_Id = (jsonObj[i]['busRouteId'])
+        bus_list.append(bus_name)
+        bus_list.append(bus_Id)
+    return bus_list
+

@@ -2,11 +2,8 @@ from fastapi import FastAPI
 from typing import List
 from db import session
 from models import BusTable, Bus
-from bus_api import getBusAll
 
 app = FastAPI()
-
-
 
 
 @app.get("/buses")

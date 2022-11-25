@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from dotenv import load_dotenv
-from bus_api import getBusAll
 import os
 
 load_dotenv()
@@ -34,12 +33,3 @@ Base.query = session.query_property()
 
 
 
-def db_insert(bus_name: str, bus_id: int):
-    bus = BusTable()
-    getBusAll()
-
-    bus.bus_name = bus_name
-    bus.bus_id = bus_id
-
-    session.add(bus)
-    session.commit()

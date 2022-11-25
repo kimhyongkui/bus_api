@@ -22,7 +22,7 @@ try:
 
     for i in range(len(bus_list)):
         i = i+1
-        sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ({bus_name[i]}, {bus_id[i]})"
+        sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ({bus_name[i-1]}, {bus_id[i-1]})"
         curs.execute(sql)
         conn.commit()
 finally:

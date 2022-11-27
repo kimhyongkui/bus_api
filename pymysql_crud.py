@@ -12,35 +12,33 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 
 
 # get(n번째)
-# try:
-#     curs = conn.cursor()
-#     sql = "SELECT * FROM bus"
-#     curs.execute(sql)
-#     data = curs.fetchall()
-#     print(data[0])
+
+curs = conn.cursor()
+sql = "SELECT * FROM bus"
+curs.execute(sql)
+data = curs.fetchall()
+print(data[0])
+
+conn.close()
+
+
 #
-# finally:
-#     conn.close()
-
-
-
 # get(특정)
-# try:
-#     val = "6001"
-#     curs = conn.cursor()
-#     sql = f"SELECT * FROM bus WHERE bus_name={val}"
-#
-#     curs.execute(sql)
-#     result = curs.fetchall()
-#     conn.commit()
-#
-#     for i in result:
-#         print(i)
-#
-# finally:
-#     conn.close()
 
+val = "6001"
+curs = conn.cursor()
+sql = f"SELECT * FROM bus WHERE bus_name={val}"
 
+curs.execute(sql)
+result = curs.fetchall()
+conn.commit()
+
+for i in result:
+    print(i)
+
+conn.close()
+#
+#
 # get(전체)
 # try:
 #     curs = conn.cursor()
@@ -54,7 +52,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 #
 # finally:
 #     conn.close()
-
+#
 # post(전체)
 # try:
 #     curs = conn.cursor()
@@ -70,7 +68,7 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 #         conn.commit()
 # finally:
 #     conn.close()
-
+#
 # post(일부)
 # try:
 #     curs = conn.cursor()
@@ -81,8 +79,8 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 #     conn.commit()
 # finally:
 #     conn.close()
-
-
+#
+#
 # put
 # try:
 #     val1 = 1
@@ -94,8 +92,8 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 #
 # finally:
 #     conn.close()
-
-
+#
+#
 # delete
 # try:
 #     val = ("6001")

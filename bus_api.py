@@ -2,7 +2,6 @@ import requests, xmltodict, json
 from dotenv import load_dotenv
 import os
 
-
 load_dotenv()
 key = os.getenv('key')
 # key = os.environ.get('key')
@@ -18,59 +17,16 @@ jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_asc
 jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
 
 
-# ---------------------------------------------------------------------
 
-# def getBusRouteId(bus_number):
-#     bus_number = str(bus_number)
-#     bus_dict = {}
-#     for bus in jsonObj:
-#         bus_name = bus['busRouteNm']
-#         bus_Id = bus['busRouteId']
-#         bus_dict[bus_name] = bus_Id   #{bus_name : bus_Id}라는 딕셔너리 생성
-#         if bus_number == bus_name:
-#             print(f'{bus_name}의 버스ID는 {bus_Id}입니다.')
-#             break # break가 없으면 모든 데이터가 딕셔너리화되어 저장됨
-#     print(bus_dict)
-# getBusRouteId(6001)
-
-# ---------------------------------------------------------------------
-
-# bus_dict = {}
-# def getBusAll():
-#     global bus_dict
-#     bus_dict = {}
-#     for bus in jsonObj:
-#         bus_name = bus['busRouteNm']
-#         bus_Id = bus['busRouteId']
-#         bus_dict[bus_name] = bus_Id   #{bus_name : bus_Id}라는 딕셔너리 생성
-#     print(bus_dict)
-#
-# getBusAll()
-
-# ---------------------------------------------------------------------
-
-# def printBusDict() :
-#     for bus_name, bus_Id in bus_dict.items() :
-#         print(bus_name, bus_Id)
-#
-# printBusDict()
-
-# ---------------------------------------------------------------------
 def getBusAll():
     bus_list = []
     for i in range(len(jsonObj)):
+        bus_dict = {}
         bus_name = (jsonObj[i]["busRouteNm"])
         bus_Id = (jsonObj[i]["busRouteId"])
-        bus_list.append(bus_name)
-        bus_list.append(bus_Id)
-    return bus_list # 위의 반복문으로 만들어진 bus_list를 리턴해준다.
+        bus_dict["bus_name"] = bus_name
+        bus_dict["bus_id"] = bus_Id
+        bus_list.append(bus_dict)
+    return bus_list
 
-bus_list = getBusAll()
-print(type(bus_list[0]))
-
-# result_list = []
-# for i in bus_list:
-#     temp = i.replace("'", """)
-#     result_list.append(temp)
-#
-# print(result_list)
+getBusAll()

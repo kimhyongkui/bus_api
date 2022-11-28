@@ -22,11 +22,12 @@ def getBusAll():
     bus_list = []
     for i in range(len(jsonObj)):
         bus_dict = {}
-        bus_name = (jsonObj[i]["busRouteNm"])
-        bus_Id = (jsonObj[i]["busRouteId"])
+        bus_name = jsonObj[i]["busRouteNm"]
+        bus_Id = jsonObj[i]["busRouteId"]
         bus_dict["bus_name"] = bus_name
         bus_dict["bus_id"] = bus_Id
         bus_list.append(bus_dict)
     return bus_list
 
-getBusAll()
+
+

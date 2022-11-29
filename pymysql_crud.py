@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from bus_api import getBusAll
+from api_bus import getBusAll
 import pymysql
 import os
 

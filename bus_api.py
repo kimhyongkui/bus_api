@@ -4,11 +4,9 @@ import os
 
 load_dotenv()
 key = os.getenv('key')
-# key = os.environ.get('key')
 
+# 노선번호에 해당하는 노선 목록 조회
 url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={key}"
-# f-string을 이용해서 포매팅
-
 
 content = requests.get(url).content # GET요청
 dict = xmltodict.parse(content) # XML을 dictionary로 파싱
@@ -28,6 +26,5 @@ def getBusAll():
         bus_dict["bus_id"] = bus_Id
         bus_list.append(bus_dict)
     return bus_list
-
 
 

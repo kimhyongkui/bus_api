@@ -6,7 +6,8 @@ load_dotenv()
 key = os.getenv('key')
 
 
-url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={input('bus_id : ')}"
+# url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={input('bus_id : ')}"
+url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId=100100412"
 
 content = requests.get(url).content # GET요청
 dict = xmltodict.parse(content) # XML을 dictionary로 파싱
@@ -16,13 +17,9 @@ jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_asc
 jsonObj = json.loads(jsonString)
 
 def getStationAll():
-    for station in jsonObj :
-        print(station['stationNm'])
-
-        bus_dict = []
+    station_list = []
+    for i in range(len(jsonObj)) :
         bus_station = jsonObj[i]['stationNm']
-        bus_Id = jsonObj[i]["busRouteId"]
-        bus_dict["bus_name"] = bus_name
-        bus_dict["bus_id"] = bus_Id
-        bus_list.append(bus_dict)
-    return bus_list
+        station_list.append(bus_station)
+    return station_list
+

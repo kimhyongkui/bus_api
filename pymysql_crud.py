@@ -59,7 +59,7 @@ bus_list = getBusAll()
 #     sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
 #     curs.execute(sql)
 #     conn.commit()
-# 
+#
 # conn.close()
 #
 #-----------------------------------------------------------------------------
@@ -75,7 +75,6 @@ conn.close()
 #-----------------------------------------------------------------------------
 # put
 
-
 # curs = conn.cursor()
 # sql = f"UPDATE bus SET bus_name={input('name : ')} WHERE bus_name={input('id : ')}"
 # curs.execute(sql)
@@ -85,10 +84,10 @@ conn.close()
 #-----------------------------------------------------------------------------
 # delete
 
-curs = conn.cursor()
-sql = f"DELETE FROM bus WHERE bus_name={input('버스이름 : ')}"
-curs.execute(sql)
-conn.commit()
-
-conn.close()
+# curs = conn.cursor()
+# sql = f"DELETE FROM bus WHERE bus_name={input('버스이름 : ')}"
+# curs.execute(sql)
+# conn.commit()
+#
+# conn.close()
 

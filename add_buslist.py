@@ -16,16 +16,6 @@ curs = conn.cursor()
 
 bus_list = getBusAll()
 
-# for bus_data in bus_list:
-#
-#     data = {'val1': bus_data["bus_name"], 'val2' : bus_data["bus_id"]}
-#     sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{data['val1']}', {data['val2']})"
-#     curs.execute(sql)
-#     conn.commit()
-#
-# print("DB 저장 완료")
-# conn.close()
-
 
 for bus_data in bus_list:
 

@@ -23,14 +23,13 @@ def create_bus(bus_name: str, bus_id: int):
     bus.bus_name = bus_name
     bus.bus_id = bus_id
 
-
     session.add(bus)
     session.commit()
 
     return f"{bus_name} created..."
 
 @app.put("/buses")
-def update_stations(buses: List[Bus]):
+def update_bus(buses: List[Bus]):
 
     for i in buses:
         bus = session.query(BusTable).filter(BusTable.bus_id == i.bus_id).first()
@@ -38,13 +37,14 @@ def update_stations(buses: List[Bus]):
         bus.bus_name = i.bus_name
         session.commit()
 
-    return f"{buses[0].bus} updated..."
+    return f"{buses[0]} updated..."
 
 
 @app.delete("/bus")
-def delete_stations(bus_id: int):
+def delete_bus(bus_id: int):
 
     bus = session.query(BusTable).filter(BusTable.bus_id == bus_id).delete()
     session.commit()
 
     return f"{bus} deleted..."
+

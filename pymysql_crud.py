@@ -65,12 +65,12 @@ bus_list = getBusAll()
 #-----------------------------------------------------------------------------
 # post(일부)
 
-curs = conn.cursor()
-sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ({input('name : ')}, {input('id : ')})"
-print(sql)
-curs.execute(sql)
-conn.commit()
-conn.close()
+# curs = conn.cursor()
+# sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ({input('name : ')}, {input('id : ')})"
+# print(sql)
+# curs.execute(sql)
+# conn.commit()
+# conn.close()
 #
 #-----------------------------------------------------------------------------
 # put
@@ -91,3 +91,13 @@ conn.close()
 #
 # conn.close()
 
+# DB 초기화
+curs = conn.cursor()
+sql = "DELETE FROM BUS"
+curs.execute(sql)
+conn.commit()
+
+sql = "ALTER TABLE BUS AUTO_INCREMENT = 1"
+curs.execute(sql)
+
+conn.close()

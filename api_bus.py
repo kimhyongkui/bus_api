@@ -11,19 +11,19 @@ url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={ke
 content = requests.get(url).content # GET요청
 dict = xmltodict.parse(content) # XML을 dictionary로 파싱
 
-jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False) # dict을 json으로 변환
-jsonObj = json.loads(jsonString) # JSON 디코딩, json을 dict으로 변환
+data = dict['ServiceResult']['msgBody']['itemList']
 
 
 
 def getBusAll():
     bus_list = []
-    for i in range(len(jsonObj)):
+    for i in range(len(data)):
         bus_dict = {}
-        bus_name = jsonObj[i]["busRouteNm"]
-        bus_Id = jsonObj[i]["busRouteId"]
+        bus_name = data[i]["busRouteNm"]
+        bus_Id = data[i]["busRouteId"]
         bus_dict["bus_name"] = bus_name
         bus_dict["bus_id"] = bus_Id
         bus_list.append(bus_dict)
     return bus_list
 
+print(getBusAll())

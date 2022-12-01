@@ -20,5 +20,3 @@ def getStationAll():
         bus_station = data[i]['stationNm']
         station_list.append(bus_station)
     return station_list
-
-print(getStationAll())

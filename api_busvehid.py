@@ -28,10 +28,26 @@ def getBusInfo():
         bus_dict["posX"] = posx
         bus_dict["posY"] = posy
         bus_list.append(bus_dict)
-        print("버스고유번호 :", vehid, "버스이름 :", plainno, "버스좌표 :", posx, posy)
-
+        # print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {posx[0:9]} / {posy[0:9]}")
     return bus_list
 
-print(getBusInfo())
 
-def busposXY():
+def busVehPlain():
+    bus = getBusInfo()
+    for i in bus:
+        vehid = i['vehId']
+        plainno = i['plainNo']
+        print(vehid, plainno)
+
+
+def posxy():
+    bus = getBusInfo()
+    for i in bus:
+        posx = i['posX']
+        posy = i['posY']
+        print(posx, posy)
+
+
+
+
+

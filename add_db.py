@@ -17,6 +17,7 @@ bus_list = getBusAll()
 station_list = getStationAll()
 
 
+
 def addbusdata():
     for bus_data in bus_list:
         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
@@ -26,8 +27,15 @@ def addbusdata():
     print("DB 저장 완료")
     conn.close()
 
-addbusdata()
 
+def addstationdata():
+    for station_data in station_list:
+        sql = f"INSERT INTO station (station_name, bus_id) VALUES ('{station_data}', 100100412)"
+        curs.execute(sql)
+        conn.commit()
+    print("정류소 저장 완료")
+    conn.close()
+addstationdata()
 
 
 

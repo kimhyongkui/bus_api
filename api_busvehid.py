@@ -12,17 +12,16 @@ url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&bus
 content = requests.get(url).content
 dict = xmltodict.parse(content)
 
-jsonString = json.dumps(dict['ServiceResult']['msgBody']['itemList'], ensure_ascii=False)
-jsonObj = json.loads(jsonString)
+data = dict['ServiceResult']['msgBody']['itemList']
 
 def getBusInfo():
     bus_list = []
-    for i in range(len(jsonObj)):
+    for i in range(len(data)):
         bus_dict = {}
-        vehid = jsonObj[i]["vehId"]
-        plainno = jsonObj[i]["plainNo"]
-        posx = jsonObj[i]["posX"]
-        posy = jsonObj[i]["posY"]
+        vehid = data[i]["vehId"]
+        plainno = data[i]["plainNo"]
+        posx = data[i]["posX"]
+        posy = data[i]["posY"]
 
         bus_dict["vehId"] = vehid
         bus_dict["plainNo"] = plainno
@@ -33,4 +32,6 @@ def getBusInfo():
 
     return bus_list
 
+print(getBusInfo())
 
+def busposXY():

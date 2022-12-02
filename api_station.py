@@ -1,4 +1,4 @@
-import requests, xmltodict, json
+import requests, xmltodict
 from dotenv import load_dotenv
 import os
 
@@ -20,3 +20,5 @@ def getStationAll():
         bus_station = data[i]['stationNm']
         station_list.append(bus_station)
     return station_list
+
+getStationAll()

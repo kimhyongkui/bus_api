@@ -1,4 +1,4 @@
-import requests, xmltodict, json
+import requests, xmltodict
 from dotenv import load_dotenv
 import os
 

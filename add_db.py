@@ -35,9 +35,8 @@ def addstationdata():
         conn.commit()
     print("정류소 저장 완료")
     conn.close()
-addstationdata()
 
 
-
+addbusdata()
 
 

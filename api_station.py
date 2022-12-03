@@ -19,6 +19,7 @@ def getStationAll():
     for i in range(len(data)) :
         bus_station = data[i]['stationNm']
         station_list.append(bus_station)
+
     return station_list
 
 getStationAll()

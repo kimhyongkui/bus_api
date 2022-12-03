@@ -19,40 +19,39 @@ data = dict['ServiceResult']['msgBody']['itemList']
 def getBusInfo():
     bus_list = []
     for i in range(len(data)):
-        print(data)
         bus_dict = {}
         vehid = data[i]["vehId"]
         plainno = data[i]["plainNo"]
-        posx = data[i]["posX"]
-        posy = data[i]["posY"]
+        gpsx = data[i]["gpsX"]
+        gpsy = data[i]["gpsY"]
 
         bus_dict["vehId"] = vehid
         bus_dict["plainNo"] = plainno
-        bus_dict["posX"] = posx
-        bus_dict["posY"] = posy
+        bus_dict["gpsX"] = gpsx
+        bus_dict["gpsY"] = gpsy
         bus_list.append(bus_dict)
-        print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {posx[0:9]} / {posy[0:9]}")
+        # print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
     return bus_list
 
+getBusInfo()
 
+# def busVehPlain():
+#     bus = getBusInfo()
+#     for i in bus:
+#         vehid = i['vehId']
+#         plainno = i['plainNo']
+#         print(vehid, plainno)
+#
+# busVehPlain()
 
-def busVehPlain():
+def gpsxy():
     bus = getBusInfo()
     for i in bus:
-        vehid = i['vehId']
-        plainno = i['plainNo']
-        print(vehid, plainno)
+        gpsx = i['gpsX']
+        gpsy = i['gpsY']
+        print(gpsx, gpsy)
 
-busVehPlain()
-
-def posxy():
-    bus = getBusInfo()
-    for i in bus:
-        posx = i['posX']
-        posy = i['posY']
-        print(posx, posy)
-
-posxy()
+gpsxy()
 
 
 

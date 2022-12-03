@@ -24,6 +24,7 @@ def getBusAll():
         bus_dict["bus_name"] = bus_name
         bus_dict["bus_id"] = bus_Id
         bus_list.append(bus_dict)
+        print(bus_dict)
     return bus_list
 
-print(getBusAll())
+getBusAll()

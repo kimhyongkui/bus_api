@@ -8,7 +8,7 @@ gmaps = googlemaps.Client(key='AIzaSyAta6tpL9AEHG-1j0WmtedhGIME_8v_Kg0')
 geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
 
-reverse_geocode_result = gmaps.reverse_geocode((126.799875, 37.577504), language='ko')
+reverse_geocode_result = gmaps.reverse_geocode((126.969938, 37.531282), language='ko')
 
 
 

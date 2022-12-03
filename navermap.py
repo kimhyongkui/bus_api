@@ -11,7 +11,6 @@ client_id = os.getenv('NAVER_ID')
 client_secret = os.getenv('naver_key')
 
 
-
 # 좌표 (경도, 위도)
 endpoint = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster"
 headers = {

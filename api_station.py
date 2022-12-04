@@ -16,10 +16,23 @@ data = dict['ServiceResult']['msgBody']['itemList']
 
 def getStationAll():
     station_list = []
-    for i in range(len(data)) :
-        bus_station = data[i]['stationNm']
-        station_list.append(bus_station)
+    for station in range(len(data)) :
+        station_dict = {}
+        station_id = data[station]['station']
+        station_name = data[station]['stationNm']
+        station_no = data[station]['stationNo']
+        station_gpsx = data[station]['gpsX']
+        station_gpsy = data[station]['gpsY']
+
+        station_dict['station'] = station_id
+        station_dict['stationNm'] = station_name
+        station_dict['stationNo'] = station_no
+        station_dict['gpsX'] = station_gpsx
+        station_dict['gpsY'] = station_gpsy
+
+        station_list.append(station_dict)
 
     return station_list
 
-getStationAll()
+
+

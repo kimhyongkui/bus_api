@@ -34,36 +34,35 @@ def getBusInfo():
     return bus_list
 
 
-
-def busVehPlain():
-    bus = getBusInfo()
-    veh_list = []
-    for i in bus:
-        veh_dict = {}
-        vehid = i['vehId']
-        plainno = i['plainNo']
-
-        veh_dict['vehId'] = vehid
-        veh_dict['plainNo'] = plainno
-        veh_list.append(veh_dict)
-        print(vehid, plainno)
-    return veh_list
-
-busVehPlain()
-
-def gpsxy():
-    bus = getBusInfo()
-    gps_list = []
-    for gps in bus:
-        gps_dict = {}
-        gpsx = gps['gpsX']
-        gpsy = gps['gpsY']
-
-        gps_dict['gpsX'] = gpsx
-        gps_dict['gpsY'] = gpsy
-        gps_list.append(gps_dict)
-        print(gps_dict)
-    return gps_list
+# def busVehPlain():
+#     bus = getBusInfo()
+#     veh_list = []
+#     for i in bus:
+#         veh_dict = {}
+#         vehid = i['vehId']
+#         plainno = i['plainNo']
+#
+#         veh_dict['vehId'] = vehid
+#         veh_dict['plainNo'] = plainno
+#         veh_list.append(veh_dict)
+#         print(vehid, plainno)
+#     return veh_list
+#
+# busVehPlain()
+#
+# def gpsxy():
+#     bus = getBusInfo()
+#     gps_list = []
+#     for gps in bus:
+#         gps_dict = {}
+#         gpsx = gps['gpsX']
+#         gpsy = gps['gpsY']
+#
+#         gps_dict['gpsX'] = gpsx
+#         gps_dict['gpsY'] = gpsy
+#         gps_list.append(gps_dict)
+#         print(gps_dict)
+#     return gps_list
 
 
 

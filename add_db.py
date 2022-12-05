@@ -1,5 +1,6 @@
 from api_bus import getBusAll
 from api_station import getStationAll
+from api_busvehid import getBusInfo
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -15,18 +16,22 @@ curs = conn.cursor()
 
 bus_list = getBusAll()
 station_list = getStationAll()
+vehicle_list = getBusInfo()
 
 
 
+# 노선데이터 -> 정류소데이터 or 차량데이터
+# 차량데이터(vehid) -> 차량위치조회
 
-# def addbusdata():
-#     for bus_data in bus_list:
-#         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
-#         curs.execute(sql)
-#         conn.commit()
-#
-#     print("DB 저장 완료")
-#     conn.close()
+
+
+def addbusdata():
+    for bus_data in bus_list:
+        sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
+        curs.execute(sql)
+        conn.commit()
+    print("DB 저장 완료")
+    conn.close()
 
 
 
@@ -43,7 +48,30 @@ def addstationdata():
     print("정류소 저장 완료")
     conn.close()
 
-addstationdata()
+
+def addvehicledata():
+    for vehicle_data in vehicle_list:
+        sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
+              f"VALUES ({bus_id}, " \
+              f"{vehicle_data['vehId']}, " \
+              f"'{vehicle_data['plainNo']}')"
+        print(sql)
+        curs.execute(sql)
+        conn.commit()
+    print("차량 정보 저장 완료")
+    conn.close()
 
 
 
+def getBusId():
+    curs = conn.cursor()
+    sql = "SELECT bus_id FROM bus"
+    curs.execute(sql)
+
+    result = curs.fetchall()
+    for bus in result:
+        print(bus)
+
+    conn.close()
+
+getBusId()

@@ -35,21 +35,26 @@ def addbusdata():
 
 
 
-def addstationdata():
-    for station_data in station_list:
-        sql = f"INSERT INTO station (station, stationNm, stationNo, gpsX, gpsY)" \
-              f" VALUES ({station_data['station']}, " \
-              f"'{station_data['stationNm']}', " \
-              f"'{station_data['stationNo']}', " \
-              f"{station_data['gpsX']}, " \
-              f"{station_data['gpsY']})"
-        curs.execute(sql)
-        conn.commit()
-    print("정류소 저장 완료")
-    conn.close()
-
+# def addstationdata():
+#     for station_data in station_list:
+#         sql = f"INSERT IGNORE INTO station (station, stationNm, stationNo, gpsX, gpsY)" \
+#               f" VALUES ({station_data['station']}, " \
+#               f"'{station_data['stationNm']}', " \
+#               f"'{station_data['stationNo']}', " \
+#               f"{station_data['gpsX']}, " \
+#               f"{station_data['gpsY']})"
+#         curs.execute(sql)
+#         conn.commit()
+#     print("정류소 저장 완료")
+#     conn.close()
+#
+# addstationdata()
 
 def addvehicledata():
+    bus_list = getBusAll()
+    for id in range(len(bus_list)):
+        bus_id = bus_list[id]['bus_id']
+        print(id)
     for vehicle_data in vehicle_list:
         sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({bus_id}, " \
@@ -63,15 +68,4 @@ def addvehicledata():
 
 
 
-def getBusId():
-    curs = conn.cursor()
-    sql = "SELECT bus_id FROM bus"
-    curs.execute(sql)
 
-    result = curs.fetchall()
-    for bus in result:
-        print(bus)
-
-    conn.close()
-
-getBusId()

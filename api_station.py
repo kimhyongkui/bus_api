@@ -7,7 +7,7 @@ key = os.getenv('key')
 
 
 # url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={input('bus_id : ')}"
-url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId=100100412"
+url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId=100100416"
 
 content = requests.get(url).content # GET요청
 dict = xmltodict.parse(content) # XML을 dictionary로 파싱

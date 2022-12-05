@@ -15,7 +15,6 @@ dict = xmltodict.parse(content)
 data = dict['ServiceResult']['msgBody']['itemList']
 
 
-
 def getBusInfo():
     bus_list = []
     for i in range(len(data)):

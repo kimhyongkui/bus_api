@@ -25,11 +25,14 @@ def getBusAll():
         bus_list.append(bus_dict)
     return bus_list
 
-# bus_list = getBusAll()
-#
-# def getBusID():
+bus_list = getBusAll()
+
+# def busidlist():
+#     busid_list = []
 #     for id in bus_list:
 #         bus_id = id['bus_id']
-#         print(bus_id)
-#
-# getBusID()
+#         busid_list.append(bus_id)
+#     return busid_list
+
+
+

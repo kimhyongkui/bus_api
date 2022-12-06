@@ -33,7 +33,7 @@ def geturl():
             print(station_dict)
     return station_list
 
-geturl()
+
 
 
 

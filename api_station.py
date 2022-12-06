@@ -36,7 +36,7 @@ def getStationAll():
 
     return station_list
 
-getStationAll()
+
 
 # def getbusrouteid():
 #     busid_list = getBusID()

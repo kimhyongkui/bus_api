@@ -27,8 +27,6 @@ def getBusAll():
 
 bus_list = getBusAll()
 
-# def getkey():
-#     for id in bus_list:
-#         bus_id = id['bus_id']
+
 
 

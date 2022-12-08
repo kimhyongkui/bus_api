@@ -62,29 +62,3 @@ def getBusInfo():
 #         gps_list.append(gps_dict)
 #         print(gps_dict)
 #     return gps_list
-
-
-
-
-def getStation():
-    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={input('bus_id : ')}"
-    content = requests.get(url).content  # GET요청
-    dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
-    data = dict['ServiceResult']['msgBody']['itemList']
-    station_list = []
-    for station in range(len(data)) :
-        station_dict = {}
-        station_id = data[station]['station']
-        station_name = data[station]['stationNm']
-        station_no = data[station]['stationNo']
-        station_gpsx = data[station]['gpsX']
-        station_gpsy = data[station]['gpsY']
-
-        station_dict['station'] = station_id
-        station_dict['stationNm'] = station_name
-        station_dict['stationNo'] = station_no
-        station_dict['gpsX'] = station_gpsx
-        station_dict['gpsY'] = station_gpsy
-        station_list.append(station_dict)
-    return station_list
-

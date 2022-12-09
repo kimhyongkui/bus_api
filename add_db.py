@@ -14,12 +14,6 @@ conn = pymysql.connect(host='127.0.0.1', user='root',
 
 curs = conn.cursor()
 
-bus_list = getBusAll()
-st_list = getStation()
-stall_list = getStationAll()
-veh_list = getBusInfo()
-vehall_list = getBusInfoAll()
-
 
 # 노선데이터 -> 정류소데이터 or 차량데이터
 # 차량데이터(vehid) -> 차량위치조회
@@ -27,6 +21,7 @@ vehall_list = getBusInfoAll()
 
 # 각 노선의 아이디와 이름 DB저장
 def addbusdata():
+    bus_list = getBusAll()
     for bus_data in bus_list:
         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
         curs.execute(sql)
@@ -39,6 +34,7 @@ def addbusdata():
 
 # 특정 노선의 정류소 DB저장
 def addstation():
+    st_list = getStation()
     for station_data in st_list:
         sql = f"INSERT IGNORE INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
@@ -47,7 +43,6 @@ def addstation():
               f"'{station_data['stationNo']}', " \
               f"{station_data['gpsX']}, " \
               f"{station_data['gpsY']})"
-        print(sql)
         curs.execute(sql)
         conn.commit()
     print("정류소 저장 완료")
@@ -57,6 +52,7 @@ def addstation():
 
 # 모든 노선의 정류소 DB저장
 def addstationall():
+    stall_list = getStationAll()
     for station_data in stall_list:
         sql = f"INSERT IGNORE INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
@@ -75,6 +71,7 @@ def addstationall():
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
 def addvehdata():
+    veh_list = getBusInfo()
     for vehicle_data in veh_list:
         sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
@@ -89,6 +86,7 @@ def addvehdata():
 
 # 모든 노선의 차량 DB저장
 def addvehalldata():
+    vehall_list = getBusInfoAll()
     for vehicle_data in vehall_list:
         sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \

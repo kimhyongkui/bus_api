@@ -25,7 +25,6 @@ def getBusAll():
         bus_list.append(bus_dict)
     return bus_list
 
-bus_list = getBusAll()
 
 
 

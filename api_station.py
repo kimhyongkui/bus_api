@@ -10,7 +10,8 @@ key = os.getenv('key')
 # 특정 노선의 정류소 데이터 얻기
 
 def getStation():
-    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={input('bus_id : ')}"
+    busid = input('bus_id : ')
+    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content  # GET요청
     dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
     data = dict['ServiceResult']['msgBody']['itemList']
@@ -23,6 +24,7 @@ def getStation():
         station_gpsx = data[station]['gpsX']
         station_gpsy = data[station]['gpsY']
 
+        station_dict['bus_id'] = busid
         station_dict['station'] = station_id
         station_dict['stationNm'] = station_name
         station_dict['stationNo'] = station_no
@@ -30,6 +32,7 @@ def getStation():
         station_dict['gpsY'] = station_gpsy
         station_list.append(station_dict)
     return station_list
+
 
 
 # 모든 정류소 데이터 얻기

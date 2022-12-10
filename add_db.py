@@ -30,13 +30,14 @@ def addbusdata():
     print("DB 저장 완료")
     conn.close()
 
+
 #-----------------------------------------------------------------------
 
 # 특정 노선의 정류소 DB저장
 def addstation():
     st_list = getStation()
     for station_data in st_list:
-        sql = f"INSERT IGNORE INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
+        sql = f"INSERT station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
               f"'{station_data['station']}', " \
               f"'{station_data['stationNm']}', " \
@@ -49,12 +50,11 @@ def addstation():
     conn.close()
 
 
-
 # 모든 노선의 정류소 DB저장
 def addstationall():
     stall_list = getStationAll()
     for station_data in stall_list:
-        sql = f"INSERT IGNORE INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
+        sql = f"INSERT station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
               f"'{station_data['station']}', " \
               f"'{station_data['stationNm']}', " \
@@ -73,22 +73,23 @@ def addstationall():
 def addvehdata():
     veh_list = getBusInfo()
     for vehicle_data in veh_list:
-        sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
+        sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
               f"{vehicle_data['vehId']}, " \
               f"'{vehicle_data['plainNo']}')"
-        print(sql)
         curs.execute(sql)
         conn.commit()
 
     print("차량 정보 저장 완료")
     conn.close()
+
+
 
 # 모든 노선의 차량 DB저장
 def addvehalldata():
     vehall_list = getBusInfoAll()
     for vehicle_data in vehall_list:
-        sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
+        sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
               f"{vehicle_data['vehId']}, " \
               f"'{vehicle_data['plainNo']}')"
@@ -97,4 +98,3 @@ def addvehalldata():
     print("차량 정보 저장 완료")
     conn.close()
 
-addvehalldata()

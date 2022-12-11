@@ -32,7 +32,6 @@ def getBusInfo():
     return bus_list
 
 
-
 def getBusInfoAll():
     buslist = getBusAll()
     bus_list = []
@@ -44,7 +43,7 @@ def getBusInfoAll():
         data = dict['ServiceResult']['msgBody']['itemList']
         for veh in range(len(data)):
             bus_dict = {}
-            busid = bus['bus_id']
+
             vehid = data[veh]['vehId']
             plainno = data[veh]['plainNo']
             gpsx = data[veh]['gpsX']

@@ -34,7 +34,6 @@ def getStation():
     return station_list
 
 
-
 # 모든 정류소 데이터 얻기
 def getStationAll():
     buslist = getBusAll()

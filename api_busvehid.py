@@ -1,37 +1,108 @@
 import requests, xmltodict
 from dotenv import load_dotenv
+from api_bus import getBusAll
 import os
 
 load_dotenv()
 key = os.getenv('key')
 
-# 노선ID로 차량들의 위치정보 조회 (심야엔 버스가 운행을 정지하기에 조회가 안되는듯)
-# url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={input('bus_id : ')}"
-url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId=100100506"
 
-
-content = requests.get(url).content
-dict = xmltodict.parse(content)
-data = dict['ServiceResult']['msgBody']['itemList']
-print(type(data))
-
-# data의 값이 None이 아니라면 진행
-# data의 타입이 list인지 dict인지
+# 특정 노선의 버스 조회
 def getBusInfo():
+    busid = input('bus_id : ')
+    url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
+    content = requests.get(url).content
+    xmldict = xmltodict.parse(content)
+    data = xmldict['ServiceResult']['msgBody']
     bus_list = []
-    for bus in range(len(data)):
-        bus_dict = {}
-        vehid = data[bus]['vehId']
-        plainno = data[bus]['plainNo']
-        gpsx = data[bus]['gpsX']
-        gpsy = data[bus]['gpsY']
 
-        bus_dict['vehId'] = vehid
-        bus_dict['plainNo'] = plainno
-        bus_dict['gpsX'] = gpsx
-        bus_dict['gpsY'] = gpsy
-        bus_list.append(bus_dict)
-        print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+    if data is None:
+        print('데이터가 없습니다')
+
+    elif isinstance(data['itemList'], dict):
+        data_list = []
+        data_list.append(data['itemList'])
+        for bus in range(len(data_list)):
+            bus_dict = {}
+            vehid = data_list[bus]['vehId']
+            plainno = data_list[bus]['plainNo']
+            gpsx = data_list[bus]['gpsX']
+            gpsy = data_list[bus]['gpsY']
+
+            bus_dict['bus_id'] = busid
+            bus_dict['vehId'] = vehid
+            bus_dict['plainNo'] = plainno
+            bus_dict['gpsX'] = gpsx
+            bus_dict['gpsY'] = gpsy
+            bus_list.append(bus_dict)
+            print(f"버스노선고유번호 : {busid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+
+    elif isinstance(data['itemList'], list):
+        for bus in range(len(data['itemList'])):
+            bus_dict = {}
+            vehid = data['itemList'][bus]['vehId']
+            plainno = data['itemList'][bus]['plainNo']
+            gpsx = data['itemList'][bus]['gpsX']
+            gpsy = data['itemList'][bus]['gpsY']
+
+            bus_dict['bus_id'] = busid
+            bus_dict['vehId'] = vehid
+            bus_dict['plainNo'] = plainno
+            bus_dict['gpsX'] = gpsx
+            bus_dict['gpsY'] = gpsy
+            bus_list.append(bus_dict)
+            print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+
     return bus_list
 
-print(getBusInfo())
+
+def getBusInfoAll():
+    routelist = getBusAll()
+    bus_list = []
+    for bus in routeist:
+        busid = bus['bus_id']
+        url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
+        content = requests.get(url).content
+        xmldict = xmltodict.parse(content)
+        data = xmldict['ServiceResult']['msgBody']
+
+        if data is None:
+            print('데이터가 없습니다')
+
+        elif isinstance(data['itemList'], dict):
+            data_list = []
+            data_list.append(data['itemList'])
+            for bus in range(len(data_list)):
+                bus_dict = {}
+                vehid = data_list[bus]['vehId']
+                plainno = data_list[bus]['plainNo']
+                gpsx = data_list[bus]['gpsX']
+                gpsy = data_list[bus]['gpsY']
+
+                bus_dict['bus_id'] = busid
+                bus_dict['vehId'] = vehid
+                bus_dict['plainNo'] = plainno
+                bus_dict['gpsX'] = gpsx
+                bus_dict['gpsY'] = gpsy
+                bus_list.append(bus_dict)
+                print(f"버스노선고유번호 : {busid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+
+        elif isinstance(data['itemList'], list):
+            for bus in range(len(data['itemList'])):
+                bus_dict = {}
+                vehid = data['itemList'][bus]['vehId']
+                plainno = data['itemList'][bus]['plainNo']
+                gpsx = data['itemList'][bus]['gpsX']
+                gpsy = data['itemList'][bus]['gpsY']
+
+                bus_dict['bus_id'] = busid
+                bus_dict['vehId'] = vehid
+                bus_dict['plainNo'] = plainno
+                bus_dict['gpsX'] = gpsx
+                bus_dict['gpsY'] = gpsy
+                bus_list.append(bus_dict)
+                print(f"버스노선고유번호 : {busid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+    return bus_list
+
+
+

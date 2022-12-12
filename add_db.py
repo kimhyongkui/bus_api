@@ -1,6 +1,6 @@
 from api_bus import getBusAll
 from api_station import getStationAll, getStation
-from api_busvehid2 import getBusInfo, getBusInfoAll
+from api_busvehid import getBusInfo, getBusInfoAll
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -38,7 +38,7 @@ def addbusdata():
 def addstation():
     st_list = getStation()
     for station_data in st_list:
-        sql = f"INSERT station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
+        sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
               f"'{station_data['station']}', " \
               f"'{station_data['stationNm']}', " \
@@ -55,7 +55,7 @@ def addstation():
 def addstationall():
     stall_list = getStationAll()
     for station_data in stall_list:
-        sql = f"INSERT station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
+        sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
               f"'{station_data['station']}', " \
               f"'{station_data['stationNm']}', " \
@@ -83,6 +83,7 @@ def addvehdata():
     print("차량 정보 저장 완료")
     conn.close()
 
+addvehdata()
 
 
 # 모든 노선의 차량 DB저장

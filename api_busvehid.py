@@ -59,7 +59,7 @@ def getBusInfo():
 def getBusInfoAll():
     routelist = getBusAll()
     bus_list = []
-    for bus in routeist:
+    for bus in routelist:
         busid = bus['bus_id']
         url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
         content = requests.get(url).content

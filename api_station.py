@@ -1,7 +1,7 @@
 import requests, xmltodict
 from dotenv import load_dotenv
 import os
-from api_bus import getBusAll
+from api_bus import get_busall
 
 
 load_dotenv()
@@ -9,7 +9,7 @@ key = os.getenv('key')
 
 # 특정 노선의 정류소 데이터 얻기
 
-def getStation():
+def get_station():
     busid = input('bus_id : ')
     url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content  # GET요청
@@ -35,8 +35,8 @@ def getStation():
 
 
 # 모든 정류소 데이터 얻기
-def getStationAll():
-    buslist = getBusAll()
+def get_stationall():
+    buslist = get_busall()
     station_list = []
     for bus in buslist:
         busid = bus['bus_id']

@@ -1,6 +1,6 @@
-from api_bus import getBusAll
-from api_station import getStationAll, getStation
-from api_busvehid import getBusInfo, getBusInfoAll
+from api_bus import get_busall
+from api_station import get_stationall, get_station
+from api_busvehid import get_busInfo, get_businfoall
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -20,8 +20,8 @@ curs = conn.cursor()
 
 
 # 각 노선의 아이디와 이름 DB저장
-def addbusdata():
-    bus_list = getBusAll()
+def add_busdata():
+    bus_list = get_busall()
     for bus_data in bus_list:
         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
         curs.execute(sql)
@@ -35,8 +35,8 @@ def addbusdata():
 #-----------------------------------------------------------------------
 
 # 특정 노선의 정류소 DB저장
-def addstation():
-    st_list = getStation()
+def add_station():
+    st_list = get_station()
     for station_data in st_list:
         sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
@@ -52,8 +52,8 @@ def addstation():
 
 
 # 모든 노선의 정류소 DB저장
-def addstationall():
-    stall_list = getStationAll()
+def add_stationall():
+    stall_list = get_stationall()
     for station_data in stall_list:
         sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
@@ -70,8 +70,8 @@ def addstationall():
 
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
-def addvehdata():
-    veh_list = getBusInfo()
+def add_vehdata():
+    veh_list = get_busInfo()
     for vehicle_data in veh_list:
         sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
@@ -83,12 +83,11 @@ def addvehdata():
     print("차량 정보 저장 완료")
     conn.close()
 
-addvehdata()
 
 
 # 모든 노선의 차량 DB저장
-def addvehalldata():
-    vehall_list = getBusInfoAll()
+def add_vehalldata():
+    vehall_list = get_businfoall()
     for vehicle_data in vehall_list:
         sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \

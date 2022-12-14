@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from api_bus import getBusAll
+from api_bus import get_busall
 import pymysql
 import os
 
@@ -51,6 +51,19 @@ bus_list = getBusAll()
 #
 # conn.close()
 #-----------------------------------------------------------------------------
+
+# 정류소를 검색시 해당 정류소를 지나는 노선의 이름과 id를 출력하기
+curs = conn.cursor()
+sql = f"SELECT * FROM STATION WHERE stationNm={input('정류장이름 : ')}"
+curs.execute(sql)
+
+result = curs.fetchall()
+for station in result:
+    print(station)
+conn.close()
+
+#-----------------------------------------------------------------------------
+
 # post(전체)
 
 # curs = conn.cursor()
@@ -102,4 +115,3 @@ bus_list = getBusAll()
 #
 # conn.close()
 #-----------------------------------------------------------------------------
-# 정류소를 검색시 해당 정류소를 지나는 노선의 이름과 id를 출력하기

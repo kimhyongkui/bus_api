@@ -62,3 +62,4 @@ def get_stationall():
             station_list.append(station_dict)
     return station_list
 
+

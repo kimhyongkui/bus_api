@@ -1,6 +1,6 @@
 from api_bus import get_busall
 from api_station import get_stationall, get_station
-from api_busvehid import get_busInfo, get_businfoall
+from api_busvehid import get_businfo, get_businfoall
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -71,7 +71,7 @@ def add_stationall():
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
 def add_vehdata():
-    veh_list = get_busInfo()
+    veh_list = get_businfo()
     for vehicle_data in veh_list:
         sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \

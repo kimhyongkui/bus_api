@@ -91,13 +91,15 @@ bus_list = getBusAll()
 #
 # conn.close()
 
-# DB 초기화
-curs = conn.cursor()
-sql = "DELETE FROM BUS"
-curs.execute(sql)
-conn.commit()
-
-sql = "ALTER TABLE BUS AUTO_INCREMENT = 1"
-curs.execute(sql)
-
-conn.close()
+# DB 초기화 with auto_increment 초기화
+# curs = conn.cursor()
+# sql = f"DELETE FROM {input('table : ')}"
+# curs.execute(sql)
+# conn.commit()
+#
+# sql = f"ALTER TABLE {input('table : ')} AUTO_INCREMENT = 1"
+# curs.execute(sql)
+#
+# conn.close()
+#-----------------------------------------------------------------------------
+# 정류소를 검색시 해당 정류소를 지나는 노선의 이름과 id를 출력하기

@@ -15,11 +15,12 @@ bus_list = get_busall()
 # get(n번째)
 def get_data(table):
     curs = conn.cursor()
-    sql = f"SELECT * FROM {table}'"
+    sql = f"SELECT * FROM {table}"
     curs.execute(sql)
     data = curs.fetchall()
     print(data[int(input('n번째 : '))-1])
     conn.close()
+
 
 #-----------------------------------------------------------------------------
 
@@ -66,7 +67,18 @@ def get_mix_data():
 #-----------------------------------------------------------------------------
 
 # 정류소를 검색시 해당 정류소를 지나는 노선의 이름과 id를 출력하기
+def get_mix_data1():
+    curs = conn.cursor()
+    sql = f"SELECT bus.bus_id, bus_name, station.stationNm " \
+          f"from bus join station using (bus_id) where stationNm = '{input('역이름: ')}'"
+    print(sql)
+    curs.execute(sql)
+    result = curs.fetchall()
+    for station in result:
+        print(station)
+    conn.close()
 
+get_mix_data1()
 #-----------------------------------------------------------------------------
 
 # post(전체)

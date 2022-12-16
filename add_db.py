@@ -67,7 +67,6 @@ def add_stationall():
     print("정류소 저장 완료")
     conn.close()
 
-
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
 def add_vehdata():
@@ -89,7 +88,7 @@ def add_vehdata():
 def add_vehalldata():
     vehall_list = get_businfoall()
     for vehicle_data in vehall_list:
-        sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
+        sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
               f"{vehicle_data['vehId']}, " \
               f"'{vehicle_data['plainNo']}')"

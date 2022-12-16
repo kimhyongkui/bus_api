@@ -57,7 +57,7 @@ def get_businfo():
 
 
 def get_businfoall():
-    routelist = get+busall()
+    routelist = get_busall()
     bus_list = []
     for bus in routelist:
         busid = bus['bus_id']

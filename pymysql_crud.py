@@ -13,39 +13,39 @@ bus_list = get_busall()
 
 
 # get(n번째)
-def get_data(table):
+def get_data(table, n):
     curs = conn.cursor()
     sql = f"SELECT * FROM {table}"
     curs.execute(sql)
     data = curs.fetchall()
-    print(data[int(input('n번째 : '))-1])
+    print(data[n-1])
     conn.close()
-
 
 #-----------------------------------------------------------------------------
 
 # get(특정)
-def get_some_data():
+def get_some_data(table, column, value):
     curs = conn.cursor()
-    sql = f"SELECT * FROM bus WHERE bus_name={input('버스번호 : ')}"
+    sql = f"SELECT * FROM {table} WHERE {column}={value}"
     curs.execute(sql)
     result = curs.fetchall()
-    for bus in result:
-        print(bus)
+    for i in result:
+        print(i)
     conn.close()
 
 #-----------------------------------------------------------------------------
 
 # get(전체)
-def get_all_data():
+def get_all_data(table):
     curs = conn.cursor()
-    sql = "SELECT * FROM bus"
+    sql = f"SELECT * FROM {table}"
     curs.execute(sql)
     result = curs.fetchall()
     conn.commit()
     for i in result:
         print(i)
     conn.close()
+
 
 #-----------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ def get_mix_data():
 #-----------------------------------------------------------------------------
 
 # 정류소를 검색시 해당 정류소를 지나는 노선의 이름과 id를 출력하기
-def get_mix_data1():
+def get_station_bus():
     curs = conn.cursor()
     sql = f"SELECT bus.bus_id, bus_name, station.stationNm " \
           f"from bus join station using (bus_id) where stationNm = '{input('역이름: ')}'"
@@ -78,7 +78,7 @@ def get_mix_data1():
         print(station)
     conn.close()
 
-get_mix_data1()
+
 #-----------------------------------------------------------------------------
 
 # post(전체)
@@ -121,17 +121,18 @@ def delete_data():
 
     conn.close()
 
+
 #-----------------------------------------------------------------------------
 
 # DB 초기화 with auto_increment 초기화
-def reset_table():
+def reset_table(table):
     curs = conn.cursor()
-    sql = f"DELETE FROM {input('table : ')}"
+    sql = f"DELETE FROM {table}"
     curs.execute(sql)
     conn.commit()
 
     curs.execute(sql)
-    sql = f"ALTER TABLE {input('table : ')} AUTO_INCREMENT = 1"
+    sql = f"ALTER TABLE {table} AUTO_INCREMENT = 1"
 
     conn.close()
 

@@ -71,7 +71,6 @@ def get_station_bus():
     curs = conn.cursor()
     sql = f"SELECT bus.bus_id, bus_name, station.stationNm " \
           f"from bus join station using (bus_id) where stationNm = '{input('역이름: ')}'"
-    print(sql)
     curs.execute(sql)
     result = curs.fetchall()
     for station in result:

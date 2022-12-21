@@ -1,7 +1,7 @@
-from api_bus import get_busall
-from api_station import get_stationall, get_station
-from api_vehicle import get_businfo, get_businfoall
-from api_arrive import get_arrive_info, get_arrive_infoall
+from api_bus import get_bus_all
+from api_station import get_station_all, get_station
+from api_vehicle import get_bus_info, get_bus_info_all
+from api_arrive import get_arrive_info, get_arrive_info_all
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -21,8 +21,8 @@ curs = conn.cursor()
 
 
 # 각 노선의 아이디와 이름 DB저장
-def add_busdata():
-    bus_list = get_busall()
+def add_bus_data():
+    bus_list = get_bus_all()
     for bus_data in bus_list:
         sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
         curs.execute(sql)
@@ -53,8 +53,8 @@ def add_station(busid):
 
 
 # 모든 노선의 정류소 DB저장
-def add_stationall():
-    stall_list = get_stationall()
+def add_station_all():
+    stall_list = get_station_all()
     for station_data in stall_list:
         sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
               f" VALUES ({station_data['bus_id']}, " \
@@ -70,8 +70,8 @@ def add_stationall():
 
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
-def add_vehdata(busid):
-    veh_list = get_businfo(busid)
+def add_veh_data(busid):
+    veh_list = get_bus_info(busid)
     for vehicle_data in veh_list:
         sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
@@ -86,8 +86,8 @@ def add_vehdata(busid):
 
 
 # 모든 노선의 차량 DB저장
-def add_vehalldata():
-    vehall_list = get_businfoall()
+def add_veh_all_data():
+    vehall_list = get_bus_info_all()
     for vehicle_data in vehall_list:
         sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
@@ -117,8 +117,8 @@ def add_arrive(busid):
 
 
 # 모든 노선의 정류소 DB저장
-def add_arriveall():
-    arrall_list = get_arrive_infoall()
+def add_arrive_all():
+    arrall_list = get_arrive_info_all()
     for arr_data in arrall_list:
         sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
               f" VALUES ({arr_data['bus_id']}, " \
@@ -132,4 +132,3 @@ def add_arriveall():
     print("데이터 저장 완료")
     conn.close()
 
-add_arriveall()

@@ -1,7 +1,7 @@
 import requests, xmltodict
 from dotenv import load_dotenv
 import os
-from api_bus import get_busall
+from api_bus import get_bus_all
 
 
 load_dotenv()
@@ -30,12 +30,13 @@ def get_station(busid):
         station_dict['gpsX'] = station_gpsx
         station_dict['gpsY'] = station_gpsy
         station_list.append(station_dict)
+
     return station_list
 
 
 # 모든 정류소 데이터 얻기
-def get_stationall():
-    buslist = get_busall()
+def get_station_all():
+    buslist = get_bus_all()
     station_list = []
     for bus in buslist:
         busid = bus['bus_id']
@@ -60,5 +61,6 @@ def get_stationall():
             station_dict['gpsY'] = station_gpsy
             station_list.append(station_dict)
     return station_list
+
 
 

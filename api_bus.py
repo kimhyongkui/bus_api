@@ -14,7 +14,7 @@ dict = xmltodict.parse(content) # XML을 dictionary로 파싱
 data = dict['ServiceResult']['msgBody']['itemList']
 
 
-def get_busall():
+def get_bus_all():
     bus_list = []
     for bus in range(len(data)):
         bus_dict = {}
@@ -24,8 +24,4 @@ def get_busall():
         bus_dict["bus_id"] = bus_Id
         bus_list.append(bus_dict)
     return bus_list
-
-
-
-
 

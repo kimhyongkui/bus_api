@@ -9,8 +9,7 @@ key = os.getenv('key')
 
 # 특정 노선의 정류소 데이터 얻기
 
-def get_station():
-    busid = input('bus_id : ')
+def get_station(busid):
     url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content  # GET요청
     dict = xmltodict.parse(content)  # XML을 dictionary로 파싱

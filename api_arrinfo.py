@@ -26,7 +26,11 @@ def get_arrive_info(busid):
         arrive_dict['staOrd'] = arrive_ord
         arrive_dict['stNm'] = arrive_stnm
         arrive_list.append(arrive_dict)
+        # print(arrive_dict)
     return arrive_list
+
+
+
 
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_arrive_infoall():
@@ -50,9 +54,8 @@ def get_arrive_infoall():
             arrive_dict['staOrd'] = arrive_ord
             arrive_dict['stNm'] = arrive_stnm
             arrive_list.append(arrive_dict)
-
+            print(arrive_dict)
     return arrive_list
 
-print(get_arrive_infoall())
 
 

@@ -1,6 +1,6 @@
 import requests, xmltodict
 from dotenv import load_dotenv
-from api_bus import get_busall
+from api_bus import get_bus_all
 import os
 
 load_dotenv()
@@ -8,7 +8,7 @@ key = os.getenv('key')
 
 
 # 특정 노선의 버스 조회
-def get_businfo(busid):
+def get_bus_info(busid):
     url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
@@ -54,11 +54,11 @@ def get_businfo(busid):
 
     return bus_list
 
-
-def get_businfoall():
-    routelist = get_busall()
+# 전체 노선의 버스 조회
+def get_bus_info_all():
+    route_list = get_bus_all()
     bus_list = []
-    for bus in routelist:
+    for bus in route_list:
         busid = bus['bus_id']
         url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
         content = requests.get(url).content

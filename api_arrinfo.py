@@ -26,9 +26,8 @@ def get_arrive_info(busid):
         arrive_dict['staOrd'] = arrive_ord
         arrive_dict['stNm'] = arrive_stnm
         arrive_list.append(arrive_dict)
-        # print(arrive_dict)
+        print(arrive_dict)
     return arrive_list
-
 
 
 

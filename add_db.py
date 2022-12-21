@@ -114,11 +114,12 @@ def add_arrive(busid):
     conn.close()
 
 
+
 # 모든 노선의 정류소 DB저장
 def add_arriveall():
     arrall_list = get_arrive_infoall()
     for arr_data in arrall_list:
-        sql = f"INSERT INTO station (bus_id, rtNm, staOrd, stNm)" \
+        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm)" \
               f" VALUES ({arr_data['bus_id']}, " \
               f"'{arr_data['rtNm']}', " \
               f"{arr_data['staOrd']}, " \

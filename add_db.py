@@ -1,7 +1,7 @@
 from api_bus import get_busall
 from api_station import get_stationall, get_station
-from api_busvehid import get_businfo, get_businfoall
-from api_arrinfo import get_arrive_info, get_arrive_infoall
+from api_vehicle import get_businfo, get_businfoall
+from api_arrive import get_arrive_info, get_arrive_infoall
 from dotenv import load_dotenv
 import pymysql
 import os

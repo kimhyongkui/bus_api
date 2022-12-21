@@ -1,7 +1,7 @@
 from api_bus import get_bus_all
 from api_station import get_station_all, get_station
 from api_vehicle import get_bus_info, get_bus_info_all
-from api_arrive import get_arrive_info, get_arrive_info_all
+from api_arrive import get_arrive, get_arrive_all
 from dotenv import load_dotenv
 import pymysql
 import os
@@ -87,8 +87,8 @@ def add_veh_data(busid):
 
 # 모든 노선의 차량 DB저장
 def add_veh_all_data():
-    vehall_list = get_bus_info_all()
-    for vehicle_data in vehall_list:
+    veh_all_list = get_bus_info_all()
+    for vehicle_data in veh_all_list:
         sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
               f"VALUES ({vehicle_data['bus_id']}, " \
               f"{vehicle_data['vehId']}, " \
@@ -100,7 +100,7 @@ def add_veh_all_data():
 #-----------------------------------------------------------------------
 # 특정 경유노선의 전체정류소 DB 저장
 def add_arrive(busid):
-    arr_list = get_arrive_info(busid)
+    arr_list = get_arrive(busid)
     for arr_data in arr_list:
         sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
               f" VALUES ({arr_data['bus_id']}, " \
@@ -118,8 +118,8 @@ def add_arrive(busid):
 
 # 모든 노선의 정류소 DB저장
 def add_arrive_all():
-    arrall_list = get_arrive_info_all()
-    for arr_data in arrall_list:
+    arr_all_list = get_arrive_all()
+    for arr_data in arr_all_list:
         sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
               f" VALUES ({arr_data['bus_id']}, " \
               f"'{arr_data['rtNm']}', " \

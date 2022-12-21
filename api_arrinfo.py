@@ -7,58 +7,52 @@ from api_bus import get_busall
 load_dotenv()
 key = os.getenv('key')
 
-# 특정 노선의 정류소 데이터 얻기
-def get_station():
-    busid = input('bus_id : ')
-    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
+# 특정 경유노선의 전체정류소 데이터 얻기
+def get_arrive_info(busid):
+    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content  # GET요청
     dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
     data = dict['ServiceResult']['msgBody']['itemList']
-    station_list = []
-    for station in range(len(data)) :
-        station_dict = {}
-        station_id = data[station]['station']
-        station_name = data[station]['stationNm']
-        station_no = data[station]['stationNo']
-        station_gpsx = data[station]['gpsX']
-        station_gpsy = data[station]['gpsY']
+    arrive_list = []
+    for arrive in range(len(data)) :
+        arrive_dict = {}
+        arrive_id = busid
+        arrive_busnm = data[arrive]['rtNm']
+        arrive_ord = data[arrive]['staOrd']
+        arrive_stnm = data[arrive]['stNm']
 
-        station_dict['bus_id'] = busid
-        station_dict['station'] = station_id
-        station_dict['stationNm'] = station_name
-        station_dict['stationNo'] = station_no
-        station_dict['gpsX'] = station_gpsx
-        station_dict['gpsY'] = station_gpsy
-        station_list.append(station_dict)
-    return station_list
+        arrive_dict['bus_id'] = arrive_id
+        arrive_dict['rtNm'] = arrive_busnm
+        arrive_dict['staOrd'] = arrive_ord
+        arrive_dict['stNm'] = arrive_stnm
+        arrive_list.append(arrive_dict)
+    return arrive_list
 
-
-# 모든 정류소 데이터 얻기
-def get_stationall():
+# 모든 경유노선의 전체정류소 데이터 얻기
+def get_arrive_infoall():
     buslist = get_busall()
-    station_list = []
+    arrive_list = []
     for bus in buslist:
         busid = bus['bus_id']
-        url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
+        url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?serviceKey={key}&busRouteId={busid}"
         content = requests.get(url).content  # GET요청
         dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
         data = dict['ServiceResult']['msgBody']['itemList']
-        for station in range(len(data)) :
-            station_dict = {}
-            busid = bus['bus_id']
-            station_id = data[station]['station']
-            station_name = data[station]['stationNm']
-            station_no = data[station]['stationNo']
-            station_gpsx = data[station]['gpsX']
-            station_gpsy = data[station]['gpsY']
+        for arrive in range(len(data)) :
+            arrive_dict = {}
+            arrive_id = busid
+            arrive_busnm = data[arrive]['rtNm']
+            arrive_ord = data[arrive]['staOrd']
+            arrive_stnm = data[arrive]['stNm']
 
-            station_dict['bus_id'] = busid
-            station_dict['station'] = station_id
-            station_dict['stationNm'] = station_name
-            station_dict['stationNo'] = station_no
-            station_dict['gpsX'] = station_gpsx
-            station_dict['gpsY'] = station_gpsy
-            station_list.append(station_dict)
-    return station_list
+            arrive_dict['bus_id'] = arrive_id
+            arrive_dict['rtNm'] = arrive_busnm
+            arrive_dict['staOrd'] = arrive_ord
+            arrive_dict['stNm'] = arrive_stnm
+            arrive_list.append(arrive_dict)
+
+    return arrive_list
+
+print(get_arrive_infoall())
 
 

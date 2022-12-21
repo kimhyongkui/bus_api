@@ -102,11 +102,12 @@ def add_vehalldata():
 def add_arrive(busid):
     arr_list = get_arrive_info(busid)
     for arr_data in arr_list:
-        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm)" \
+        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
               f" VALUES ({arr_data['bus_id']}, " \
               f"'{arr_data['rtNm']}', " \
               f"{arr_data['staOrd']}, " \
-              f"'{arr_data['stNm']}')"
+              f"'{arr_data['stNm']}', " \
+              f"{arr_data['stId']})"
 
         curs.execute(sql)
         conn.commit()
@@ -119,15 +120,16 @@ def add_arrive(busid):
 def add_arriveall():
     arrall_list = get_arrive_infoall()
     for arr_data in arrall_list:
-        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm)" \
+        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
               f" VALUES ({arr_data['bus_id']}, " \
               f"'{arr_data['rtNm']}', " \
               f"{arr_data['staOrd']}, " \
-              f"'{arr_data['stNm']}')"
+              f"'{arr_data['stNm']}', " \
+              f"{arr_data['stId']})"
 
         curs.execute(sql)
         conn.commit()
-    print("정류소 저장 완료")
+    print("데이터 저장 완료")
     conn.close()
 
 add_arriveall()

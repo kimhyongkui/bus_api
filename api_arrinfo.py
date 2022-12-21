@@ -20,11 +20,13 @@ def get_arrive_info(busid):
         arrive_busnm = data[arrive]['rtNm']
         arrive_ord = data[arrive]['staOrd']
         arrive_stnm = data[arrive]['stNm']
+        arrive_stid = data[arrive]['stId']
 
         arrive_dict['bus_id'] = arrive_id
         arrive_dict['rtNm'] = arrive_busnm
         arrive_dict['staOrd'] = arrive_ord
         arrive_dict['stNm'] = arrive_stnm
+        arrive_dict['stId'] = arrive_stid
         arrive_list.append(arrive_dict)
         print(arrive_dict)
     return arrive_list
@@ -47,11 +49,13 @@ def get_arrive_infoall():
             arrive_busnm = data[arrive]['rtNm']
             arrive_ord = data[arrive]['staOrd']
             arrive_stnm = data[arrive]['stNm']
+            arrive_stid = data[arrive]['stId']
 
             arrive_dict['bus_id'] = arrive_id
             arrive_dict['rtNm'] = arrive_busnm
             arrive_dict['staOrd'] = arrive_ord
             arrive_dict['stNm'] = arrive_stnm
+            arrive_dict['stId'] = arrive_stid
             arrive_list.append(arrive_dict)
             print(arrive_dict)
     return arrive_list

@@ -36,15 +36,15 @@ def get_station(busid):
 
 # 모든 정류소 데이터 얻기
 def get_station_all():
-    buslist = get_bus_all()
+    bus_list = get_bus_all()
     station_list = []
-    for bus in buslist:
+    for bus in bus_list:
         busid = bus['bus_id']
         url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
         content = requests.get(url).content  # GET요청
         dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
         data = dict['ServiceResult']['msgBody']['itemList']
-        for station in range(len(data)) :
+        for station in range(len(data)):
             station_dict = {}
             busid = bus['bus_id']
             station_id = data[station]['station']

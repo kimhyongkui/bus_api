@@ -8,8 +8,7 @@ key = os.getenv('key')
 
 
 # 특정 노선의 버스 조회
-def get_businfo():
-    busid = input('bus_id : ')
+def get_businfo(busid):
     url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)

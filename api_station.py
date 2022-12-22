@@ -11,8 +11,8 @@ key = os.getenv('key')
 
 def get_station(busid):
     url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
-    content = requests.get(url).content  # GET요청
-    dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
+    content = requests.get(url).content
+    dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']
     station_list = []
     for station in range(len(data)) :
@@ -41,12 +41,11 @@ def get_station_all():
     for bus in bus_list:
         busid = bus['bus_id']
         url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey={key}&busRouteId={busid}"
-        content = requests.get(url).content  # GET요청
-        dict = xmltodict.parse(content)  # XML을 dictionary로 파싱
+        content = requests.get(url).content
+        dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
         for station in range(len(data)):
             station_dict = {}
-            busid = bus['bus_id']
             station_id = data[station]['station']
             station_name = data[station]['stationNm']
             station_no = data[station]['stationNo']
@@ -62,5 +61,25 @@ def get_station_all():
             station_list.append(station_dict)
     return station_list
 
+# 특정 좌표 인근 정류소 데이터 얻기
+def get_station_list(tmx, tmy, radius):
+    url = f"http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?serviceKey={key}&tmX={tmx}&tmY={tmy}&radius={radius}"
+    content = requests.get(url).content
+    dict = xmltodict.parse(content)
+    data = dict['ServiceResult']['msgBody']['itemList']
+    station_list = []
+    for station in range(len(data)):
+        station_dict = {}
+        station_id = data[station]['stationId']
+        station_name = data[station]['stationNm']
+        station_gpsx = data[station]['gpsX']
+        station_gpsy = data[station]['gpsY']
 
+        station_dict['stationId'] = station_id
+        station_dict['stationNm'] = station_name
+        station_dict['gpsX'] = station_gpsx
+        station_dict['gpsY'] = station_gpsy
+        station_list.append(station_dict)
+    return station_list
 
+get_station_list(37.872, 127.7198, 500)

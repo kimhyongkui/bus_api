@@ -31,7 +31,7 @@ def get_arrive(busid):
         print(arrive_dict)
     return arrive_list
 
-
+get_arrive(100100081)
 
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_arrive_all():
@@ -63,12 +63,15 @@ def get_arrive_all():
 
 # 한 정류소의 특정노선의 도착예정 정보 조회 stId / busRouteId / ord
 def get_arrive_info(stId, busid, ord):
-    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={key}&bstId={stId}&usRouteId={busid}&ord={ord}"
+    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={key}&stId={stId}&busRouteId={busid}&ord={ord}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']
+    print(type(data['itemList']))
     # arr = arrive
     arr_list = []
+    arr_id = busid
+    arr_ord = ord
 
     if data is None:
         print('데이터가 없습니다')
@@ -79,15 +82,15 @@ def get_arrive_info(stId, busid, ord):
 
         for arr in range(len(data_list)):
             arr_dict = {}
-            arr_id = busid
             arr_busnm = data_list[arr]['rtNm']
-            arr_ord = ord
             arr_stnm = data_list[arr]['stNm']
             arr_stid = data_list[arr]['stId']
             arr_No1 = data_list[arr]['plainNo1']
-            arr_exps1 = data_list[arr]['exps1']
+            arr_msg1 = data_list[arr]['arrmsg1']
+            arr_stnm1 = data_list[arr]['stationNm1']
             arr_No2 = data_list[arr]['plainNo2']
-            arr_exps2 = data_list[arr]['exps2']
+            arr_msg2 = data_list[arr]['arrmsg2']
+            arr_stnm2 = data_list[arr]['stationNm2']
 
             arr_dict['bus_id'] = arr_id
             arr_dict['rtNm'] = arr_busnm
@@ -95,53 +98,27 @@ def get_arrive_info(stId, busid, ord):
             arr_dict['stNm'] = arr_stnm
             arr_dict['stId'] = arr_stid
             arr_dict['plainNo1'] = arr_No1
-            arr_dict['exps1'] = arr_exps1
+            arr_dict['arrmsg1'] = arr_msg1
+            arr_dict['stationNm1'] = arr_stnm1
             arr_dict['plainNo2'] = arr_No2
-            arr_dict['exps2'] = arr_exps2
+            arr_dict['arrmsg2'] = arr_msg2
+            arr_dict['stationNm2'] = arr_stnm2
             arr_list.append(arr_dict)
-            print(f"노선번호 : {arr_id},"
+            print(f"노선ID : {arr_id},"
                   f" 노선이름 : {arr_busnm},"
                   f" 노선순번 : {arr_ord},"
                   f" 정류소이름 : {arr_stnm},"
-                  f" 노선ID : {arr_stid}," 
-                  f" 첫번째 도착예정버스 : {arr_No1}," 
-                  f" 도착예정시간 : {arr_exps1}," 
-                  f" 첫번째 도착예정버스 : {arr_No2}," 
-                  f" 도착예정시간 : {arr_exps1}")
-
-    elif isinstance(data['itemList'], list):
-        for arr in range(len(data['itemList'])):
-            arr_dict = {}
-            arr_id = busid
-            arr_busnm = data['itemList'][arr]['rtNm']
-            arr_ord = ord
-            arr_stnm = data['itemList'][arr]['stNm']
-            arr_stid = data['itemList'][arr]['stId']
-            arr_No1 = data['itemList'][arr]['plainNo1']
-            arr_exps1 = data['itemList'][arr]['exps1']
-            arr_No2 = data['itemList'][arr]['plainNo2']
-            arr_exps2 = data['itemList'][arr]['exps2']
-
-            arr_dict['bus_id'] = arr_id
-            arr_dict['rtNm'] = arr_busnm
-            arr_dict['staOrd'] = arr_ord
-            arr_dict['stNm'] = arr_stnm
-            arr_dict['stId'] = arr_stid
-            arr_dict['plainNo1'] = arr_No1
-            arr_dict['exps1'] = arr_exps1
-            arr_dict['plainNo2'] = arr_No2
-            arr_dict['exps2'] = arr_exps2
-            arr_list.append(arr_dict)
-            print(f"노선번호 : {arr_id},"
-                  f" 노선이름 : {arr_busnm},"
-                  f" 노선순번 : {arr_ord},"
-                  f" 정류소이름 : {arr_stnm},"
-                  f" 노선ID : {arr_stid}," 
-                  f" 첫번째 도착예정버스 : {arr_No1}," 
-                  f" 도착예정시간 : {arr_exps1}," 
-                  f" 첫번째 도착예정버스 : {arr_No2}," 
-                  f" 도착예정시간 : {arr_exps1}")
+                  f" 노선ID : {arr_stid},"
+                  f" 첫번째 도착예정버스 : {arr_No1},"
+                  f" 현재 정류장 : {arr_stnm1},"
+                  f" 도착예정시간 : {arr_msg1},"
+                  f" 첫번째 도착예정버스 : {arr_No2},"
+                  f" 도착예정시간 : {arr_msg2},"
+                  f" 현재 정류장 : {arr_stnm2}"
+                  , sep='\n')
 
     return arr_list
 
-get_arrive_info(112000001, 100100118, 18)
+get_arrive_info(120000041, 100100081, 99)
+
+

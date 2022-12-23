@@ -1,7 +1,7 @@
 import requests, xmltodict
 from dotenv import load_dotenv
 import os
-from api_bus import get_bus_all
+from api_route import get_route_all
 
 
 load_dotenv()
@@ -31,11 +31,11 @@ def get_arrive(busid):
         print(arrive_dict)
     return arrive_list
 
-get_arrive(100100081)
+
 
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_arrive_all():
-    bus_list = get_bus_all()
+    bus_list = get_route_all()
     arrive_list = []
     for bus in bus_list:
         busid = bus['bus_id']
@@ -119,6 +119,5 @@ def get_arrive_info(stId, busid, ord):
 
     return arr_list
 
-get_arrive_info(120000041, 100100081, 99)
 
 

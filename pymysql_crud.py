@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from api_bus import get_busall
+from api_route import get_route_all
 import pymysql
 import os
 
@@ -9,7 +9,7 @@ load_dotenv()
 conn = pymysql.connect(host='127.0.0.1', user='root',
                        password=os.getenv('user_pwd'), db='prac', charset='utf8')
 
-bus_list = get_busall()
+bus_list = get_route_all()
 
 
 # get(n번째)
@@ -131,8 +131,8 @@ def reset_table(table):
     curs.execute(sql)
     conn.commit()
 
-    curs.execute(sql)
     sql = f"ALTER TABLE {table} AUTO_INCREMENT = 1"
+    curs.execute(sql)
 
     conn.close()
 

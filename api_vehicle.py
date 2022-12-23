@@ -1,6 +1,6 @@
 import requests, xmltodict
 from dotenv import load_dotenv
-from api_bus import get_bus_all
+from api_route import get_route_all
 import os
 
 load_dotenv()
@@ -58,7 +58,7 @@ def get_bus_info(busid):
 
 # 전체 노선의 버스 조회
 def get_bus_info_all():
-    route_list = get_bus_all()
+    route_list = get_route_all()
     bus_list = []
     for bus in route_list:
         busid = bus['bus_id']

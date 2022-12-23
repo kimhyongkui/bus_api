@@ -50,9 +50,11 @@ def get_bus_info(busid):
             bus_dict['gpsX'] = gpsx
             bus_dict['gpsY'] = gpsy
             bus_list.append(bus_dict)
-            print(f"버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+            print(f"버스노선고유번호 : {busid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
 
     return bus_list
+
+
 
 # 전체 노선의 버스 조회
 def get_bus_info_all():

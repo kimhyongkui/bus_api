@@ -80,6 +80,7 @@ def get_station_list(tmx, tmy, radius):
         station_dict['gpsX'] = station_gpsx
         station_dict['gpsY'] = station_gpsy
         station_list.append(station_dict)
+        print(station_dict)
     return station_list
 
-get_station_list(37.872, 127.7198, 500)
+get_station_list(126.9433, 37.48235, 150)

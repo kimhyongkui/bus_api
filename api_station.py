@@ -72,13 +72,17 @@ def get_station_list(tmx, tmy, radius):
         station_dict = {}
         station_id = data[station]['stationId']
         station_name = data[station]['stationNm']
+        station_no = data[station]['arsId']
         station_gpsx = data[station]['gpsX']
         station_gpsy = data[station]['gpsY']
+        station_dist = data[station]['dist']
 
         station_dict['stationId'] = station_id
         station_dict['stationNm'] = station_name
+        station_dict['arsId'] = station_no
         station_dict['gpsX'] = station_gpsx
         station_dict['gpsY'] = station_gpsy
+        station_dict['dist'] = station_dist
         station_list.append(station_dict)
         print(station_dict)
     return station_list

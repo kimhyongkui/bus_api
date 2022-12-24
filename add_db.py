@@ -37,16 +37,19 @@ def add_route_data():
 #-----------------------------------------------------------------------
 
 # 특정 노선의 정류소 DB저장
-def add_station(busid):
-    st_list = get_station(busid)
-    for station_data in st_list:
-        sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
-              f" VALUES ({station_data['bus_id']}, " \
-              f"'{station_data['station']}', " \
-              f"'{station_data['stationNm']}', " \
-              f"'{station_data['stationNo']}', " \
-              f"{station_data['gpsX']}, " \
-              f"{station_data['gpsY']})"
+def add_station(routeid):
+    stn_list = get_station(routeid)
+    for stn_data in stn_list:
+        sql = f"INSERT INTO station (routeId, routeNm, routeAbrv, stnId, stnNm, arsId, direction, gpsX, gpsY)" \
+              f" VALUES ({stn_data['routeId']}, " \
+              f"'{stn_data['routeNm']}', " \
+              f"'{stn_data['routeAbrv']}', " \
+              f"{stn_data['stnId']}, " \
+              f"'{stn_data['stnNm']}', " \
+              f"'{stn_data['arsId']}', " \
+              f"'{stn_data['direction']}', " \
+              f"{stn_data['gpsX']}, " \
+              f"{stn_data['gpsY']})"
         curs.execute(sql)
         conn.commit()
     print("정류소 저장 완료")
@@ -55,27 +58,31 @@ def add_station(busid):
 
 # 모든 노선의 정류소 DB저장
 def add_station_all():
-    stall_list = get_station_all()
-    for station_data in stall_list:
-        sql = f"INSERT INTO station (bus_id, station, stationNm, stationNo, gpsX, gpsY)" \
-              f" VALUES ({station_data['bus_id']}, " \
-              f"'{station_data['station']}', " \
-              f"'{station_data['stationNm']}', " \
-              f"'{station_data['stationNo']}', " \
-              f"{station_data['gpsX']}, " \
-              f"{station_data['gpsY']})"
+    stn_all_list = get_station_all()
+    for stn_data in stn_all_list:
+        sql = f"INSERT INTO station (routeId, routeNm, routeAbrv, stnId, stnNm, arsId, direction, gpsX, gpsY)" \
+              f" VALUES ({stn_data['routeId']}, " \
+              f"'{stn_data['routeNm']}', " \
+              f"'{stn_data['routeAbrv']}', " \
+              f"{stn_data['stnId']}, " \
+              f"'{stn_data['stnNm']}', " \
+              f"'{stn_data['arsId']}', " \
+              f"'{stn_data['direction']}', " \
+              f"{stn_data['gpsX']}, " \
+              f"{stn_data['gpsY']})"
         curs.execute(sql)
         conn.commit()
     print("정류소 저장 완료")
     conn.close()
 
+
 #-----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
-def add_veh_data(busid):
-    veh_list = get_bus_info(busid)
-    for vehicle_data in veh_list:
-        sql = f"INSERT INTO vehicle (bus_id, vehId, plainNo)" \
-              f"VALUES ({vehicle_data['bus_id']}, " \
+def add_veh_data(routeid):
+    vehicle_list = get_bus_info(routeid)
+    for vehicle_data in vehicle_list:
+        sql = f"INSERT INTO vehicle (routeId, vehId, plainNo)" \
+              f"VALUES ({vehicle_data['routeId']}, " \
               f"{vehicle_data['vehId']}, " \
               f"'{vehicle_data['plainNo']}')"
         curs.execute(sql)
@@ -90,25 +97,26 @@ def add_veh_data(busid):
 def add_veh_all_data():
     veh_all_list = get_bus_info_all()
     for vehicle_data in veh_all_list:
-        sql = f"INSERT IGNORE INTO vehicle (bus_id, vehId, plainNo)" \
-              f"VALUES ({vehicle_data['bus_id']}, " \
+        sql = f"INSERT IGNORE INTO vehicle (routeId, vehId, plainNo)" \
+              f"VALUES ({vehicle_data['routeId']}, " \
               f"{vehicle_data['vehId']}, " \
               f"'{vehicle_data['plainNo']}')"
         curs.execute(sql)
         conn.commit()
     print("차량 정보 저장 완료")
     conn.close()
+
 #-----------------------------------------------------------------------
 # 특정 경유노선의 전체정류소 DB 저장
-def add_arrive(busid):
-    arr_list = get_arrive(busid)
+def add_arrive(routeid):
+    arr_list = get_arrive(routeid)
     for arr_data in arr_list:
-        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
-              f" VALUES ({arr_data['bus_id']}, " \
-              f"'{arr_data['rtNm']}', " \
-              f"{arr_data['staOrd']}, " \
-              f"'{arr_data['stNm']}', " \
-              f"{arr_data['stId']})"
+        sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
+              f" VALUES ({arr_data['routeId']}, " \
+              f"'{arr_data['routeNm']}', " \
+              f"{arr_data['stnOrd']}, " \
+              f"'{arr_data['stnNm']}', " \
+              f"{arr_data['stnId']})"
 
         curs.execute(sql)
         conn.commit()
@@ -121,15 +129,16 @@ def add_arrive(busid):
 def add_arrive_all():
     arr_all_list = get_arrive_all()
     for arr_data in arr_all_list:
-        sql = f"INSERT INTO arrive (bus_id, rtNm, staOrd, stNm, stId)" \
-              f" VALUES ({arr_data['bus_id']}, " \
-              f"'{arr_data['rtNm']}', " \
-              f"{arr_data['staOrd']}, " \
-              f"'{arr_data['stNm']}', " \
-              f"{arr_data['stId']})"
+        sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
+              f" VALUES ({arr_data['routeId']}, " \
+              f"'{arr_data['routeNm']}', " \
+              f"{arr_data['stnOrd']}, " \
+              f"'{arr_data['stnNm']}', " \
+              f"{arr_data['stnId']})"
 
         curs.execute(sql)
         conn.commit()
     print("데이터 저장 완료")
     conn.close()
 
+add_arrive_all()

@@ -29,16 +29,18 @@ def get_station(routeid):
         stn_gpsy = data[station]['gpsY']  # 정류소 좌표
 
         stn_dict['routeId'] = routeid
-        stn_dict['busRouteNm'] = route_name
-        stn_dict['busRouteAbrv'] = route_abrv
-        stn_dict['station'] = stn_id
-        stn_dict['stationNm'] = stn_name
+        stn_dict['routeNm'] = route_name
+        stn_dict['routeAbrv'] = route_abrv
+        stn_dict['stnId'] = stn_id
+        stn_dict['stnNm'] = stn_name
         stn_dict['arsId'] = stn_no
         stn_dict['direction'] = stn_dir
         stn_dict['gpsX'] = stn_gpsx
         stn_dict['gpsY'] = stn_gpsy
         stn_list.append(stn_dict)
+        print(stn_dict)
     return stn_list
+
 
 
 # 모든 정류소 데이터 얻기
@@ -64,17 +66,18 @@ def get_station_all():
             stn_gpsy = data[station]['gpsY']  # 정류소 좌표
 
             stn_dict['routeId'] = routeid
-            stn_dict['busRouteNm'] = route_name
-            stn_dict['busRouteAbrv'] = route_abrv
-            stn_dict['station'] = stn_id
-            stn_dict['stationNm'] = stn_name
+            stn_dict['routeNm'] = route_name
+            stn_dict['routeAbrv'] = route_abrv
+            stn_dict['stnId'] = stn_id
+            stn_dict['stnNm'] = stn_name
             stn_dict['arsId'] = stn_no
             stn_dict['direction'] = stn_dir
             stn_dict['gpsX'] = stn_gpsx
             stn_dict['gpsY'] = stn_gpsy
             stn_list.append(stn_dict)
-
+            print(stn_dict)
     return stn_list
+
 
 
 # 특정 좌표 인근 정류소 데이터 얻기
@@ -94,8 +97,8 @@ def get_stn_list(gpsx, gpsy, radius):
         stn_gpsy = data[station]['gpsY']
         stn_dist = data[station]['dist']  # 거리(m)
 
-        stn_dict['stationId'] = stn_id
-        stn_dict['stationNm'] = stn_name
+        stn_dict['stnId'] = stn_id
+        stn_dict['stnNm'] = stn_name
         stn_dict['arsId'] = stn_no
         stn_dict['gpsX'] = stn_gpsx
         stn_dict['gpsY'] = stn_gpsy

@@ -45,7 +45,7 @@ def get_bus_info(routeid):
             gpsx = data['itemList'][bus]['gpsX']
             gpsy = data['itemList'][bus]['gpsY']
 
-            bus_dict['bus_id'] = routeid
+            bus_dict['routeId'] = routeid
             bus_dict['vehId'] = vehid
             bus_dict['plainNo'] = plainno
             bus_dict['gpsX'] = gpsx
@@ -61,7 +61,7 @@ def get_bus_info_all():
     route_list = get_route_all()
     bus_list = []
     for bus in route_list:
-        routeid = bus['bus_id']
+        routeid = bus['routeId']
         url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={routeid}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
@@ -80,7 +80,7 @@ def get_bus_info_all():
                 gpsx = data_list[bus]['gpsX']
                 gpsy = data_list[bus]['gpsY']
 
-                bus_dict['bus_id'] = routeid
+                bus_dict['routeId'] = routeid
                 bus_dict['vehId'] = vehid
                 bus_dict['plainNo'] = plainno
                 bus_dict['gpsX'] = gpsx
@@ -96,7 +96,7 @@ def get_bus_info_all():
                 gpsx = data['itemList'][bus]['gpsX']
                 gpsy = data['itemList'][bus]['gpsY']
 
-                bus_dict['bus_id'] = routeid
+                bus_dict['routeId'] = routeid
                 bus_dict['vehId'] = vehid
                 bus_dict['plainNo'] = plainno
                 bus_dict['gpsX'] = gpsx

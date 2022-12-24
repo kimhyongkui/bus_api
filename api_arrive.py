@@ -9,72 +9,75 @@ key = os.getenv('key')
 
 
 # 특정 경유노선의 전체정류소 데이터 얻기
-def get_arrive(busid):
+def get_arrive(routeid):
     url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
-          f"serviceKey={key}&busRouteId={busid}"
+          f"serviceKey={key}&busRouteId={routeid}"
     content = requests.get(url).content
     dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']
     arrive_list = []
     for arrive in range(len(data)):
         arrive_dict = {}
-        arrive_id = busid
-        arrive_busnm = data[arrive]['rtNm']
-        arrive_ord = data[arrive]['staOrd']
-        arrive_stnm = data[arrive]['stNm']
-        arrive_stid = data[arrive]['stId']
+        arrive_id = routeid  # 노선 ID
+        arrive_rtNm = data[arrive]['rtNm']  # 노선명
+        arrive_ord = data[arrive]['staOrd']  # 정류소 순번
+        arrive_stnNm = data[arrive]['stNm']  # 정류소 이름
+        arrive_stnId = data[arrive]['stId']  # 정류소 ID
 
-        arrive_dict['bus_id'] = arrive_id
-        arrive_dict['rtNm'] = arrive_busnm
-        arrive_dict['staOrd'] = arrive_ord
-        arrive_dict['stNm'] = arrive_stnm
-        arrive_dict['stId'] = arrive_stid
+
+        arrive_dict['routeId'] = arrive_id
+        arrive_dict['routeNm'] = arrive_rtNm
+        arrive_dict['stnOrd'] = arrive_ord
+        arrive_dict['stnNm'] = arrive_stnNm
+        arrive_dict['stnId'] = arrive_stnId
         arrive_list.append(arrive_dict)
         print(arrive_dict)
     return arrive_list
 
 
+
+
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_arrive_all():
-    bus_list = get_route_all()
+    route_list = get_route_all()
     arrive_list = []
-    for bus in bus_list:
-        busid = bus['bus_id']
+    for route in route_list:
+        routeid = route['routeId']
         url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
-              f"serviceKey={key}&busRouteId={busid}"
+              f"serviceKey={key}&busRouteId={routeid}"
         content = requests.get(url).content
         dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
         for arrive in range(len(data)):
             arrive_dict = {}
-            arrive_id = busid
-            arrive_busnm = data[arrive]['rtNm']
+            arrive_id = routeid
+            arrive_rtNm = data[arrive]['rtNm']
             arrive_ord = data[arrive]['staOrd']
-            arrive_stnm = data[arrive]['stNm']
-            arrive_stid = data[arrive]['stId']
+            arrive_stnNm = data[arrive]['stNm']
+            arrive_stnId = data[arrive]['stId']
 
-            arrive_dict['bus_id'] = arrive_id
-            arrive_dict['rtNm'] = arrive_busnm
-            arrive_dict['staOrd'] = arrive_ord
-            arrive_dict['stNm'] = arrive_stnm
-            arrive_dict['stId'] = arrive_stid
+
+            arrive_dict['routeId'] = arrive_id
+            arrive_dict['routeNm'] = arrive_rtNm
+            arrive_dict['stnOrd'] = arrive_ord
+            arrive_dict['stnNm'] = arrive_stnNm
+            arrive_dict['stnId'] = arrive_stnId
             arrive_list.append(arrive_dict)
             print(arrive_dict)
     return arrive_list
 
 
-# 한 정류소의 특정노선의 도착예정 정보 조회 stId / busRouteId / ord
-def get_arrive_info(stId, busid, ord):
+# 한 정류소의 특정노선의 도착예정 정보 조회 stnId / busRouteId / ord
+def get_arrive_info(stnId, routeid, ord):
     url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
-          f"serviceKey={key}&stId={stId}&busRouteId={busid}&ord={ord}"
+          f"serviceKey={key}&stId={stnId}&busRouteId={routeid}&ord={ord}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']
-    print(type(data['itemList']))
-    # arr = arrive
-    arr_list = []
-    arr_id = busid
-    arr_ord = ord
+
+    arrive_list = []
+    arrive_rtId = routeid
+    arrive_ord = ord
 
     if data is None:
         print('데이터가 없습니다')
@@ -83,40 +86,40 @@ def get_arrive_info(stId, busid, ord):
         data_list = []
         data_list.append(data['itemList'])
 
-        for arr in range(len(data_list)):
-            arr_dict = {}
-            arr_busnm = data_list[arr]['rtNm']
-            arr_stnm = data_list[arr]['stNm']
-            arr_stid = data_list[arr]['stId']
-            arr_No1 = data_list[arr]['plainNo1']
-            arr_msg1 = data_list[arr]['arrmsg1']
-            arr_stnm1 = data_list[arr]['stationNm1']
-            arr_No2 = data_list[arr]['plainNo2']
-            arr_msg2 = data_list[arr]['arrmsg2']
-            arr_stnm2 = data_list[arr]['stationNm2']
+        for arrive in range(len(data_list)):
+            arrive_dict = {}
+            arrive_rtNm = data_list[arrive]['rtNm']
+            arrive_stnNm = data_list[arrive]['stNm']
+            arrive_stnId = data_list[arrive]['stId']
+            arrive_No1 = data_list[arrive]['plainNo1']
+            arrive_msg1 = data_list[arrive]['arrmsg1']
+            arrive_stnNm1 = data_list[arrive]['stationNm1']
+            arrive_No2 = data_list[arrive]['plainNo2']
+            arrive_msg2 = data_list[arrive]['arrmsg2']
+            arrive_stnNm2 = data_list[arrive]['stationNm2']
 
-            arr_dict['bus_id'] = arr_id
-            arr_dict['rtNm'] = arr_busnm
-            arr_dict['staOrd'] = arr_ord
-            arr_dict['stNm'] = arr_stnm
-            arr_dict['stId'] = arr_stid
-            arr_dict['plainNo1'] = arr_No1
-            arr_dict['arrmsg1'] = arr_msg1
-            arr_dict['stationNm1'] = arr_stnm1
-            arr_dict['plainNo2'] = arr_No2
-            arr_dict['arrmsg2'] = arr_msg2
-            arr_dict['stationNm2'] = arr_stnm2
-            arr_list.append(arr_dict)
-            print(f"노선ID : {arr_id},"
-                  f" 노선이름 : {arr_busnm},"
-                  f" 노선순번 : {arr_ord},"
-                  f" 정류소이름 : {arr_stnm},"
-                  f" 노선ID : {arr_stid},"
-                  f" 첫번째 도착예정버스 : {arr_No1},"
-                  f" 현재 정류장 : {arr_stnm1},"
-                  f" 도착예정시간 : {arr_msg1},"
-                  f" 첫번째 도착예정버스 : {arr_No2},"
-                  f" 도착예정시간 : {arr_msg2},"
-                  f" 현재 정류장 : {arr_stnm2}")
+            arrive_dict['routeId'] = arrive_rtId
+            arrive_dict['routeNm'] = arrive_rtNm
+            arrive_dict['stnOrd'] = arrive_ord
+            arrive_dict['stnNm'] = arrive_stnNm
+            arrive_dict['stnId'] = arrive_stnId
+            arrive_dict['plainNo1'] = arrive_No1
+            arrive_dict['arrmsg1'] = arrive_msg1
+            arrive_dict['stnNm1'] = arrive_stnNm1
+            arrive_dict['plainNo2'] = arrive_No2
+            arrive_dict['arrmsg2'] = arrive_msg2
+            arrive_dict['stnNm2'] = arrive_stnNm2
+            arrive_list.append(arrive_dict)
+            print(f"노선ID : {arrive_rtId},"
+                  f" 노선이름 : {arrive_rtNm},"
+                  f" 노선순번 : {arrive_ord},"
+                  f" 정류소이름 : {arrive_stnNm},"
+                  f" 노선ID : {arrive_stnId},"
+                  f" 첫번째 도착예정버스 : {arrive_No1},"
+                  f" 현재 정류장 : {arrive_stnNm1},"
+                  f" 도착예정시간 : {arrive_msg1},"
+                  f" 첫번째 도착예정버스 : {arrive_No2},"
+                  f" 도착예정시간 : {arrive_msg2},"
+                  f" 현재 정류장 : {arrive_stnNm2}")
 
-    return arr_list
+    return arrive_list

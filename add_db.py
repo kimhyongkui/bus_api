@@ -1,4 +1,4 @@
-from api_bus import get_bus_all
+from api_route import get_route_all
 from api_station import get_station_all, get_station
 from api_vehicle import get_bus_info, get_bus_info_all
 from api_arrive import get_arrive, get_arrive_all
@@ -21,10 +21,11 @@ curs = conn.cursor()
 
 
 # 각 노선의 아이디와 이름 DB저장
-def add_bus_data():
-    bus_list = get_bus_all()
-    for bus_data in bus_list:
-        sql = f"INSERT INTO bus (bus_name, bus_id) VALUES ('{bus_data['bus_name']}', {bus_data['bus_id']})"
+def add_route_data():
+    route_list = get_route_all()
+    for route_data in route_list:
+        sql = f"INSERT INTO route (routeNm, routeAbrv, routeId) " \
+              f"VALUES ('{route_data['routeNm']}', '{route_data['routeAbrv']}', {route_data['routeId']})"
         curs.execute(sql)
         conn.commit()
 

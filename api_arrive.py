@@ -1,15 +1,17 @@
-import requests, xmltodict
+import requests
+import xmltodict
 from dotenv import load_dotenv
 import os
 from api_route import get_route_all
 
-
 load_dotenv()
 key = os.getenv('key')
 
+
 # 특정 경유노선의 전체정류소 데이터 얻기
 def get_arrive(busid):
-    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?serviceKey={key}&busRouteId={busid}"
+    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
+          f"serviceKey={key}&busRouteId={busid}"
     content = requests.get(url).content
     dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']
@@ -32,18 +34,18 @@ def get_arrive(busid):
     return arrive_list
 
 
-
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_arrive_all():
     bus_list = get_route_all()
     arrive_list = []
     for bus in bus_list:
         busid = bus['bus_id']
-        url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?serviceKey={key}&busRouteId={busid}"
+        url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
+              f"serviceKey={key}&busRouteId={busid}"
         content = requests.get(url).content
         dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
-        for arrive in range(len(data)) :
+        for arrive in range(len(data)):
             arrive_dict = {}
             arrive_id = busid
             arrive_busnm = data[arrive]['rtNm']
@@ -63,7 +65,8 @@ def get_arrive_all():
 
 # 한 정류소의 특정노선의 도착예정 정보 조회 stId / busRouteId / ord
 def get_arrive_info(stId, busid, ord):
-    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={key}&stId={stId}&busRouteId={busid}&ord={ord}"
+    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
+          f"serviceKey={key}&stId={stId}&busRouteId={busid}&ord={ord}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']
@@ -114,10 +117,6 @@ def get_arrive_info(stId, busid, ord):
                   f" 도착예정시간 : {arr_msg1},"
                   f" 첫번째 도착예정버스 : {arr_No2},"
                   f" 도착예정시간 : {arr_msg2},"
-                  f" 현재 정류장 : {arr_stnm2}"
-                  , sep='\n')
+                  f" 현재 정류장 : {arr_stnm2}")
 
     return arr_list
-
-
-

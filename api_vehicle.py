@@ -55,6 +55,7 @@ def get_bus_info(routeid):
 
     return bus_list
 
+get_bus_info()
 
 # 전체 노선의 버스 조회
 def get_bus_info_all():

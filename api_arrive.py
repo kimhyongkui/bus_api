@@ -7,32 +7,37 @@ from api_route import get_route_all
 load_dotenv()
 key = os.getenv('key')
 
+class add:
+    def __init__(self):
+        self.url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
+              f"serviceKey={key}&busRouteId={routeid}"
 
-# 특정 경유노선의 전체정류소 데이터 얻기
-def get_arrive(routeid):
-    url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
-          f"serviceKey={key}&busRouteId={routeid}"
-    content = requests.get(url).content
-    dict = xmltodict.parse(content)
-    data = dict['ServiceResult']['msgBody']['itemList']
-    arrive_list = []
-    for arrive in range(len(data)):
-        arrive_dict = {}
-        arrive_id = routeid  # 노선 ID
-        arrive_rtNm = data[arrive]['rtNm']  # 노선명
-        arrive_ord = data[arrive]['staOrd']  # 정류소 순번
-        arrive_stnNm = data[arrive]['stNm']  # 정류소 이름
-        arrive_stnId = data[arrive]['stId']  # 정류소 ID
+    # 특정 경유노선의 전체정류소 데이터 얻기
+    def get_arrive(self, routeid):
+        url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
+              f"serviceKey={key}&busRouteId={routeid}"
+        content = requests.get(url).content
+        dict = xmltodict.parse(content)
+        data = dict['ServiceResult']['msgBody']['itemList']
+        arrive_list = []
+        for arrive in range(len(data)):
+            arrive_dict = {}
+            arrive_id = routeid  # 노선 ID
+            arrive_rtNm = data[arrive]['rtNm']  # 노선명
+            arrive_ord = data[arrive]['staOrd']  # 정류소 순번
+            arrive_stnNm = data[arrive]['stNm']  # 정류소 이름
+            arrive_stnId = data[arrive]['stId']  # 정류소 ID
+
+            arrive_dict['routeId'] = arrive_id
+            arrive_dict['routeNm'] = arrive_rtNm
+            arrive_dict['stnOrd'] = arrive_ord
+            arrive_dict['stnNm'] = arrive_stnNm
+            arrive_dict['stnId'] = arrive_stnId
+            arrive_list.append(arrive_dict)
+            print(arrive_dict)
+        return arrive_list
 
 
-        arrive_dict['routeId'] = arrive_id
-        arrive_dict['routeNm'] = arrive_rtNm
-        arrive_dict['stnOrd'] = arrive_ord
-        arrive_dict['stnNm'] = arrive_stnNm
-        arrive_dict['stnId'] = arrive_stnId
-        arrive_list.append(arrive_dict)
-        print(arrive_dict)
-    return arrive_list
 
 
 
@@ -118,8 +123,12 @@ def get_arrive_info(stnId, routeid, ord):
                   f" 첫번째 도착예정버스 : {arrive_No1},"
                   f" 현재 정류장 : {arrive_stnNm1},"
                   f" 도착예정시간 : {arrive_msg1},"
-                  f" 첫번째 도착예정버스 : {arrive_No2},"
+                  f" 두번째 도착예정버스 : {arrive_No2},"
                   f" 도착예정시간 : {arrive_msg2},"
                   f" 현재 정류장 : {arrive_stnNm2}")
 
     return arrive_list
+
+get_arrive_info(102000161, 100100410, 75)
+
+

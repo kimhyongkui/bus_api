@@ -19,12 +19,9 @@ def get_route_all():
     route_list = []
     for route in range(len(data)):
         route_dict = {}
-        route_name = data[route]["busRouteNm"]
-        route_abrv = data[route]["busRouteAbrv"]
-        route_id = data[route]["busRouteId"]
-
-        route_dict["routeNm"] = route_name
-        route_dict["routeAbrv"] = route_abrv
-        route_dict["routeId"] = route_id
+        route_dict["routeNm"]= data[route]["busRouteNm"]
+        route_dict["routeAbrv"] = data[route]["busRouteAbrv"]
+        route_dict["routeId"] = data[route]["busRouteId"]
         route_list.append(route_dict)
     return route_list
+

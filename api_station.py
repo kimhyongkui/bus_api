@@ -19,24 +19,16 @@ def get_station(routeid):
     stn_list = []
     for station in range(len(data)):
         stn_dict = {}
-        route_name = data[station]['busRouteNm']  # 노선명
-        route_abrv = data[station]['busRouteAbrv']  # 노선명
-        stn_id = data[station]['station']  # 정류소 ID
-        stn_name = data[station]['stationNm']  # 정류소 이름
-        stn_no = data[station]['arsId']  # 정류소 고유번호
-        stn_dir = data[station]['direction']  # 진행방향
-        stn_gpsx = data[station]['gpsX']  # 정류소 좌표
-        stn_gpsy = data[station]['gpsY']  # 정류소 좌표
-
         stn_dict['routeId'] = routeid
-        stn_dict['routeNm'] = route_name
-        stn_dict['routeAbrv'] = route_abrv
-        stn_dict['stnId'] = stn_id
-        stn_dict['stnNm'] = stn_name
-        stn_dict['arsId'] = stn_no
-        stn_dict['direction'] = stn_dir
-        stn_dict['gpsX'] = stn_gpsx
-        stn_dict['gpsY'] = stn_gpsy
+        stn_dict['routeNm'] = data[station]['busRouteNm']  # 노선명
+        stn_dict['routeAbrv'] = data[station]['busRouteAbrv']  # 노선명
+        stn_dict['stnId'] = data[station]['station']  # 정류소 ID
+        stn_dict['stnNm'] = data[station]['stationNm']  # 정류소 이름
+        stn_dict['arsId'] = data[station]['arsId']  # 정류소 고유번호
+        stn_dict['direction'] = data[station]['direction']  # 진행방향
+        stn_dict['gpsX'] = data[station]['gpsX']  # 정류소 좌표
+        stn_dict['gpsY'] = data[station]['gpsY']  # 정류소 좌표
+
         stn_list.append(stn_dict)
         print(stn_dict)
     return stn_list
@@ -56,24 +48,16 @@ def get_station_all():
         data = dict['ServiceResult']['msgBody']['itemList']
         for station in range(len(data)):
             stn_dict = {}
-            route_name = data[station]['busRouteNm']  # 노선명
-            route_abrv = data[station]['busRouteAbrv']  # 노선명
-            stn_id = data[station]['station']  # 정류소 ID
-            stn_name = data[station]['stationNm']  # 정류소 이름
-            stn_no = data[station]['arsId']  # 정류소 고유번호
-            stn_dir = data[station]['direction']  # 진행방향
-            stn_gpsx = data[station]['gpsX']  # 정류소 좌표
-            stn_gpsy = data[station]['gpsY']  # 정류소 좌표
+            stn_dict['routeId'] = routeid  # 노선 ID
+            stn_dict['routeNm'] = data[station]['busRouteNm']  # 노선명
+            stn_dict['routeAbrv'] = data[station]['busRouteAbrv']  # 노선명
+            stn_dict['stnId'] = data[station]['station']  # 정류소 ID
+            stn_dict['stnNm'] = data[station]['stationNm']  # 정류소 이름
+            stn_dict['arsId'] = data[station]['arsId']  # 정류소 고유번호
+            stn_dict['direction'] = data[station]['direction']  # 진행방향
+            stn_dict['gpsX'] = data[station]['gpsX']  # 정류소 좌표
+            stn_dict['gpsY'] = data[station]['gpsY']  # 정류소 좌표
 
-            stn_dict['routeId'] = routeid
-            stn_dict['routeNm'] = route_name
-            stn_dict['routeAbrv'] = route_abrv
-            stn_dict['stnId'] = stn_id
-            stn_dict['stnNm'] = stn_name
-            stn_dict['arsId'] = stn_no
-            stn_dict['direction'] = stn_dir
-            stn_dict['gpsX'] = stn_gpsx
-            stn_dict['gpsY'] = stn_gpsy
             stn_list.append(stn_dict)
             print(stn_dict)
     return stn_list
@@ -90,19 +74,13 @@ def get_stn_list(gpsx, gpsy, radius):
     stn_list = []
     for station in range(len(data)):
         stn_dict = {}
-        stn_id = data[station]['stationId']  # 정류소 ID
-        stn_name = data[station]['stationNm']  # 정류소 이름
-        stn_no = data[station]['arsId']  # 정류소 고유번호
-        stn_gpsx = data[station]['gpsX']
-        stn_gpsy = data[station]['gpsY']
-        stn_dist = data[station]['dist']  # 거리(m)
+        stn_dict['stnId'] = data[station]['stationId']  # 정류소 ID
+        stn_dict['stnNm'] = data[station]['stationNm']  # 정류소 이름
+        stn_dict['arsId'] = data[station]['arsId']  # 정류소 고유번호
+        stn_dict['gpsX'] = data[station]['gpsX']
+        stn_dict['gpsY'] = data[station]['gpsY']
+        stn_dict['dist'] = data[station]['dist']  # 거리(m)
 
-        stn_dict['stnId'] = stn_id
-        stn_dict['stnNm'] = stn_name
-        stn_dict['arsId'] = stn_no
-        stn_dict['gpsX'] = stn_gpsx
-        stn_dict['gpsY'] = stn_gpsy
-        stn_dict['dist'] = stn_dist
         stn_list.append(stn_dict)
         print(stn_dict)
     return stn_list

@@ -24,38 +24,27 @@ def get_bus_info(routeid):
         data_list.append(data['itemList'])
         for bus in range(len(data_list)):
             bus_dict = {}
-            vehid = data_list[bus]['vehId']  # 버스 Id
-            plainno = data_list[bus]['plainNo']  # 차량번호
-            gpsx = data_list[bus]['gpsX']
-            gpsy = data_list[bus]['gpsY']
-
             bus_dict['routeid'] = routeid
-            bus_dict['vehId'] = vehid
-            bus_dict['plainNo'] = plainno
-            bus_dict['gpsX'] = gpsx
-            bus_dict['gpsY'] = gpsy
+            bus_dict['vehId'] = data_list[bus]['vehId']  # 버스 Id
+            bus_dict['plainNo'] = data_list[bus]['plainNo']  # 차량번호
+            bus_dict['gpsX'] = data_list[bus]['gpsX']
+            bus_dict['gpsY'] = data_list[bus]['gpsY']
+
             bus_list.append(bus_dict)
-            print(f"버스노선고유번호 : {routeid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
 
     elif isinstance(data['itemList'], list):
         for bus in range(len(data['itemList'])):
             bus_dict = {}
-            vehid = data['itemList'][bus]['vehId']
-            plainno = data['itemList'][bus]['plainNo']
-            gpsx = data['itemList'][bus]['gpsX']
-            gpsy = data['itemList'][bus]['gpsY']
 
             bus_dict['routeId'] = routeid
-            bus_dict['vehId'] = vehid
-            bus_dict['plainNo'] = plainno
-            bus_dict['gpsX'] = gpsx
-            bus_dict['gpsY'] = gpsy
+            bus_dict['vehId'] = data['itemList'][bus]['vehId']
+            bus_dict['plainNo'] = data['itemList'][bus]['plainNo']
+            bus_dict['gpsX'] = data['itemList'][bus]['gpsX']
+            bus_dict['gpsY'] = data['itemList'][bus]['gpsY']
             bus_list.append(bus_dict)
-            print(f"버스노선고유번호 : {routeid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
 
     return bus_list
 
-get_bus_info()
 
 # 전체 노선의 버스 조회
 def get_bus_info_all():
@@ -76,32 +65,23 @@ def get_bus_info_all():
             data_list.append(data['itemList'])
             for bus in range(len(data_list)):
                 bus_dict = {}
-                vehid = data_list[bus]['vehId']
-                plainno = data_list[bus]['plainNo']
-                gpsx = data_list[bus]['gpsX']
-                gpsy = data_list[bus]['gpsY']
 
                 bus_dict['routeId'] = routeid
-                bus_dict['vehId'] = vehid
-                bus_dict['plainNo'] = plainno
-                bus_dict['gpsX'] = gpsx
-                bus_dict['gpsY'] = gpsy
+                bus_dict['vehId'] = data_list[bus]['vehId']
+                bus_dict['plainNo'] = data_list[bus]['plainNo']
+                bus_dict['gpsX'] = data_list[bus]['gpsX']
+                bus_dict['gpsY'] = data_list[bus]['gpsY']
                 bus_list.append(bus_dict)
-                print(f"버스노선고유번호 : {routeid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
 
         elif isinstance(data['itemList'], list):
             for bus in range(len(data['itemList'])):
                 bus_dict = {}
-                vehid = data['itemList'][bus]['vehId']
-                plainno = data['itemList'][bus]['plainNo']
-                gpsx = data['itemList'][bus]['gpsX']
-                gpsy = data['itemList'][bus]['gpsY']
 
                 bus_dict['routeId'] = routeid
-                bus_dict['vehId'] = vehid
-                bus_dict['plainNo'] = plainno
-                bus_dict['gpsX'] = gpsx
-                bus_dict['gpsY'] = gpsy
+                bus_dict['vehId'] = data['itemList'][bus]['vehId']
+                bus_dict['plainNo'] = data['itemList'][bus]['plainNo']
+                bus_dict['gpsX'] = data['itemList'][bus]['gpsX']
+                bus_dict['gpsY'] = data['itemList'][bus]['gpsY']
                 bus_list.append(bus_dict)
-                print(f"버스노선고유번호 : {routeid}, 버스고유번호 : {vehid}, 버스이름 : {plainno}, 버스좌표(x,y) : {gpsx[0:9]} / {gpsy[0:9]}")
+
     return bus_list

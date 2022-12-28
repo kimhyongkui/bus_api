@@ -26,13 +26,14 @@ def get_data(table, n):
 # get(특정)
 def get_some_data(table, column, value):
     curs = conn.cursor()
-    sql = f"SELECT * FROM {table} WHERE {column}={value}"
+    sql = f"SELECT * FROM {table} WHERE {column}='{value}'"
     curs.execute(sql)
     result = curs.fetchall()
     for i in result:
         print(i)
     conn.close()
 
+get_some_data('arrive', 'stnNm', '망우역')
 #-----------------------------------------------------------------------------
 
 # get(전체)

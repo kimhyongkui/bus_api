@@ -140,5 +140,3 @@ def add_arrive_all():
         conn.commit()
     print("데이터 저장 완료")
     conn.close()
-
-add_arrive_all()

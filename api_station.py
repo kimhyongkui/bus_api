@@ -85,4 +85,4 @@ def get_stn_list(gpsx, gpsy, radius):
         print(stn_dict)
     return stn_list
 
-get_stn_list(126.965883, 37.528723, 300)
+# get_stn_list(126.965883, 37.528723, 300)

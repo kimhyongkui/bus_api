@@ -124,7 +124,6 @@ def add_arrive(routeid):
     conn.close()
 
 
-
 # 모든 노선의 정류소 DB저장
 def add_arrive_all():
     arr_all_list = get_arrive_all()

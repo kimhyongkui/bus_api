@@ -33,7 +33,7 @@ def get_some_data(table, column, value):
         print(i)
     conn.close()
 
-get_some_data('arrive', 'stnNm', '망우역')
+
 #-----------------------------------------------------------------------------
 
 # get(전체)

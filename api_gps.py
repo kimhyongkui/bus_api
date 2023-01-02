@@ -48,4 +48,3 @@ def get_station_list(crd):
         print(data_dict)
     return abc
 
-get_station_list('노량진역')

@@ -3,48 +3,42 @@ from geopy.geocoders import Nominatim
 from api_station import get_stn_list
 
 # 현재위치
-# lat = gpsX / lng = gpsY
-# def current_location():
-#     here_req = requests.get("http://www.geoplugin.net/json.gp")
-#
-#     if (here_req.status_code != 200):
-#         print("현재좌표를 불러올 수 없음")
-#     else:
-#         location = json.loads(here_req.text)
-#         crd = {"lat": str(location["geoplugin_latitude"]), "lng": str(location["geoplugin_longitude"])}
-#         print(crd['lat'], crd['lng'])
-#     return crd
-#
-#
-# current_location()
+def current_location():
+    here_req = requests.get("http://www.geoplugin.net/json.gp")
+
+    if (here_req.status_code != 200):
+        print("현재좌표를 불러올 수 없음")
+    else:
+        location = json.loads(here_req.text)
+        gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
+        print(gps['gpsY'], gps['gpsX'])
+    return gps
+
 
 
 
 # 지오코딩 : 지역이름 적으면 좌표나오는거
-# lat = gpsX / lng = gpsY
 def geocoding(address):
-    geolocoder = Nominatim(user_agent='South Korea', timeout=None)
+    geolocoder = Nominatim(user_agent='South Korea')
     geo = geolocoder.geocode(address)
-    crd = {"lat": str(geo.latitude), "lng": str(geo.longitude)}
-    print(crd)
+    gps = {"gpsY": str(geo.latitude), "gpsX": str(geo.longitude)}
+    print(gps)
 
-    return crd
-
-
+    return gps
 
 
 
 # 특정 지역 좌표 입력해서 인근 정류소 구해보기
-def get_station_list(crd):
-    crd = geocoding(crd)
-    abc = get_stn_list(crd['lng'], crd['lat'], 100)
+def get_station_list(address):
+    adr = geocoding(address)
+    gps = get_stn_list(adr['gpsX'], adr['gpsY'], 200)
     data_list = []
-    for i in range(len(abc)):
+    for i in range(len(gps)):
         data_dict = {}
-        data_dict['stnId'] = abc[i]['stnId']
-        data_dict['stnNm'] = abc[i]['stnNm']
-        data_dict['arsId'] = abc[i]['arsId']
+        data_dict['stnId'] = gps[i]['stnId']
+        data_dict['stnNm'] = gps[i]['stnNm']
+        data_dict['arsId'] = gps[i]['arsId']
         data_list.append(data_dict)
-        print(data_dict)
-    return abc
+    return gps
+get_station_list('을지로')
 

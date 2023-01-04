@@ -120,20 +120,20 @@ def get_arrive_bus_info(table, column1, value1, column2, value2):
     curs.execute(sql)
     result = curs.fetchall()
     for i in result:
-        ddd = {}
-        ddd['stnId'] = i[4]
-        ddd['routeId'] = i[0]
-        ddd['ord'] = i[2]
+        bus_list = {}
+        bus_list['stnId'] = i[4]
+        bus_list['routeId'] = i[0]
+        bus_list['ord'] = i[2]
 
         url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
-              f"serviceKey={key}&stId={ddd['stnId']}&busRouteId={ddd['routeId']}&ord={ddd['ord']}"
+              f"serviceKey={key}&stId={bus_list['stnId']}&busRouteId={bus_list['routeId']}&ord={bus_list['ord']}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']
 
         arrive_list = []
-        arrive_rtId = ddd['routeId']
-        arrive_ord = ddd['ord']
+        arrive_rtId = bus_list['routeId']
+        arrive_ord = bus_list['ord']
 
         if data is None:
             print('데이터가 없습니다')

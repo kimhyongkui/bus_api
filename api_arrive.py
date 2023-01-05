@@ -7,7 +7,7 @@ from pymysql_crud import conn
 
 load_dotenv()
 key = os.getenv('key')
-
+#
 # class add:
 #     def __init__(self):
 #         self.url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
@@ -33,7 +33,7 @@ def get_arrive(routeid):
         print(arrive_dict)
     return arrive_list
 
-
+get_arrive(100100412)
 
 
 
@@ -166,5 +166,4 @@ def get_arrive_bus_info(value1, value2):
     return arrive_list
 
 
-
-get_arrive_bus_info('을지로5가', 101000066)
+# get_arrive_bus_info('을지로5가', 101000066)

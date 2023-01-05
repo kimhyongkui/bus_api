@@ -104,9 +104,11 @@ def post_some_data():
 #-----------------------------------------------------------------------------
 
 # put
-def put_data():
+def put_data(table, column1, column2, value1, value2):
+    # UPDATE 테이블명 SET 필드명 = '바꿀 필드값' WHERE 조건절
+    # column2의 값이 value2인 데이터의 column1 값을 value1로 바꿈
     curs = conn.cursor()
-    sql = f"UPDATE bus SET bus_name={input('name : ')} WHERE bus_name={input('id : ')}"
+    sql = f"UPDATE {table} SET {column1}={value1} WHERE {column2}={value2}"
     curs.execute(sql)
     conn.commit()
     conn.close()
@@ -114,9 +116,9 @@ def put_data():
 #-----------------------------------------------------------------------------
 
 # delete
-def delete_data():
+def delete_data(table, column, value):
     curs = conn.cursor()
-    sql = f"DELETE FROM bus WHERE bus_name={input('버스이름 : ')}"
+    sql = f"DELETE FROM {table} WHERE {column}={value}"
     curs.execute(sql)
     conn.commit()
 

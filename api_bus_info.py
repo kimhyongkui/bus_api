@@ -8,7 +8,7 @@ load_dotenv()
 key = os.getenv('key')
 
 
-# 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 이용)
+# 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
 def get_arrive_bus_info1(value1, value2):
     curs = conn.cursor()
     sql = f"SELECT * FROM arrive WHERE stnNm='{value1}' AND stnId={value2}"
@@ -59,17 +59,55 @@ def get_arrive_bus_info1(value1, value2):
                       f" 현재 정류장 : {arrive_dict['stnNm2']}")
     conn.close()
     return arrive_list
+get_arrive_bus_info1('현대트랜시스', 233002165)
 
-get_arrive_bus_info('을지로5가', 101000066)
 
-# 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 이용)
+# 특정 정류소에 도착 예정인 버스들 (arsId 사용)
 def get_arrive_bus_info2(arsId):
     url = f"http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?serviceKey={key}&arsId={arsId}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']
-
     arrive_list = []
 
-    conn.close()
+    if data is None:
+        print('데이터 없음')
+
+    elif isinstance(data['itemList'], dict):
+        data_list = []
+        data_list.append(data['itemList'])
+
+        for arr in range(len(data_list)):
+            arrive_dict = {}
+            arrive_dict['rtNm'] = data_list[arr]['rtNm']  # 노선명
+            arrive_dict['stNm'] = data_list[arr]['stNm']  # 정류소명
+            arrive_dict['arsId'] = data_list[arr]['arsId']
+            arrive_dict['vehId1'] = data_list[arr]['vehId1']
+            arrive_dict['arrmsg1'] = data_list[arr]['arrmsg1']
+            # arrive_dict['stationNm1'] = data_list[arr]['stationNm1']
+            arrive_dict['vehId2'] = data_list[arr]['vehId2']
+            arrive_dict['arrmsg2'] = data_list[arr]['arrmsg2']
+            # arrive_dict['stationNm2'] = data_list[arr]['stationNm2']
+
+            arrive_list.append(arrive_dict)
+            print(arrive_dict)
+
+    elif isinstance(data['itemList'], list):
+        for arr in range(len(data['itemList'])):
+            arrive_dict = {}
+            arrive_dict['rtNm'] = data['itemList'][arr]['rtNm']  # 노선명
+            arrive_dict['stNm'] = data['itemList'][arr]['stNm']  # 정류소명
+            arrive_dict['arsId'] = data['itemList'][arr]['arsId']
+            arrive_dict['vehId1'] = data['itemList'][arr]['vehId1']
+            arrive_dict['arrmsg1'] = data['itemList'][arr]['arrmsg1']
+            # arrive_dict['stationNm1'] = data['itemList'][arr]['stationNm1']
+            arrive_dict['vehId2'] = data['itemList'][arr]['vehId2']
+            arrive_dict['arrmsg2'] = data['itemList'][arr]['arrmsg2']
+            # arrive_dict['stationNm2'] = data['itemList'][arr]['stationNm2']
+
+            arrive_list.append(arrive_dict)
+            print(arrive_dict)
+
     return arrive_list
+
+get_arrive_bus_info2(55602)

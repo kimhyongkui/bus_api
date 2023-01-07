@@ -8,10 +8,6 @@ from pymysql_crud import conn
 load_dotenv()
 key = os.getenv('key')
 
-# class add:
-#     def __init__(self, url):
-#         self.url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \
-#               f"serviceKey={key}&busRouteId={routeid}"
 
 # 특정 경유노선의 전체정류소 데이터 얻기
 def get_arrive(routeid):
@@ -32,8 +28,6 @@ def get_arrive(routeid):
         arrive_list.append(arrive_dict)
         print(arrive_dict)
     return arrive_list
-
-bus = add.get_arrive(100100413)
 
 
 
@@ -113,57 +107,5 @@ def get_arrive_info(stnId, routeid, ord):
     return arrive_list
 
 
-# 특정 정류소에 도착 예정인 버스들
-def get_arrive_bus_info(value1, value2):
-    curs = conn.cursor()
-    sql = f"SELECT * FROM arrive WHERE stnNm='{value1}' AND stnId={value2}"
-    curs.execute(sql)
-    result = curs.fetchall()
-
-    arrive_list = []
-    for result_list in result:
-        url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
-              f"serviceKey={key}&stId={result_list[4]}&busRouteId={result_list[0]}&ord={result_list[2]}"
-        content = requests.get(url).content
-        xmldict = xmltodict.parse(content)
-        data = xmldict['ServiceResult']['msgBody']
-
-        if data is None:
-            print('데이터가 없습니다')
-
-        elif isinstance(data['itemList'], dict):
-            data_list = []
-            data_list.append(data['itemList'])
-
-            for arrive in range(len(data_list)):
-                arrive_dict = {}
-
-                arrive_dict['routeId'] = result_list[0]
-                arrive_dict['routeNm'] = data_list[arrive]['rtNm']
-                arrive_dict['stnOrd'] = result_list[2]
-                arrive_dict['stnNm'] = data_list[arrive]['stNm']
-                arrive_dict['stnId'] = result_list[4]
-                arrive_dict['plainNo1'] = data_list[arrive]['plainNo1']
-                arrive_dict['arrmsg1'] = data_list[arrive]['arrmsg1']
-                arrive_dict['stnNm1'] = data_list[arrive]['stationNm1']
-                arrive_dict['plainNo2'] = data_list[arrive]['plainNo2']
-                arrive_dict['arrmsg2'] = data_list[arrive]['arrmsg2']
-                arrive_dict['stnNm2'] = data_list[arrive]['stationNm2']
-
-                arrive_list.append(arrive_dict)
-                print(f"노선ID : {arrive_dict['routeId']},"
-                      f" 노선이름 : {arrive_dict['routeNm']},"
-                      f" 노선순번 : {arrive_dict['stnOrd']},"
-                      f" 정류소이름 : {arrive_dict['stnNm']},"
-                      f" 정류소ID : {arrive_dict['stnId']},"
-                      f" 첫번째 도착예정버스 : {arrive_dict['plainNo1']},"
-                      f" 도착예정시간 : {arrive_dict['arrmsg1']},"
-                      f" 현재 정류장 : {arrive_dict['stnNm1']},"
-                      f" 두번째 도착예정버스 : {arrive_dict['plainNo2']},"
-                      f" 도착예정시간 : {arrive_dict['arrmsg2']},"
-                      f" 현재 정류장 : {arrive_dict['stnNm2']}")
-    conn.close()
-    return arrive_list
 
 
-# get_arrive_bus_info('을지로5가', 101000066)

@@ -59,6 +59,7 @@ def get_arrive_bus_info1(value1, value2):
                       f" 현재 정류장 : {arrive_dict['stnNm2']}")
     conn.close()
     return arrive_list
+
 get_arrive_bus_info1('현대트랜시스', 233002165)
 
 
@@ -84,11 +85,16 @@ def get_arrive_bus_info2(arsId):
             arrive_dict['arsId'] = data_list[arr]['arsId']
             arrive_dict['vehId1'] = data_list[arr]['vehId1']
             arrive_dict['arrmsg1'] = data_list[arr]['arrmsg1']
-            # arrive_dict['stationNm1'] = data_list[arr]['stationNm1']
+            if data_list[arr].get('stationNm1') == None:
+                arrive_dict['stationNm1'] = '운행종료'
+            else:
+                arrive_dict['stationNm1'] = data_list[arr]['stationNm1']
             arrive_dict['vehId2'] = data_list[arr]['vehId2']
             arrive_dict['arrmsg2'] = data_list[arr]['arrmsg2']
-            # arrive_dict['stationNm2'] = data_list[arr]['stationNm2']
-
+            if data_list[arr].get('stationNm2') == None:
+                arrive_dict['stationNm2'] = '운행종료'
+            else:
+                arrive_dict['stationNm2'] = data_list[arr]['stationNm2']
             arrive_list.append(arrive_dict)
             print(arrive_dict)
 
@@ -100,14 +106,19 @@ def get_arrive_bus_info2(arsId):
             arrive_dict['arsId'] = data['itemList'][arr]['arsId']
             arrive_dict['vehId1'] = data['itemList'][arr]['vehId1']
             arrive_dict['arrmsg1'] = data['itemList'][arr]['arrmsg1']
-            # arrive_dict['stationNm1'] = data['itemList'][arr]['stationNm1']
+            if data['itemList'][arr].get('stationNm1') == None:
+                arrive_dict['stationNm1'] = '운행종료'
+            else:
+                arrive_dict['stationNm1'] = data['itemList'][arr]['stationNm1']
             arrive_dict['vehId2'] = data['itemList'][arr]['vehId2']
             arrive_dict['arrmsg2'] = data['itemList'][arr]['arrmsg2']
-            # arrive_dict['stationNm2'] = data['itemList'][arr]['stationNm2']
-
+            if data['itemList'][arr].get('stationNm2') == None:
+                arrive_dict['stationNm2'] = '운행종료'
+            else:
+                arrive_dict['stationNm2'] = data['itemList'][arr]['stationNm2']
             arrive_list.append(arrive_dict)
             print(arrive_dict)
 
     return arrive_list
 
-get_arrive_bus_info2(55602)
+# get_arrive_bus_info2(55602)

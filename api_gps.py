@@ -3,16 +3,16 @@ from geopy.geocoders import Nominatim
 from api_station import get_stn_list
 
 # 현재위치
-# def current_location():
-#     here_req = requests.get("http://www.geoplugin.net/json.gp")
-#
-#     if (here_req.status_code != 200):
-#         print("현재좌표를 불러올 수 없음")
-#     else:
-#         location = json.loads(here_req.text)
-#         gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
-#         # print(gps['gpsY'], gps['gpsX'])
-#     return gps
+def current_location():
+    here_req = requests.get("http://www.geoplugin.net/json.gp")
+
+    if (here_req.status_code != 200):
+        print("현재좌표를 불러올 수 없음")
+    else:
+        location = json.loads(here_req.text)
+        current_gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
+        # print(gps['gpsY'], gps['gpsX'])
+    return current_gps
 
 
 

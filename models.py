@@ -3,17 +3,43 @@ from pydantic import BaseModel
 from db import Base
 
 
+class RouteTable(Base):
+    __tablename__ = 'Route'
+    no = Column(Integer, primary_key=True, autoincrement=True)
+    routenm = Column(String(45), nullable=False)
+    routeAbrv = Column(String(45), nullable=False)
+    routeId = Column(Integer, nullable=False)
 
-class BusTable(Base):
-    __tablename__ = 'bus'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    bus_name = Column(String(45), nullable=True)
-    bus_id = Column(Integer)
+
+class Arrive(BaseModel):
+    routeId: int
+    routeNm: str
+    stnOrd: int
+    stnNm: str
+    stnId: int
 
 
+class Route(BaseModel):
+    no: int
+    routeNm: str
+    routeAbrv: str
+    routeId: int
 
-class Bus(BaseModel):
-    id : int
-    bus_name  : str
-    bus_id : int
+
+class Station(BaseModel):
+    no: int
+    routeId: int
+    routeNm: str
+    routeAbrv: str
+    stnId: int
+    stnNm: str
+    arsId: str
+    direction: str
+    gpsX: int
+    gpsY: int
+
+class Vehicle(BaseModel):
+    routeid: int
+    vehId: int
+    plainNo: str
 

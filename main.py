@@ -11,41 +11,44 @@ def read_routes():
     routes = session.query(RouteTable).all()
     return routes
 
-@app.get("/buses/{bus_id}")
-def read_bus(bus_id: int):
-    bus = session.query(RouteTable).filter(RouteTable.bus_id == bus_id).first()
-    return bus
 
-@app.post("/bus")
-def create_bus(bus_name: str, bus_id: int):
 
-    bus = RouteTable()
-    bus.bus_name = bus_name
-    bus.bus_id = bus_id
+@app.get("/routes/{routeid}")
+def read_route(routeId: int):
+    route = session.query(RouteTable).filter(RouteTable.routeId == routeId).first()
+    return route
 
-    session.add(bus)
+@app.post("/route")
+def create_route(routeNm: str, routeAbrv: str, routeId: int):
+
+    route = RouteTable()
+    route.routeNm = routeNm
+    route.routeAbrv = routeAbrv
+    route.routeId = routeId
+
+    session.add(route)
     session.commit()
 
-    return f"{bus_name} created..."
+    return f"{routeNm} created..."
 
-@app.put("/buses")
-def update_bus(buses: List[Bus]):
+@app.put("/routes")
+def update_route(routes: List[Route]):
 
-    for i in buses:
-        bus = session.query(RouteTable).filter(RouteTable.bus_id == i.bus_id).first()
-        bus.bus_id = i.bus_id
-        bus.bus_name = i.bus_name
+    for i in routes:
+        route = session.query(RouteTable).filter(RouteTable.no == i.no).first()
+        route.routeNm = i.routeNm
+        route.routeAbrv = i.routeAbrv
+        route.routeId = i.routeId
         session.commit()
 
-    return f"{buses[0]} updated..."
+    return f"{i.routeNm} updated..."
 
 
-@app.delete("/bus")
-def delete_bus(bus_id: int):
+@app.delete("/route")
+def delete_rotue(routeId: int):
 
-    bus = session.query(RouteTable).filter(RouteTable.bus_id == bus_id).delete()
+    route = session.query(RouteTable).filter(RouteTable.routeId == routeId).delete()
     session.commit()
 
-    return f"{bus} deleted..."
+    return f"{routeId} deleted..."
 
-read_buses()

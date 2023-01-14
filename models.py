@@ -6,7 +6,7 @@ from db import Base
 class RouteTable(Base):
     __tablename__ = 'Route'
     no = Column(Integer, primary_key=True, autoincrement=True)
-    routenm = Column(String(45), nullable=False)
+    routeNm = Column(String(45), nullable=False)
     routeAbrv = Column(String(45), nullable=False)
     routeId = Column(Integer, nullable=False)
 

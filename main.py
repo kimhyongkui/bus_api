@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from typing import List
 from db import session
-from models import RouteTable, Route
+from models import RouteTable, Route, StationTable, Station
 
 app = FastAPI()
 
@@ -11,6 +11,10 @@ def read_routes():
     routes = session.query(RouteTable).all()
     return routes
 
+@app.get("/stations")
+def read_stations():
+    stations = session.query(StationTable).all()
+    return stations
 
 
 @app.get("/routes/{routeid}")

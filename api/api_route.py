@@ -24,4 +24,3 @@ def get_route_all():
         route_dict["routeId"] = data[route]["busRouteId"]
         route_list.append(route_dict)
     return route_list
-

@@ -1,12 +1,14 @@
 import requests
 import xmltodict
 from dotenv import load_dotenv
+import pymysql
 import os
-from pymysql_crud import conn
 
 load_dotenv()
 key = os.getenv('key')
 
+conn = pymysql.connect(host='127.0.0.1', user='root',
+                       password=os.getenv('user_pwd'), db='prac', charset='utf8')
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
 def get_arrive_bus_info(value1, value2):

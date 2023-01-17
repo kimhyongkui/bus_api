@@ -1,6 +1,6 @@
 import requests, json
 from geopy.geocoders import Nominatim
-from api_station import get_stn_list
+from api.api_station import get_stn_list
 
 # 현재위치
 def current_location():
@@ -39,6 +39,5 @@ def get_station_list(address, rad):
         data_list.append(data_dict)
 
     return data_list
-
 
 

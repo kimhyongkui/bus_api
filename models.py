@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 from pydantic import BaseModel
 from db import Base
 
+
 class ArriveTable(Base):
     __tablename__ = 'arrive'
     routeId = Column(Integer, primary_key=True, nullable=False)
@@ -10,12 +11,14 @@ class ArriveTable(Base):
     stnNm = Column(String(45), nullable=False)
     stnId = Column(Integer, nullable=False)
 
+
 class RouteTable(Base):
     __tablename__ = 'route'
     no = Column(Integer, primary_key=True, autoincrement=True)
     routeNm = Column(String(45), nullable=False)
     routeAbrv = Column(String(45), nullable=False)
     routeId = Column(Integer, nullable=False)
+
 
 class StationTable(Base):
     __tablename__ = 'station'
@@ -30,13 +33,12 @@ class StationTable(Base):
     gpsX = Column(Integer, nullable=False)
     gpsY = Column(Integer, nullable=False)
 
+
 class VehicleTable(Base):
     __tablename__ = 'vehicle'
     routeId = Column(Integer, nullable=False)
     vehId = Column(Integer, primary_key=True, nullable=False)
     plainNo = Column(String(45), nullable=False)
-
-
 
 
 class Arrive(BaseModel):
@@ -66,8 +68,8 @@ class Station(BaseModel):
     gpsX: int
     gpsY: int
 
+
 class Vehicle(BaseModel):
     routeid: int
     vehId: int
     plainNo: str
-

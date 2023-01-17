@@ -35,7 +35,10 @@ def get_station_list(address, rad):
         data_dict['stnId'] = gps[data]['stnId']
         data_dict['stnNm'] = gps[data]['stnNm']
         data_dict['arsId'] = gps[data]['arsId']
+        data_dict['dist'] = gps[data]['dist']
         data_list.append(data_dict)
 
-get_station_list('을지로5가', 500)
+    return data_list
+
+
 

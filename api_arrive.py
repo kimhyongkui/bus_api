@@ -3,7 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 import os
 from api_route import get_route_all
-from pymysql_crud import conn
+
 
 load_dotenv()
 key = os.getenv('key')

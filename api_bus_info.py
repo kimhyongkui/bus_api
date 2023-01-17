@@ -9,7 +9,7 @@ key = os.getenv('key')
 
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
-def get_arrive_bus_info1(value1, value2):
+def get_arrive_bus_info(value1, value2):
     curs = conn.cursor()
     sql = f"SELECT * FROM arrive WHERE stnNm='{value1}' AND stnId={value2}"
     curs.execute(sql)
@@ -60,4 +60,3 @@ def get_arrive_bus_info1(value1, value2):
     conn.close()
     return arrive_list
 
-get_arrive_bus_info1('현대트랜시스', 233002165)

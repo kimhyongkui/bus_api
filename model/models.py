@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from pydantic import BaseModel
-from db import Base
+from db.db_connection import Base
 
 
 class ArriveTable(Base):

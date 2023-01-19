@@ -3,14 +3,12 @@ from api.api_station import get_station_all, get_station
 from api.api_vehicle import get_bus_info, get_bus_info_all
 from api.api_arrive import get_arrive, get_arrive_all
 from dotenv import load_dotenv
-import pymysql
-import os
+from db_connection import conn
+
 
 
 load_dotenv()
 
-conn = pymysql.connect(host='127.0.0.1', user='root',
-                       password=os.getenv('user_pwd'), db='prac', charset='utf8')
 
 
 curs = conn.cursor()

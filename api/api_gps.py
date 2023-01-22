@@ -1,6 +1,8 @@
 import requests, json
 from geopy.geocoders import Nominatim
 
+
+
 # 현재위치
 def current_location():
     here_req = requests.get("http://www.geoplugin.net/json.gp")

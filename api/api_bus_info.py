@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from db.db_connection import conn
 import os
 
+
 load_dotenv()
 key = os.getenv('key')
 

@@ -1,4 +1,4 @@
-from api_gps import current_location, geocoding
+from api.api_gps import current_location, geocoding
 from api.api_station import get_stn_list
 
 
@@ -33,4 +33,3 @@ def get_cur_stn_list(rad):
 
     return data_list
 
-get_station_list('용산역', 150)

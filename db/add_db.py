@@ -5,11 +5,7 @@ from api.api_arrive import get_arrive, get_arrive_all
 from dotenv import load_dotenv
 from db_connection import conn
 
-
-
 load_dotenv()
-
-
 
 curs = conn.cursor()
 
@@ -31,8 +27,7 @@ def add_route_data():
     conn.close()
 
 
-
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 
 # 특정 노선의 정류소 DB저장
 def add_station(routeid):
@@ -74,7 +69,7 @@ def add_station_all():
     conn.close()
 
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # 특정 노선의 차량 DB저장
 def add_veh_data(routeid):
     vehicle_list = get_bus_info(routeid)
@@ -90,7 +85,6 @@ def add_veh_data(routeid):
     conn.close()
 
 
-
 # 모든 노선의 차량 DB저장
 def add_veh_all_data():
     veh_all_list = get_bus_info_all()
@@ -104,7 +98,8 @@ def add_veh_all_data():
     print("차량 정보 저장 완료")
     conn.close()
 
-#-----------------------------------------------------------------------
+
+# -----------------------------------------------------------------------
 # 특정 경유노선의 전체정류소 DB 저장
 def add_arrive(routeid):
     arr_list = get_arrive(routeid)

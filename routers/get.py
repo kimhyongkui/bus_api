@@ -10,7 +10,7 @@ def read_gps(address: str, rad: int):
     result = get_station_list(address, rad)
     return result
 
-
+# 현재 위치 기반 인근 정류소
 @router.get("/gps/{cur-stn}")
 def read_gps(rad: int):
     result = get_cur_stn_list(rad)

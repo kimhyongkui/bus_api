@@ -8,5 +8,5 @@ def post_route_data(name, abrv, id):
     sql = f"INSERT INTO route(routeNm, routeAbrv, routeId) VALUES ('{name}', '{abrv}', {id})"
     curs.execute(sql)
     conn.commit()
-    conn.close()
+
     return f"{name} created..."

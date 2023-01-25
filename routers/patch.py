@@ -3,13 +3,13 @@ from db.db_connection import conn
 router = APIRouter()
 
 @router.put("/route")
-def patch_data():
-    curs = conn.cursor(table, column, value1, value2)
-    sql = f"UPDATE {table} SET {column}='{value1}' WHERE {column}='{value2}'"
+def patch_data(table, column, patch_val, value):
+    curs = conn.cursor()
+    sql = f"UPDATE {table} SET {column}='{patch_val}' WHERE {column}='{value}'"
     curs.execute(sql)
     conn.commit()
-    conn.close()
 
-    return f"{table} {column} {value2}->{value1} updated..."
+
+    return f"{table} {column} {value}->{patch_val} updated..."
 
 

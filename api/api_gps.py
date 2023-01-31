@@ -2,7 +2,6 @@ import requests, json
 from geopy.geocoders import Nominatim
 
 
-
 # 현재위치
 def current_location():
     here_req = requests.get("http://www.geoplugin.net/json.gp")
@@ -24,4 +23,3 @@ def geocoding(address):
     gps = {"gpsY": str(geo.latitude), "gpsX": str(geo.longitude)}
 
     return gps
-

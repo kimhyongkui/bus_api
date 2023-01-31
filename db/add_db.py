@@ -1,7 +1,7 @@
 from api.api_route import get_route_all
 from api.api_station import get_station_all, get_station
 from api.api_vehicle import get_bus_info, get_bus_info_all
-from api.api_arrival_bus_info import get_arrive, get_arrive_all
+from api.api_route_info import get_route_info, get_route_info_all
 from dotenv import load_dotenv
 from db_connection import conn
 
@@ -102,7 +102,7 @@ def add_veh_all_data():
 # -----------------------------------------------------------------------
 # 특정 경유노선의 전체정류소 DB 저장
 def add_arrive(routeid):
-    arr_list = get_arrive(routeid)
+    arr_list = get_route_info(routeid)
     for arr_data in arr_list:
         sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
               f" VALUES ({arr_data['routeId']}, " \
@@ -119,7 +119,7 @@ def add_arrive(routeid):
 
 # 모든 노선의 정류소 DB저장
 def add_arrive_all():
-    arr_all_list = get_arrive_all()
+    arr_all_list = get_route_info_all()
     for arr_data in arr_all_list:
         sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
               f" VALUES ({arr_data['routeId']}, " \

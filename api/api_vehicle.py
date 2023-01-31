@@ -25,8 +25,8 @@ def get_bus_info(routeid):
         for bus in range(len(data_list)):
             bus_dict = {}
             bus_dict['routeid'] = routeid
-            bus_dict['vehId'] = data_list[bus]['vehId']  # 버스 Id
-            bus_dict['plainNo'] = data_list[bus]['plainNo']  # 차량번호
+            bus_dict['vehId'] = data_list[bus]['vehId']
+            bus_dict['plainNo'] = data_list[bus]['plainNo']
             bus_dict['gpsX'] = data_list[bus]['gpsX']
             bus_dict['gpsY'] = data_list[bus]['gpsY']
 

@@ -101,10 +101,10 @@ def add_veh_all_data():
 
 # -----------------------------------------------------------------------
 # 특정 경유노선의 전체정류소 DB 저장
-def add_arrive(routeid):
+def add_route_info(routeid):
     arr_list = get_route_info(routeid)
     for arr_data in arr_list:
-        sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
+        sql = f"INSERT IGNORE INTO route_info (routeId, routeNm, stnOrd, stnNm, stnId)" \
               f" VALUES ({arr_data['routeId']}, " \
               f"'{arr_data['routeNm']}', " \
               f"{arr_data['stnOrd']}, " \
@@ -118,10 +118,10 @@ def add_arrive(routeid):
 
 
 # 모든 노선의 정류소 DB저장
-def add_arrive_all():
+def add_route_info_all():
     arr_all_list = get_route_info_all()
     for arr_data in arr_all_list:
-        sql = f"INSERT IGNORE INTO arrive (routeId, routeNm, stnOrd, stnNm, stnId)" \
+        sql = f"INSERT IGNORE INTO route_info (routeId, routeNm, stnOrd, stnNm, stnId)" \
               f" VALUES ({arr_data['routeId']}, " \
               f"'{arr_data['routeNm']}', " \
               f"{arr_data['stnOrd']}, " \

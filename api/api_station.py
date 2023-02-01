@@ -3,13 +3,15 @@ import xmltodict
 from dotenv import load_dotenv
 import os
 from api.api_route import get_route_all
+from db.db_get_data import get_routeNm
 
 load_dotenv()
 key = os.getenv('key')
 
 
 # 특정 노선의 경유 정류소 데이터 얻기
-def get_station(routeid):
+def get_station(routeNm):
+    routeid = get_routeNm(routeNm)
     url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?" \
           f"serviceKey={key}&busRouteId={routeid}"
     content = requests.get(url).content

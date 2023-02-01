@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 from api.api_stn_info import get_station_list, get_cur_stn_list
 from api.api_bus_info import get_arrive_bus_info
-from api.api_station import get_station
 from api.api_vehicle import get_bus_info
+from db.db_get_data import get_stn_name, get_route_list
+
 
 router = APIRouter()
 
@@ -21,29 +22,29 @@ def get_gps(rad: int):
     return result
 
 
+# 정류소 데이터 조회
+@router.get("/stn-info")
+def get_stn(stnNm):
+    result = get_stn_name(stnNm)
+    return result
+
+
 # 정류소에 도착예정인 버스조회
-@router.get("/bus-info")
-def get_arrive_bus(stnNm: str, stnId: int):
+@router.get("/arrive-bus-info")
+def get_arrive_bus(stnNm, stnId):
     result = get_arrive_bus_info(stnNm, stnId)
     return result
 
 
 # 버스 노선 검색
 @router.get("/route-info")
-def get_route_info(routeNm):
-    # 버스 노선을 입력하면 해당 노선의 리스트를 띄워줌
-    result = get_station(routeNm)
-    stn_list = []
-    for i in result:
-        stnNm = i['stnNm']
-        stn_list.append(stnNm)
-    return stn_list
-
+def get_route(routeNm):
+    result = get_route_list(routeNm)
+    return result
 
 
 # 특정 노선 실시간 버스 위치
 @router.get("/bus-location")
-def get_bus_location(routeId):
-    # 버스 노선을 입력하면 해당 노선의 리스트를 띄워줌
-    result = get_bus_info(routeId)
+def get_bus_location(routeNm):
+    result = get_bus_info(routeNm)
     return result

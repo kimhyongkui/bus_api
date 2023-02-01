@@ -30,9 +30,9 @@ def get_arrive_bus(stnNm: str, stnId: int):
 
 # 버스 노선 검색
 @router.get("/route-info")
-def get_route_info(routeId):
+def get_route_info(routeNm):
     # 버스 노선을 입력하면 해당 노선의 리스트를 띄워줌
-    result = get_station(routeId)
+    result = get_station(routeNm)
     stn_list = []
     for i in result:
         stnNm = i['stnNm']

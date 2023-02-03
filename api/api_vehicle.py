@@ -2,6 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 from api.api_route import get_route_all
+from db.db_get_data import get_route_name
 import os
 
 load_dotenv()
@@ -9,7 +10,8 @@ key = os.getenv('key')
 
 
 # 특정 노선의 버스 조회
-def get_bus_info(routeid):
+def get_bus_info(routeNm):
+    routeid = get_route_name(routeNm)
     url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={routeid}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
@@ -35,7 +37,6 @@ def get_bus_info(routeid):
     elif isinstance(data['itemList'], list):
         for bus in range(len(data['itemList'])):
             bus_dict = {}
-
             bus_dict['routeId'] = routeid
             bus_dict['vehId'] = data['itemList'][bus]['vehId']
             bus_dict['plainNo'] = data['itemList'][bus]['plainNo']

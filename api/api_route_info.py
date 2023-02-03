@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import os
 from api.api_route import get_route_all
 
-
 load_dotenv()
 key = os.getenv('key')
+
 
 # arr = arrival
 
@@ -29,7 +29,6 @@ def get_route_info(routeid):
     return arrive_list
 
 
-
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_route_info_all():
     route_list = get_route_all()
@@ -49,11 +48,3 @@ def get_route_info_all():
             arrive_dict['stnId'] = data[arrive]['stId']
             arrive_list.append(arrive_dict)
     return arrive_list
-
-
-
-
-
-
-
-

@@ -24,23 +24,21 @@ def get_arrive_bus_info(stnNm, stnId):
             print('데이터가 없습니다')
 
         elif isinstance(data['itemList'], dict):
-            data_list = []
-            data_list.append(data['itemList'])
+            data_list = [data['itemList']]
 
             for arrive in range(len(data_list)):
-                arrive_dict = {}
-                arrive_dict['routeId'] = result_list[0]
-                arrive_dict['routeNm'] = data_list[arrive]['rtNm']
-                arrive_dict['stnOrd'] = result_list[2]
-                arrive_dict['stnNm'] = data_list[arrive]['stNm']
-                arrive_dict['stnId'] = result_list[4]
-                arrive_dict['plainNo1'] = data_list[arrive]['plainNo1']
-                arrive_dict['arrmsg1'] = data_list[arrive]['arrmsg1']
-                arrive_dict['stnNm1'] = data_list[arrive]['stationNm1']
-                arrive_dict['plainNo2'] = data_list[arrive]['plainNo2']
-                arrive_dict['arrmsg2'] = data_list[arrive]['arrmsg2']
-                arrive_dict['stnNm2'] = data_list[arrive]['stationNm2']
+                arrive_dict = {'routeId': result_list[0],
+                               'routeNm': data_list[arrive]['rtNm'],
+                               'stnOrd': result_list[2],
+                               'stnNm': data_list[arrive]['stNm'],
+                               'stnId': result_list[4],
+                               'plainNo1': data_list[arrive]['plainNo1'],
+                               'arrmsg1': data_list[arrive]['arrmsg1'],
+                               'stnNm1': data_list[arrive]['stationNm1'],
+                               'plainNo2': data_list[arrive]['plainNo2'],
+                               'arrmsg2': data_list[arrive]['arrmsg2'],
+                               'stnNm2': data_list[arrive]['stationNm2']
+                               }
                 arrive_list.append(arrive_dict)
 
     return arrive_list
-

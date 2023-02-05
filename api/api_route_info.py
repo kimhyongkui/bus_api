@@ -19,12 +19,12 @@ def get_route_info(routeid):
     data = dict['ServiceResult']['msgBody']['itemList']
     arrive_list = []
     for arrive in range(len(data)):
-        arrive_dict = {}
-        arrive_dict['routeId'] = routeid
-        arrive_dict['routeNm'] = data[arrive]['rtNm']
-        arrive_dict['stnOrd'] = data[arrive]['staOrd']
-        arrive_dict['stnNm'] = data[arrive]['stNm']
-        arrive_dict['stnId'] = data[arrive]['stId']
+        arrive_dict = {'routeId': routeid,
+                       'routeNm': data[arrive]['rtNm'],
+                       'stnOrd': data[arrive]['staOrd'],
+                       'stnNm': data[arrive]['stNm'],
+                       'stnId': data[arrive]['stId']
+                       }
         arrive_list.append(arrive_dict)
     return arrive_list
 
@@ -40,11 +40,11 @@ def get_route_info_all():
         dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
         for arrive in range(len(data)):
-            arrive_dict = {}
-            arrive_dict['routeId'] = route['routeId']
-            arrive_dict['routeNm'] = data[arrive]['rtNm']
-            arrive_dict['stnOrd'] = data[arrive]['staOrd']
-            arrive_dict['stnNm'] = data[arrive]['stNm']
-            arrive_dict['stnId'] = data[arrive]['stId']
+            arrive_dict = {'routeId': route['routeId'],
+                           'routeNm': data[arrive]['rtNm'],
+                           'stnOrd': data[arrive]['staOrd'],
+                           'stnNm': data[arrive]['stNm'],
+                           'stnId': data[arrive]['stId']
+                           }
             arrive_list.append(arrive_dict)
     return arrive_list

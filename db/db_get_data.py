@@ -30,7 +30,7 @@ def get_route_name(routeNm):
 
 def get_stn_name(stnNm):
     curs = conn.cursor()
-    sql = f"SELECT stnNm, arsId FROM station WHERE stnNm = '{stnNm}' GROUP BY arsId"
+    sql = f"SELECT stnNm, stnId, arsId, direction FROM station WHERE stnNm = '{stnNm}' GROUP BY stnId"
     curs.execute(sql)
     result = curs.fetchall()
 

@@ -25,23 +25,23 @@ def get_bus_info(routeNm):
         data_list = []
         data_list.append(data['itemList'])
         for bus in range(len(data_list)):
-            bus_dict = {}
-            bus_dict['routeid'] = routeid
-            bus_dict['vehId'] = data_list[bus]['vehId']
-            bus_dict['plainNo'] = data_list[bus]['plainNo']
-            bus_dict['gpsX'] = data_list[bus]['gpsX']
-            bus_dict['gpsY'] = data_list[bus]['gpsY']
+            bus_dict = {'routeid': routeid,
+                        'vehId': data_list[bus]['vehId'],
+                        'plainNo': data_list[bus]['plainNo'],
+                        'gpsX': data_list[bus]['gpsX'],
+                        'gpsY': data_list[bus]['gpsY']
+                        }
 
             bus_list.append(bus_dict)
 
     elif isinstance(data['itemList'], list):
         for bus in range(len(data['itemList'])):
-            bus_dict = {}
-            bus_dict['routeId'] = routeid
-            bus_dict['vehId'] = data['itemList'][bus]['vehId']
-            bus_dict['plainNo'] = data['itemList'][bus]['plainNo']
-            bus_dict['gpsX'] = data['itemList'][bus]['gpsX']
-            bus_dict['gpsY'] = data['itemList'][bus]['gpsY']
+            bus_dict = {'routeId': routeid,
+                        'vehId': data['itemList'][bus]['vehId'],
+                        'plainNo': data['itemList'][bus]['plainNo'],
+                        'gpsX': data['itemList'][bus]['gpsX'],
+                        'gpsY': data['itemList'][bus]['gpsY']
+                        }
             bus_list.append(bus_dict)
 
     return bus_list
@@ -65,24 +65,24 @@ def get_bus_info_all():
             data_list = []
             data_list.append(data['itemList'])
             for bus in range(len(data_list)):
-                bus_dict = {}
+                bus_dict = {'routeId': routeid,
+                            'vehId': data_list[bus]['vehId'],
+                            'plainNo': data_list[bus]['plainNo'],
+                            'gpsX': data_list[bus]['gpsX'],
+                            'gpsY': data_list[bus]['gpsY']
+                            }
 
-                bus_dict['routeId'] = routeid
-                bus_dict['vehId'] = data_list[bus]['vehId']
-                bus_dict['plainNo'] = data_list[bus]['plainNo']
-                bus_dict['gpsX'] = data_list[bus]['gpsX']
-                bus_dict['gpsY'] = data_list[bus]['gpsY']
                 bus_list.append(bus_dict)
 
         elif isinstance(data['itemList'], list):
             for bus in range(len(data['itemList'])):
-                bus_dict = {}
+                bus_dict = {'routeId': routeid,
+                            'vehId': data['itemList'][bus]['vehId'],
+                            'plainNo': data['itemList'][bus]['plainNo'],
+                            'gpsX': data['itemList'][bus]['gpsX'],
+                            'gpsY': data['itemList'][bus]['gpsY']
+                            }
 
-                bus_dict['routeId'] = routeid
-                bus_dict['vehId'] = data['itemList'][bus]['vehId']
-                bus_dict['plainNo'] = data['itemList'][bus]['plainNo']
-                bus_dict['gpsX'] = data['itemList'][bus]['gpsX']
-                bus_dict['gpsY'] = data['itemList'][bus]['gpsY']
                 bus_list.append(bus_dict)
 
     return bus_list

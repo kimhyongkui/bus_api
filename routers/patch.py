@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from db.db_connection import conn
+
 router = APIRouter()
+
 
 @router.put("/route")
 def patch_data(table, column, patch_val, value):
@@ -9,7 +11,4 @@ def patch_data(table, column, patch_val, value):
     curs.execute(sql)
     conn.commit()
 
-
     return f"{table} {column} {value}->{patch_val} updated..."
-
-

@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from db.db_connection import conn
+
 router = APIRouter()
+
 
 @router.post("/route")
 def post_route_data(name, abrv, id):

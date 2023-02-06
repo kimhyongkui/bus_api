@@ -7,5 +7,3 @@ app.include_router(get.router)
 app.include_router(post.router)
 app.include_router(patch.router)
 app.include_router(delete.router)
-
-

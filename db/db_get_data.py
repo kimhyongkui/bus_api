@@ -1,4 +1,4 @@
-from db.db_connection import conn
+from db.connection import conn
 
 
 def get_stn_data(stnNm, stnId):

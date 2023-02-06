@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from db.db_connection import conn
+from db.connection import conn
 
 router = APIRouter()
 
-@router.delete("/route")
+@router.delete('/route')
 def delete_data(table, column, value):
     curs = conn.cursor()
     sql = f"DELETE FROM {table} WHERE {column} = '{value}'"

@@ -4,11 +4,10 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-key = os.getenv('key')
 
 
 def get_route_all():
-    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={key}"
+    url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={os.getenv('key')}"
     content = requests.get(url).content
     dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']

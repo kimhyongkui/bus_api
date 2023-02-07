@@ -5,7 +5,6 @@ from db.db_get_data import get_stn_data
 import os
 
 load_dotenv()
-key = os.getenv('key')
 
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
@@ -15,7 +14,7 @@ def get_arrive_bus_info(stnNm, stnId):
 
     for result_list in result:
         url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
-              f"serviceKey={key}&stId={result_list[4]}&busRouteId={result_list[0]}&ord={result_list[2]}"
+              f"serviceKey={os.getenv('key')}&stId={result_list[4]}&busRouteId={result_list[0]}&ord={result_list[2]}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']

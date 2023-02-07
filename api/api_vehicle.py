@@ -6,13 +6,12 @@ from db.db_get_data import get_route_name
 import os
 
 load_dotenv()
-key = os.getenv('key')
 
 
 # 특정 노선의 버스 조회
 def get_bus_info(routeNm):
     routeid = get_route_name(routeNm)
-    url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={routeid}"
+    url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={os.getenv('key')}&busRouteId={routeid}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']
@@ -22,8 +21,7 @@ def get_bus_info(routeNm):
         print('데이터가 없습니다')
 
     elif isinstance(data['itemList'], dict):
-        data_list = []
-        data_list.append(data['itemList'])
+        data_list = [data['itemList']]
         for bus in range(len(data_list)):
             bus_dict = {'routeid': routeid,
                         'vehId': data_list[bus]['vehId'],
@@ -53,7 +51,7 @@ def get_bus_info_all():
     bus_list = []
     for bus in route_list:
         routeid = bus['routeId']
-        url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={key}&busRouteId={routeid}"
+        url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?serviceKey={os.getenv('key')}&busRouteId={routeid}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']
@@ -62,8 +60,7 @@ def get_bus_info_all():
             print('데이터가 없습니다')
 
         elif isinstance(data['itemList'], dict):
-            data_list = []
-            data_list.append(data['itemList'])
+            data_list = [data['itemList']]
             for bus in range(len(data_list)):
                 bus_dict = {'routeId': routeid,
                             'vehId': data_list[bus]['vehId'],

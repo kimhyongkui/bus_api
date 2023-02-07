@@ -5,13 +5,12 @@ import os
 from api.api_route import get_route_all
 
 load_dotenv()
-key = os.getenv('key')
 
 
 # 특정 노선의 경유 정류소 데이터 얻기
 def get_station(routeid):
     url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?" \
-          f"serviceKey={key}&busRouteId={routeid}"
+          f"serviceKey={os.getenv('key')}&busRouteId={routeid}"
     content = requests.get(url).content
     dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']
@@ -39,7 +38,7 @@ def get_station_all():
     for route in route_list:
         routeid = route['routeId']
         url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute?" \
-              f"serviceKey={key}&busRouteId={routeid}"
+              f"serviceKey={os.getenv('key')}&busRouteId={routeid}"
         content = requests.get(url).content
         dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
@@ -62,7 +61,7 @@ def get_station_all():
 # 특정 좌표 인근 정류소 데이터 얻기
 def get_stn_list(gpsx, gpsy, radius):
     url = f"http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?" \
-          f"serviceKey={key}&tmX={gpsx}&tmY={gpsy}&radius={radius}"
+          f"serviceKey={os.getenv('key')}&tmX={gpsx}&tmY={gpsy}&radius={radius}"
     content = requests.get(url).content
     xmldict = xmltodict.parse(content)
     data = xmldict['ServiceResult']['msgBody']

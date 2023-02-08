@@ -27,7 +27,6 @@ def get_station(routeid):
                     'gpsY': data[station]['gpsY']
                     }
         stn_list.append(stn_dict)
-        print(stn_dict)
     return stn_list
 
 
@@ -54,7 +53,6 @@ def get_station_all():
                         'gpsY': data[station]['gpsY']
                         }
             stn_list.append(stn_dict)
-            print(stn_dict)
     return stn_list
 
 

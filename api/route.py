@@ -11,7 +11,6 @@ def get_route_all():
     content = requests.get(url).content
     dict = xmltodict.parse(content)
     data = dict['ServiceResult']['msgBody']['itemList']
-
     route_list = []
     for route in range(len(data)):
         route_dict = {"routeNm": data[route]["busRouteNm"],
@@ -20,3 +19,4 @@ def get_route_all():
                       }
         route_list.append(route_dict)
     return route_list
+

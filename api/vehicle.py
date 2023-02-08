@@ -2,7 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 from api.api_route import get_route_all
-from db.db_get_data import get_route_name
+from db.get_db_data import get_route_name
 import os
 
 load_dotenv()
@@ -23,13 +23,12 @@ def get_bus_info(routeNm):
     elif isinstance(data['itemList'], dict):
         data_list = [data['itemList']]
         for bus in range(len(data_list)):
-            bus_dict = {'routeid': routeid,
+            bus_dict = {'routeId': routeid,
                         'vehId': data_list[bus]['vehId'],
                         'plainNo': data_list[bus]['plainNo'],
                         'gpsX': data_list[bus]['gpsX'],
                         'gpsY': data_list[bus]['gpsY']
                         }
-
             bus_list.append(bus_dict)
 
     elif isinstance(data['itemList'], list):
@@ -41,7 +40,6 @@ def get_bus_info(routeNm):
                         'gpsY': data['itemList'][bus]['gpsY']
                         }
             bus_list.append(bus_dict)
-
     return bus_list
 
 
@@ -68,7 +66,6 @@ def get_bus_info_all():
                             'gpsX': data_list[bus]['gpsX'],
                             'gpsY': data_list[bus]['gpsY']
                             }
-
                 bus_list.append(bus_dict)
 
         elif isinstance(data['itemList'], list):
@@ -79,7 +76,5 @@ def get_bus_info_all():
                             'gpsX': data['itemList'][bus]['gpsX'],
                             'gpsY': data['itemList'][bus]['gpsY']
                             }
-
                 bus_list.append(bus_dict)
-
     return bus_list

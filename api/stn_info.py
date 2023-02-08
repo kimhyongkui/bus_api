@@ -1,5 +1,5 @@
-from api.api_gps import current_location, geocoding
-from api.api_station import get_stn_list
+from api.gps import current_location, geocoding
+from api.station import get_stn_list
 
 
 # 특정 지역 좌표 입력해서 인근 정류소 구해보기

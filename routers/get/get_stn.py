@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from api.stn_info import get_station_list, get_cur_stn_list
-from db.get_db_data import get_stn_name
+from db.get.db_data import get_stn_name
 
 router = APIRouter(prefix="/bus-api")
 

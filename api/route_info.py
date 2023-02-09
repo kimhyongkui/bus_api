@@ -7,7 +7,6 @@ from api.route import get_route_all
 load_dotenv()
 
 
-
 # 특정 경유노선의 전체정류소 데이터 얻기
 def get_route_info(routeid):
     url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll?" \

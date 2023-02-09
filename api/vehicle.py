@@ -2,7 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 from api.route import get_route_all
-from db.get_db_data import get_route_name
+from db.get.db_data import get_route_name
 import os
 
 load_dotenv()

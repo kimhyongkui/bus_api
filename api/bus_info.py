@@ -1,7 +1,7 @@
 import requests
 import xmltodict
 from dotenv import load_dotenv
-from db.get_db_data import get_stn_data
+from db.get.db_data import get_stn_data
 import os
 
 load_dotenv()

@@ -15,8 +15,6 @@ def current_location():
     print(here_req.status_code)
     return current_gps
 
-current_location()
-
 
 # 지오코딩 : 지역이름 적으면 좌표나오는거
 def geocoding(address):
@@ -25,4 +23,3 @@ def geocoding(address):
     gps = {"gpsY": str(geo.latitude), "gpsX": str(geo.longitude)}
 
     return gps
-

@@ -1,6 +1,6 @@
 from api.station import get_station_all, get_station
 from dotenv import load_dotenv
-from connection import conn
+from db.connection import conn
 
 load_dotenv()
 

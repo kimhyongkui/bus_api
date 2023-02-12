@@ -19,7 +19,6 @@ def get_bus_info(routeNm):
 
     if data is None:
         print('데이터가 없습니다')
-
     elif isinstance(data['itemList'], dict):
         data_list = [data['itemList']]
         for bus in range(len(data_list)):
@@ -30,7 +29,7 @@ def get_bus_info(routeNm):
                         'gpsY': data_list[bus]['gpsY']
                         }
             bus_list.append(bus_dict)
-
+        return bus_list
     elif isinstance(data['itemList'], list):
         for bus in range(len(data['itemList'])):
             bus_dict = {'routeId': routeid,
@@ -40,7 +39,8 @@ def get_bus_info(routeNm):
                         'gpsY': data['itemList'][bus]['gpsY']
                         }
             bus_list.append(bus_dict)
-    return bus_list
+        return bus_list
+
 
 
 # 전체 노선의 버스 조회

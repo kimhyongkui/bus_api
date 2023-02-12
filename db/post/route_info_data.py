@@ -1,6 +1,6 @@
 from api.route_info import get_route_info, get_route_info_all
 from dotenv import load_dotenv
-from connection import conn
+from db.connection import conn
 
 load_dotenv()
 

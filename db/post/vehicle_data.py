@@ -1,6 +1,6 @@
 from api.vehicle import get_bus_info, get_bus_info_all
 from dotenv import load_dotenv
-from connection import conn
+from db.connection import conn
 
 load_dotenv()
 

@@ -6,7 +6,6 @@ def get_stn_data(stnNm, stnId):
     sql = f"SELECT * FROM route_info WHERE stnNm='{stnNm}' AND stnId={stnId}"
     curs.execute(sql)
     result = curs.fetchall()
-
     return result
 
 
@@ -15,7 +14,6 @@ def get_route_list(routeNm):
     sql = f"SELECT routeNm, stnOrd, stnNm FROM route_info WHERE routeNm = '{routeNm}'"
     curs.execute(sql)
     result = curs.fetchall()
-
     return result
 
 
@@ -24,7 +22,6 @@ def get_route_name(routeNm):
     sql = f"SELECT * FROM route WHERE routeNm = '{routeNm}'"
     curs.execute(sql)
     result = curs.fetchone()
-
     return result[3]
 
 
@@ -33,5 +30,4 @@ def get_stn_name(stnNm):
     sql = f"SELECT stnNm, stnId, arsId, direction FROM station WHERE stnNm = '{stnNm}' GROUP BY stnId"
     curs.execute(sql)
     result = curs.fetchall()
-
     return result

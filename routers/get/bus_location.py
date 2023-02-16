@@ -11,5 +11,4 @@ def realtime_bus_loc(routeNm):
         result = get_bus_info(routeNm)
         return result
     except:
-        return '노선명을 다시 확인하세요'
-print(realtime_bus_loc()
+        return '노선명을 다시 확인해주세요'

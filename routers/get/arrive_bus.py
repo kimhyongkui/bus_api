@@ -9,6 +9,11 @@ router = APIRouter(prefix="/bus-api")
 def arrive_bus_info(stnNm, stnId):
     try:
         result = get_arrive_bus_info(stnNm, stnId)
-        return result
+        if result == []:
+            return '정류소 이름과 ID를 확인하세요'
+        else:
+            return result
     except:
-        return '정류소 이름과 ID를 확인하세요'
+        return '정류소 이름과 ID를 확인'
+
+print(arrive_bus_info('dsdsd', 1313))

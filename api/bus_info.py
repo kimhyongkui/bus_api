@@ -20,7 +20,7 @@ def get_arrive_bus_info(stnNm, stnId):
         data = xmldict['ServiceResult']['msgBody']
 
         if data is None:
-            print('데이터가 없습니다')
+            return '데이터가 없습니다'
 
         elif isinstance(data['itemList'], dict):
             data_list = [data['itemList']]

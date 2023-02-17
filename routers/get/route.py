@@ -12,5 +12,3 @@ def route_list(routeNm):
         return result
     else:
         return '노선명을 다시 확인하세요'
-
-print(route_list('400'))

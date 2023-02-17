@@ -8,7 +8,9 @@ router = APIRouter(prefix="/bus-api")
 @router.get('/route-info/{routeNm}', tags=["버스 노선 검색"])
 def route_list(routeNm):
     result = get_route_list(routeNm)
-    if result == ():
-        return '노선명을 다시 확인하세요'
-    else:
+    if result:
         return result
+    else:
+        return '노선명을 다시 확인하세요'
+
+print(route_list('400'))

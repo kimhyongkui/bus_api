@@ -43,7 +43,7 @@ def get_bus_info(routeNm):
                 bus_list.append(bus_dict)
             return bus_list
 
-    except TypeError as err:
+    except Exception as err:
         return f"{err}, 노선명을 확인하세요"
 
 
@@ -83,5 +83,5 @@ def get_bus_info_all():
                     bus_list.append(bus_dict)
         return bus_list
 
-    except TypeError as err:
+    except Exception as err:
         return f"{err}, 오류가 발생한 노선을 확인하세요"

@@ -8,5 +8,5 @@ conn = Pool(host='127.0.0.1',
             user='root',
             password=os.getenv('user_pwd'),
             db='prac',
-            charset='utf8',
+            charset='utf8'
             )

@@ -9,7 +9,8 @@ def get_station_list(address, rad):
         gps = get_stn_list(adr['gpsX'], adr['gpsY'], rad)
         data_list = []
         if gps == 'Null':
-            return '지명과 거리를 확인하세요'
+            data_list = '지명과 거리를 확인하세요'
+
         else:
             for data in range(len(gps)):
                 data_dict = {
@@ -19,6 +20,7 @@ def get_station_list(address, rad):
                     'dist': gps[data]['dist']
                 }
                 data_list.append(data_dict)
+
         return data_list
 
     except Exception as err:
@@ -32,7 +34,8 @@ def get_cur_stn_list(rad):
         gps = get_stn_list(adr['gpsX'], adr['gpsY'], rad)
         data_list = []
         if gps == 'Null':
-            return '주변에 정류소가 없습니다'
+            data_list = '주변에 정류소가 없습니다'
+
         else:
             for data in range(len(gps)):
                 data_dict = {
@@ -42,6 +45,7 @@ def get_cur_stn_list(rad):
                     'dist': gps[data]['dist']
                 }
                 data_list.append(data_dict)
+
         return data_list
 
     except Exception as err:

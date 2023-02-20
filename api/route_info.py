@@ -16,19 +16,23 @@ def get_route_info(routeid):
         dict = xmltodict.parse(content)
         data = dict['ServiceResult']['msgBody']['itemList']
         arrive_list = []
-        for arrive in range(len(data)):
+        for arrive in data:
             arrive_dict = {
                 'routeId': routeid,
-                'routeNm': data[arrive]['rtNm'],
-                'stnOrd': data[arrive]['staOrd'],
-                'stnNm': data[arrive]['stNm'],
-                'stnId': data[arrive]['stId']
+                'routeNm': arrive['rtNm'],
+                'stnOrd': arrive['staOrd'],
+                'stnNm': arrive['stNm'],
+                'stnId': arrive['stId']
             }
             arrive_list.append(arrive_dict)
+
         return arrive_list
 
-    except TypeError as err:
+    except Exception as err:
         return f"{err}, 노선ID를 확인하세요"
+
+
+
 
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_route_info_all():
@@ -37,7 +41,10 @@ def get_route_info_all():
         arrive_list = []
         for route in route_list:
             arrive_list.append(get_route_info(route['routeId']))
+
         return arrive_list
 
-    except TypeError as err:
+    except Exception as err:
         return f"{err}, 오류가 난 노선ID를 확인하세요"
+
+

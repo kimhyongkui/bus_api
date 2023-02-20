@@ -12,11 +12,11 @@ def specific_location(address):
             gps = {"gpsY": "null", "gpsX": "null"}
         else:
             gps = {"gpsY": str(geo.latitude), "gpsX": str(geo.longitude)}
-        return gps
 
     except Exception:
         gps = {"gpsY": "null", "gpsX": "null"}
-        return gps
+
+    return gps
 
 
 # 현재위치
@@ -28,8 +28,8 @@ def current_location():
         else:
             location = json.loads(here_req.text)
             current_gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
-        return current_gps
 
     except Exception:
         current_gps = {"gpsY": "null", "gpsX": "null"}
-        return current_gps
+
+    return current_gps

@@ -4,41 +4,49 @@ from db.connection import conn
 
 load_dotenv()
 
-curs = conn.cursor()
-
 
 # 특정 노선의 차량 DB저장
-def add_veh_data(routeid):
+def add_veh_data(routeNm):
+    conn.init()
+    connection = conn.get_conn()
+    curs = connection.cursor()
     try:
-        vehicle_list = get_bus_info(routeid)
+        vehicle_list = get_bus_info(routeNm)
         for vehicle_data in vehicle_list:
-            sql = f"INSERT INTO vehicle (routeId, vehId, plainNo)" \
+            sql = f"INSERT INTO test (routeId, vehId, plainNo)" \
                   f"VALUES ({vehicle_data['routeId']}, " \
                   f"{vehicle_data['vehId']}, " \
                   f"'{vehicle_data['plainNo']}')"
             curs.execute(sql)
-            conn.commit()
-
-        print("차량 정보 저장 완료")
-        conn.close()
+        connection.commit()
+        return 'DB 저장 완료'
 
     except Exception as err:
-        print(err)
+        return f"{err}"
+
+    finally:
+        conn.release(connection)
+
 
 
 # 모든 노선의 차량 DB저장
 def add_veh_all_data():
+    conn.init()
+    connection = conn.get_conn()
+    curs = connection.cursor()
     try:
         veh_all_list = get_bus_info_all()
         for vehicle_data in veh_all_list:
-            sql = f"INSERT IGNORE INTO vehicle (routeId, vehId, plainNo)" \
+            sql = f"INSERT IGNORE INTO test (routeId, vehId, plainNo)" \
                   f"VALUES ({vehicle_data['routeId']}, " \
                   f"{vehicle_data['vehId']}, " \
                   f"'{vehicle_data['plainNo']}')"
             curs.execute(sql)
-            conn.commit()
-        print("차량 정보 저장 완료")
-        conn.close()
+        connection.commit()
+        return 'DB 저장 완료'
 
     except Exception as err:
-        print(err)
+        return f"{err}"
+
+    finally:
+        conn.release(connection)

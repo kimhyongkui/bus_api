@@ -8,7 +8,4 @@ router = APIRouter(prefix="/bus-api")
 @router.get('/arrive-bus-info', tags=["도착 예정 버스 조회"])
 def arrive_bus_info(stnNm, stnId: int):
     result = get_arrive_bus_info(stnNm, stnId)
-    if result:
-        return result
-    else:
-        return '데이터가 없거나 정류소 이름 또는 ID가 틀렸습니다'
+    return result

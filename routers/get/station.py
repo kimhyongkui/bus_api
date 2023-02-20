@@ -24,11 +24,6 @@ def current_stn_gps(rad):
 # 정류소 데이터 조회
 @router.get('/stn-info/stn', tags=["정류소 조회"])
 def stn_info(stnNm):
-    try:
-        result = get_stn_name(stnNm)
-        if get_stn_name(stnNm):
-            return result
-        else:
-            return '정류소 이름 다시 입력'
-    except Exception as err:
-        return f"{err}, '정류소 이름 다시 입력'"
+    result = get_stn_name(stnNm)
+    return result
+

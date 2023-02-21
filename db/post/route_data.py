@@ -17,12 +17,11 @@ def add_route_data():
                   f"VALUES ('{route_data['routeNm']}', '{route_data['routeAbrv']}', {route_data['routeId']})"
             curs.execute(sql)
         connection.commit()
-        result = 'DB 저장 완료'
+        print('DB 저장 완료')
 
     except Exception as err:
-        result = f"{err}"
+        return f"{err}"
 
     finally:
         conn.release(connection)
 
-    return result

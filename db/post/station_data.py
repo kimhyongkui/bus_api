@@ -25,15 +25,13 @@ def add_station(routeid):
                   f"{stn_data['gpsY']})"
             curs.execute(sql)
         connection.commit()
-        result = 'DB 저장 완료'
+        print('DB 저장 완료')
 
     except Exception as err:
-        result = f"{err}"
+        return f"{err}"
 
     finally:
         conn.release(connection)
-
-    return result
 
 
 # 모든 노선의 정류소 DB저장
@@ -56,12 +54,10 @@ def add_station_all():
                   f"{stn_data['gpsY']})"
             curs.execute(sql)
         connection.commit()
-        result = 'DB 저장 완료'
+        print('DB 저장 완료')
 
     except Exception as err:
-        result = f"{err}"
+        return f"{err}"
 
     finally:
         conn.release(connection)
-
-    return result

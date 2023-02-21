@@ -19,14 +19,13 @@ def add_veh_data(routeNm):
                   f"'{vehicle_data['plainNo']}')"
             curs.execute(sql)
         connection.commit()
-        return 'DB 저장 완료'
+        print('DB 저장 완료')
 
     except Exception as err:
         return f"{err}"
 
     finally:
         conn.release(connection)
-
 
 
 # 모든 노선의 차량 DB저장
@@ -43,10 +42,11 @@ def add_veh_all_data():
                   f"'{vehicle_data['plainNo']}')"
             curs.execute(sql)
         connection.commit()
-        return 'DB 저장 완료'
+        print('DB 저장 완료')
 
     except Exception as err:
         return f"{err}"
 
     finally:
         conn.release(connection)
+

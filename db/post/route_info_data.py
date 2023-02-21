@@ -21,15 +21,13 @@ def add_route_info(routeid):
                   f"{arr_data['stnId']})"
             curs.execute(sql)
         connection.commit()
-        result = '데이터 저장 완료'
+        print('데이터 저장 완료')
 
     except Exception as err:
-        result = f"{err}"
+        return f"{err}"
 
     finally:
         conn.release(connection)
-
-    return result
 
 
 # 모든 노선의 정류소 DB저장
@@ -48,12 +46,10 @@ def add_route_info_all():
                   f"{arr_data['stnId']})"
             curs.execute(sql)
             connection.commit()
-        result = '데이터 저장 완료'
+        print('데이터 저장 완료')
 
     except Exception as err:
-        result = f"{err}"
+        return f"{err}"
 
     finally:
         conn.release(connection)
-
-    return result

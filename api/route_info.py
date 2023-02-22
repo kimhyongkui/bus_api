@@ -32,8 +32,6 @@ def get_route_info(routeid):
         return f"{err}, 노선ID를 확인하세요"
 
 
-
-
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_route_info_all():
     try:
@@ -41,10 +39,8 @@ def get_route_info_all():
         arrive_list = []
         for route in route_list:
             arrive_list.append(get_route_info(route['routeId']))
-
+            print(f"{route['routeId']}번 노선의 데이터를 추가했습니다")
         return arrive_list
 
     except Exception as err:
         return f"{err}, 오류가 난 노선ID를 확인하세요"
-
-

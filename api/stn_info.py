@@ -12,12 +12,12 @@ def get_station_list(address, rad):
             data_list = '지명과 거리를 확인하세요'
 
         else:
-            for data in range(len(gps)):
+            for data in gps:
                 data_dict = {
-                    'stnId': gps[data]['stnId'],
-                    'stnNm': gps[data]['stnNm'],
-                    'arsId': gps[data]['arsId'],
-                    'dist': gps[data]['dist']
+                    'stnId': data['stnId'],
+                    'stnNm': data['stnNm'],
+                    'arsId': data['arsId'],
+                    'dist': data['dist']
                 }
                 data_list.append(data_dict)
 
@@ -25,7 +25,6 @@ def get_station_list(address, rad):
 
     except Exception as err:
         return f"{err}, 에러 발생"
-
 
 # 현재 좌표 입력해서 인근 정류소 구해보기
 def get_cur_stn_list(rad):
@@ -37,12 +36,12 @@ def get_cur_stn_list(rad):
             data_list = '주변에 정류소가 없습니다'
 
         else:
-            for data in range(len(gps)):
+            for data in gps:
                 data_dict = {
-                    'stnId': gps[data]['stnId'],
-                    'stnNm': gps[data]['stnNm'],
-                    'arsId': gps[data]['arsId'],
-                    'dist': gps[data]['dist']
+                    'stnId': data['stnId'],
+                    'stnNm': data['stnNm'],
+                    'arsId': data['arsId'],
+                    'dist': data['dist']
                 }
                 data_list.append(data_dict)
 
@@ -50,3 +49,31 @@ def get_cur_stn_list(rad):
 
     except Exception as err:
         return f"{err}, 에러 발생"
+
+
+# def stn_list(address=None, *, rad):
+#     if address:
+#         adr = specific_location(address)
+#     else:
+#         adr = current_location()
+#     try:
+#         gps = get_stn_list(adr['gpsX'], adr['gpsY'], rad)
+#         data_list = []
+#
+#         if gps == 'Null':
+#             data_list = '주변에 정류소가 없습니다'
+#
+#         else:
+#             for data in gps:
+#                 data_dict = {
+#                     'stnId': data['stnId'],
+#                     'stnNm': data['stnNm'],
+#                     'arsId': data['arsId'],
+#                     'dist': data['dist']
+#                 }
+#                 data_list.append(data_dict)
+#
+#         return data_list
+#
+#     except Exception as err:
+#         return f"{err}, 에러 발생"

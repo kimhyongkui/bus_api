@@ -7,11 +7,11 @@ load_dotenv()
 
 
 # 특정 좌표 인근 정류소 데이터 얻기
-def get_stn_list(gpsx, gpsy, radius):
+def search_station(gps_x, gps_y, radius):
     try:
         stn_list = []
         url = f"http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?" \
-              f"serviceKey={os.getenv('key')}&tmX={gpsx}&tmY={gpsy}&radius={radius}"
+              f"serviceKey={os.getenv('key')}&tmX={gps_x}&tmY={gps_y}&radius={radius}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']['itemList']
@@ -38,8 +38,10 @@ def get_stn_list(gpsx, gpsy, radius):
                 stn_list.append(stn_dict)
 
         return stn_list
+
     # 매개변수 값이 잘못되었거나 data의 값이 없을때
-    except TypeError as err:
+    except TypeError:
         return 'Null'
+
     except Exception as err:
         return err

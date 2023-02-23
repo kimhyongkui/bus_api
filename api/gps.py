@@ -3,7 +3,7 @@ import json
 from geopy.geocoders import Nominatim
 
 
-# 지오코딩 : 지역이름 적으면 좌표나오는거
+# 지오코딩 : 지역이름을 적으면 좌표가 나온다
 def specific_location(address):
     try:
         location = Nominatim(user_agent='South Korea')

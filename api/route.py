@@ -6,12 +6,12 @@ import os
 load_dotenv()
 
 
-def get_route_all():
+def get_all_route_list():
     try:
         url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={os.getenv('key')}"
         content = requests.get(url).content
-        dict = xmltodict.parse(content)
-        data = dict['ServiceResult']['msgBody']['itemList']
+        xmldict = xmltodict.parse(content)
+        data = xmldict['ServiceResult']['msgBody']['itemList']
         route_list = []
         for route in data:
             route_dict = {
@@ -25,4 +25,3 @@ def get_route_all():
 
     except Exception as err:
         return f"{err}"
-

@@ -8,16 +8,16 @@ load_dotenv()
 
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
-def get_arrive_bus_info(stnNm, stnId):
+def get_arrive_bus_info(stn_nm, stn_id):
     try:
-        result = get_stn_data(stnNm, stnId)
+        stn_data = get_stn_data(stn_nm, stn_id)
         arrive_list = []
-        for result_list in result:
+        for station in stn_data:
             url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
                   f"serviceKey={os.getenv('key')}" \
-                  f"&stId={result_list['stnId']}" \
-                  f"&busRouteId={result_list['routeId']}" \
-                  f"&ord={result_list['stnOrd']}"
+                  f"&stId={station['stnId']}" \
+                  f"&busRouteId={station['routeId']}" \
+                  f"&ord={station['stnOrd']}"
             content = requests.get(url).content
             xmldict = xmltodict.parse(content)
             data = xmldict['ServiceResult']['msgBody']
@@ -25,14 +25,15 @@ def get_arrive_bus_info(stnNm, stnId):
                 arrive_list = '데이터가 없습니다'
 
             elif isinstance(data['itemList'], dict):
+                # data['itemList']가 리스트로 묶여있지 않으면 에러발생
                 data_list = [data['itemList']]
                 for arrive in data_list:
                     arrive_dict = {
-                        'routeId': result_list['routeId'],
+                        'routeId': station['routeId'],
                         'routeNm': arrive['rtNm'],
-                        'stnOrd': result_list['stnOrd'],
+                        'stnOrd': station['stnOrd'],
                         'stnNm': arrive['stNm'],
-                        'stnId': result_list['stnId'],
+                        'stnId': station['stnId'],
                         'plainNo1': arrive['plainNo1'],
                         'arrmsg1': arrive['arrmsg1'],
                         'stnNm1': arrive['stationNm1'],
@@ -46,4 +47,3 @@ def get_arrive_bus_info(stnNm, stnId):
 
     except Exception as err:
         return f"{err}, 정류소 이름 또는 ID를 확인하세요"
-

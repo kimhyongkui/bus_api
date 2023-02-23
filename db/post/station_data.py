@@ -1,4 +1,4 @@
-from api.station import get_station_all, get_station
+from api.station import get_all_station_data, get_station_data
 from dotenv import load_dotenv
 from db.connection import conn
 
@@ -6,12 +6,12 @@ load_dotenv()
 
 
 # 특정 노선의 정류소 DB저장
-def add_station(routeid):
+def add_station(route_id):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        stn_list = get_station(routeid)
+        stn_list = get_station_data(route_id)
         for stn_data in stn_list:
             sql = f"INSERT INTO station (routeId, routeNm, routeAbrv, stnId, stnNm, arsId, direction, gpsX, gpsY)" \
                   f" VALUES ({stn_data['routeId']}, " \
@@ -40,7 +40,7 @@ def add_station_all():
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        stn_all_list = get_station_all()
+        stn_all_list = get_all_station_data()
         for stn_data in stn_all_list:
             sql = f"INSERT INTO station (routeId, routeNm, routeAbrv, stnId, stnNm, arsId, direction, gpsX, gpsY)" \
                   f" VALUES ({stn_data['routeId']}, " \

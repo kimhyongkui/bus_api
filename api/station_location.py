@@ -1,12 +1,12 @@
 from api.gps import current_location, specific_location
-from api.search_station import get_stn_list
+from api.search_station import search_station
 
 
 # 특정 지역 좌표 입력해서 인근 정류소 구해보기
-def get_station_list(address, rad):
+def get_spe_stn_list(address, rad):
     try:
-        adr = specific_location(address)
-        gps = get_stn_list(adr['gpsX'], adr['gpsY'], rad)
+        address = specific_location(address)
+        gps = search_station(address['gpsX'], address['gpsY'], rad)
         data_list = []
         if gps == 'Null':
             data_list = '지명과 거리를 확인하세요'
@@ -30,8 +30,8 @@ def get_station_list(address, rad):
 # 현재 좌표 입력해서 인근 정류소 구해보기
 def get_cur_stn_list(rad):
     try:
-        adr = current_location()
-        gps = get_stn_list(adr['gpsX'], adr['gpsY'], rad)
+        address = current_location()
+        gps = search_station(address['gpsX'], address['gpsY'], rad)
         data_list = []
         if gps == 'Null':
             data_list = '주변에 정류소가 없습니다'

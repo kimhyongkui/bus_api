@@ -1,4 +1,4 @@
-from api.vehicle import get_bus_info, get_bus_info_all
+from api.vehicle import get_vehicle_data, get_all_vehicle_data
 from dotenv import load_dotenv
 from db.connection import conn
 
@@ -6,14 +6,14 @@ load_dotenv()
 
 
 # 특정 노선의 차량 DB저장
-def add_veh_data(routeNm):
+def add_veh_data(route_nm):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        vehicle_list = get_bus_info(routeNm)
+        vehicle_list = get_vehicle_data(route_nm)
         for vehicle_data in vehicle_list:
-            sql = f"INSERT INTO test (routeId, vehId, plainNo)" \
+            sql = f"INSERT INTO vehicle (routeId, vehId, plainNo)" \
                   f"VALUES ({vehicle_data['routeId']}, " \
                   f"{vehicle_data['vehId']}, " \
                   f"'{vehicle_data['plainNo']}')"
@@ -34,9 +34,9 @@ def add_veh_all_data():
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        veh_all_list = get_bus_info_all()
+        veh_all_list = get_all_vehicle_data()
         for vehicle_data in veh_all_list:
-            sql = f"INSERT IGNORE INTO test (routeId, vehId, plainNo)" \
+            sql = f"INSERT IGNORE INTO vehicle (routeId, vehId, plainNo)" \
                   f"VALUES ({vehicle_data['routeId']}, " \
                   f"{vehicle_data['vehId']}, " \
                   f"'{vehicle_data['plainNo']}')"
@@ -49,4 +49,3 @@ def add_veh_all_data():
 
     finally:
         conn.release(connection)
-

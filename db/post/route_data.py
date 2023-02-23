@@ -1,4 +1,4 @@
-from api.route import get_route_all
+from api.route import get_all_route_list
 from dotenv import load_dotenv
 from db.connection import conn
 
@@ -11,9 +11,9 @@ def add_route_data():
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        route_list = get_route_all()
+        route_list = get_all_route_list()
         for route_data in route_list:
-            sql = f"INSERT INTO route (routeNm, routeAbrv, routeId) " \
+            sql = f"INSERT INTO route_list (routeNm, routeAbrv, routeId) " \
                   f"VALUES ('{route_data['routeNm']}', '{route_data['routeAbrv']}', {route_data['routeId']})"
             curs.execute(sql)
         connection.commit()
@@ -24,4 +24,3 @@ def add_route_data():
 
     finally:
         conn.release(connection)
-

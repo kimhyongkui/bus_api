@@ -1,4 +1,4 @@
-from api.route_info import get_route_info, get_route_info_all
+from api.route_data import get_route_data, get_all_route_data
 from dotenv import load_dotenv
 from db.connection import conn
 
@@ -6,14 +6,14 @@ load_dotenv()
 
 
 # 특정 경유노선의 전체정류소 DB 저장
-def add_route_info(routeid):
+def add_route_info(route_id):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        arr_list = get_route_info(routeid)
+        arr_list = get_route_data(route_id)
         for arr_data in arr_list:
-            sql = f"INSERT IGNORE INTO route_info (routeId, routeNm, stnOrd, stnNm, stnId)" \
+            sql = f"INSERT IGNORE INTO route_data (routeId, routeNm, stnOrd, stnNm, stnId)" \
                   f" VALUES ({arr_data['routeId']}, " \
                   f"'{arr_data['routeNm']}', " \
                   f"{arr_data['stnOrd']}, " \
@@ -36,9 +36,9 @@ def add_route_info_all():
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        arr_all_list = get_route_info_all()
+        arr_all_list = get_all_route_data()
         for arr_data in arr_all_list:
-            sql = f"INSERT IGNORE INTO test (routeId, routeNm, stnOrd, stnNm, stnId)" \
+            sql = f"INSERT IGNORE INTO route_data (routeId, routeNm, stnOrd, stnNm, stnId)" \
                   f" VALUES ({arr_data['routeId']}, " \
                   f"'{arr_data['routeNm']}', " \
                   f"{arr_data['stnOrd']}, " \

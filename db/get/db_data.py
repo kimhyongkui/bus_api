@@ -1,12 +1,12 @@
 from db.connection import conn
 
 
-def get_stn_data(stnNm, stnId):
+def get_stn_data(stn_nm, stn_id):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        sql = f"SELECT * FROM route_info WHERE stnNm='{stnNm}' AND stnId={stnId}"
+        sql = f"SELECT * FROM route_data WHERE stnNm = '{stn_nm}' AND stnId = {stn_id}"
         curs.execute(sql)
         result = curs.fetchall()
 
@@ -22,12 +22,12 @@ def get_stn_data(stnNm, stnId):
     return result
 
 
-def get_route_list(routeNm):
+def get_route_list(route_nm):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        sql = f"SELECT routeNm, stnOrd, stnNm FROM route_info WHERE routeNm = '{routeNm}'"
+        sql = f"SELECT routeNm, stnOrd, stnNm FROM route_data WHERE routeNm Like '%{route_nm}%'"
         curs.execute(sql)
         result = curs.fetchall()
 
@@ -43,12 +43,12 @@ def get_route_list(routeNm):
     return result
 
 
-def get_route_data(routeNm):
+def get_route_data(route_nm):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        sql = f"SELECT * FROM route WHERE routeNm = '{routeNm}'"
+        sql = f"SELECT * FROM route WHERE routeNm Like '%{route_nm}%'"
         curs.execute(sql)
         result = curs.fetchone()
 
@@ -64,12 +64,12 @@ def get_route_data(routeNm):
     return result
 
 
-def get_stn_name(stnNm):
+def get_stn_name(stn_nm):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        sql = f"SELECT stnNm, stnId, arsId, direction FROM station WHERE stnNm = '{stnNm}' GROUP BY stnId"
+        sql = f"SELECT stnNm, stnId, arsId, direction FROM station WHERE stnNm Like '%{stn_nm}%' GROUP BY stnId"
         curs.execute(sql)
         result = curs.fetchall()
 

@@ -6,12 +6,12 @@ load_dotenv()
 
 
 # 특정 노선의 차량 DB저장
-def add_veh_data(route_nm):
+def add_veh_data(route_name):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        vehicle_list = get_vehicle_data(route_nm)
+        vehicle_list = get_vehicle_data(route_name)
         for vehicle_data in vehicle_list:
             sql = f"INSERT INTO vehicle (routeId, vehId, plainNo)" \
                   f"VALUES ({vehicle_data['routeId']}, " \

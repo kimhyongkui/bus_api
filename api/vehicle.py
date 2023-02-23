@@ -9,9 +9,9 @@ load_dotenv()
 
 
 # 특정 노선의 버스 조회
-def get_vehicle_data(route_nm):
+def get_vehicle_data(route_name):
     try:
-        route_id = get_route_data(route_nm)
+        route_id = get_route_data(route_name)
         url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?" \
               f"serviceKey={os.getenv('key')}&busRouteId={route_id['routeId']}"
         content = requests.get(url).content

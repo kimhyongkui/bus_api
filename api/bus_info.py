@@ -8,9 +8,9 @@ load_dotenv()
 
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
-def get_arrive_bus_info(stn_nm, stn_id):
+def get_arrive_bus_info(stn_name, stn_id):
     try:
-        stn_data = get_stn_data(stn_nm, stn_id)
+        stn_data = get_stn_data(stn_name, stn_id)
         arrive_list = []
         for station in stn_data:
             url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
@@ -25,7 +25,7 @@ def get_arrive_bus_info(stn_nm, stn_id):
                 arrive_list = '데이터가 없습니다'
 
             elif isinstance(data['itemList'], dict):
-                # data['itemList']가 리스트로 묶여있지 않으면 에러발생
+                # data['itemList']가 리스트로 묶여 있지 않으면 에러 발생
                 data_list = [data['itemList']]
                 for arrive in data_list:
                     arrive_dict = {

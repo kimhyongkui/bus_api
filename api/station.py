@@ -41,9 +41,9 @@ def get_all_station_data():
     try:
         route_list = get_all_route_list()
         stn_list = []
-        for route in route_list:
-            stn_list.append(get_station_data(route['routeId']))
-            print(f"{route['routeId']}번 노선의 데이터를 추가했습니다")
+        for route_data in route_list:
+            stn_list.append(get_station_data(route_data['routeId']))
+            print(f"{route_data['routeId']}번 노선의 데이터를 추가했습니다")
         return stn_list
 
     except Exception as err:

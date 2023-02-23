@@ -35,11 +35,11 @@ def get_route_data(route_id):
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_all_route_data():
     try:
-        route_data = get_all_route_list()
+        route_list = get_all_route_list()
         route_data_list = []
-        for route in route_data:
-            route_data_list.append(get_route_data(route['routeId']))
-            print(f"{route['routeId']}번 노선의 데이터를 추가했습니다")
+        for route_data in route_list:
+            route_data_list.append(get_route_data(route_data['routeId']))
+            print(f"{route_data['routeId']}번 노선의 데이터를 추가했습니다")
         return route_data_list
 
     except Exception as err:

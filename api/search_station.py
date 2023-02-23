@@ -39,7 +39,7 @@ def get_stn_list(gpsx, gpsy, radius):
 
         return stn_list
     # 매개변수 값이 잘못되었거나 data의 값이 없을때
-    except TypeError:
+    except TypeError as err:
         return 'Null'
     except Exception as err:
         return err

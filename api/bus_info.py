@@ -8,7 +8,7 @@ load_dotenv()
 
 
 # 특정 정류소에 도착 예정인 버스들 (stnId, routeId, ord 사용)
-def get_arrive_bus_info(stn_name, stn_id):
+def get_arrival_buses(stn_name, stn_id):
     try:
         stn_data = get_stn_data(stn_name, stn_id)
         arrive_list = []

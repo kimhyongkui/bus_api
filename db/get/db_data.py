@@ -22,7 +22,7 @@ def get_stn_data(stn_name, stn_id):
     return result
 
 
-def get_route_list(route_name):
+def get_route_data(route_name):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
@@ -43,12 +43,12 @@ def get_route_list(route_name):
     return result
 
 
-def get_route_data(route_name):
+def get_route_list(route_name):
     conn.init()
     connection = conn.get_conn()
     curs = connection.cursor()
     try:
-        sql = f"SELECT * FROM route WHERE routeNm Like '%{route_name}%'"
+        sql = f"SELECT * FROM route_list WHERE routeNm Like '%{route_name}%'"
         curs.execute(sql)
         result = curs.fetchone()
 
@@ -62,7 +62,6 @@ def get_route_data(route_name):
         conn.release(connection)
 
     return result
-
 
 def get_stn_name(stn_name):
     conn.init()

@@ -1,11 +1,11 @@
 from fastapi import APIRouter
-from db.get.db_data import get_route_list
+from db.get.db_data import get_route_data
 
-router = APIRouter(prefix="/bus-api")
+router = APIRouter(prefix="/route")
 
 
 # 버스 노선 검색
-@router.get('/route-info', tags=["버스 노선 검색"])
-def route_list(route_name):
-    result = get_route_list(route_name)
+@router.get('/{route_name}/data', tags=["버스 노선 검색"])
+def route_data(route_name: str):
+    result = get_route_data(route_name)
     return result

@@ -1,11 +1,11 @@
 from fastapi import APIRouter
-from api.bus_info import get_arrive_bus_info
+from api.bus_info import get_arrival_buses
 
-router = APIRouter(prefix="/bus-api")
+router = APIRouter(prefix="/arrival")
 
 
 # 정류소에 도착예정인 버스조회
-@router.get('/arrive-bus-info', tags=["도착 예정 버스 조회"])
-def arrive_bus_info(stn_name, stn_id):
-    result = get_arrive_bus_info(stn_name, stn_id)
+@router.get('/buses/{stn_name}/{stn_id}', tags=["도착 예정 버스 조회"])
+def arrival_buses(stn_name: str, stn_id: int):
+    result = get_arrival_buses(stn_name, stn_id)
     return result

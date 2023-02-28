@@ -1,53 +1,44 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import VARCHAR, Column, Integer, Float
 from connection import Base
 
 
 class route_data(Base):
     __tablename__ = "route_data"
 
-    routeId = Column(Integer, primary_key=True)
-    routeNm = Column(String, unique=True, index=True)
-    stnOrd = Column(Integer, primary_key=True)
-    stnNm = Column(String)
-    stnId = Column(Integer)
-
-    items = relationship("Item", back_populates="owner")
+    routeId = Column(Integer, primary_key=True, nullable=False)
+    routeNm = Column(VARCHAR(45), nullable=False)
+    stnOrd = Column(Integer, primary_key=True, nullable=False)
+    stnNm = Column(VARCHAR(45), nullable=False)
+    stnId = Column(Integer, nullable=False)
 
 
 class route_list(Base):
     __tablename__ = "route_list"
 
-    no = Column(Integer, primary_key=True, AutoIncrement=True)
-    routeNm = Column(String)
-    routeAbrv = Column(String)
-    routeId = Column(Integer)
-
-    owner = relationship("User", back_populates="items")
+    no = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    routeNm = Column(VARCHAR(45), nullable=False)
+    routeAbrv = Column(VARCHAR(45), nullable=False)
+    routeId = Column(Integer, nullable=False)
 
 
 class station(Base):
     __tablename__ = "station"
 
-    no = Column(Integer, primary_key=True, index=True)
-    routeId = Column(Integer)
-    routeNm = Column(String)
-    routeAbrv = Column(String)
-    stnId = Column(Integer)
-    stnNm = Column(String)
-    ArsId = Column(String)
-    direction = Column(String)
-    gpsX = Column(String)
-    gpsY = Column(String)
-
-    owner = relationship("User", back_populates="items")
+    no = Column(Integer, primary_key=True, nullable=False)
+    routeId = Column(Integer, nullable=False)
+    routeNm = Column(VARCHAR(45), nullable=False)
+    routeAbrv = Column(VARCHAR(45), nullable=False)
+    stnId = Column(Integer, nullable=False)
+    stnNm = Column(VARCHAR(45), nullable=False)
+    ArsId = Column(VARCHAR(45), nullable=False)
+    direction = Column(VARCHAR(45), nullable=False)
+    gpsX = Column(Float, nullable=False)
+    gpsY = Column(Float, nullable=False)
 
 
 class vehicle(Base):
     __tablename__ = "vehicle"
 
-    routeId = Column(Integer)
-    vehId = Column(Integer, primary_key=True,)
-    plainNo = Column(String)
-
-    owner = relationship("User", back_populates="items")
+    routeId = Column(Integer, nullable=False)
+    vehId = Column(Integer, primary_key=True, )
+    plainNo = Column(VARCHAR(45), nullable=False)

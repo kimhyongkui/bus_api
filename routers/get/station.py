@@ -20,7 +20,7 @@ def current_gps_stn(rad: int):
 
 
 # 정류소 데이터 조회
-@router.get('/station/{stn_name}', tags=["정류소 조회"], status_code=404)
+@router.get('/station/{stn_name}', tags=["정류소 조회"])
 def stn_data(stn_name: str):
     result = get_stn_name(stn_name)
     return result

@@ -1,5 +1,5 @@
 from sqlalchemy import VARCHAR, Column, Integer, Float
-from connection import Base
+from db.connection import Base
 
 
 class route_data(Base):
@@ -30,7 +30,7 @@ class station(Base):
     routeAbrv = Column(VARCHAR(45), nullable=False)
     stnId = Column(Integer, nullable=False)
     stnNm = Column(VARCHAR(45), nullable=False)
-    ArsId = Column(VARCHAR(45), nullable=False)
+    arsId = Column(VARCHAR(45), nullable=False)
     direction = Column(VARCHAR(45), nullable=False)
     gpsX = Column(Float, nullable=False)
     gpsY = Column(Float, nullable=False)

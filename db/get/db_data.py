@@ -39,6 +39,18 @@ def get_route_data(route_name):
         result = session.query(route_data).filter(route_data.routeNm.like(f"%{route_name}%")).all()
         if not result:
             result = '다시 검색하세요'
+        else:
+            data_list = []
+            for data in result:
+                data_dict = {
+                    'routeId': data.routeId,
+                    'routeNm': data.routeNm,
+                    'stnOrd': data.stnOrd,
+                    'stnNm': data.stnNm,
+                    'stnId': data.stnId
+                }
+                data_list.append(data_dict)
+            result = data_list
 
     except Exception as err:
         result = f"{err}, 다시 검색하세요"
@@ -75,10 +87,22 @@ def get_route_list(route_name):
 
 def get_stn_name(stn_name):
     try:
-        result = session.query(station.stnNm, station.stnId, station.arsId, station.direction). \
+        result = session.query(station). \
             filter(station.stnNm.like(f"%{stn_name}%")).group_by(station.stnId).all()
         if not result:
             result = '다시 검색하세요'
+        else:
+            data_list = []
+            for data in result:
+                data_dict = {
+                    'stnNm': data.stnNm,
+                    'stnId': data.stnId,
+                    'arsId': data.arsId,
+                    'direction': data.direction
+                }
+                data_list.append(data_dict)
+            result = data_list
+
 
     except Exception as err:
         result = f"{err}, 다시 검색하세요"

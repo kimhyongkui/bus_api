@@ -73,7 +73,6 @@ def get_route_list(route_name):
                 'routeAbrv': result.routeAbrv,
                 'routeId': result.routeId
             }
-
             result = result_dict
 
     except Exception as err:
@@ -102,7 +101,6 @@ def get_stn_name(stn_name):
                 }
                 data_list.append(data_dict)
             result = data_list
-
 
     except Exception as err:
         result = f"{err}, 다시 검색하세요"

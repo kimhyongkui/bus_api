@@ -6,14 +6,14 @@ router = APIRouter(prefix="/stn-data")
 
 
 # 특정 지역 인근 정류소
-@router.get('/spe-stn-list/{address}/{rad}', tags=["인근 정류소"])
+@router.get('/spe-stn-list/{address}', tags=["인근 정류소"])
 def specific_gps_stn(address: str, rad: int):
     result = get_spe_stn_list(address, rad)
     return result
 
 
 # 현재 위치 기반 인근 정류소
-@router.get('/cur-stn-list/{rad}', tags=["인근 정류소"])
+@router.get('/cur-stn-list', tags=["인근 정류소"])
 def current_gps_stn(rad: int):
     result = get_cur_stn_list(rad)
     return result

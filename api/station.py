@@ -29,7 +29,6 @@ def get_station_data(route_id):
                 'gpsY': station['gpsY']
             }
             stn_list.append(stn_dict)
-
         return stn_list
 
     except Exception as err:
@@ -42,8 +41,9 @@ def get_all_station_data():
         route_list = get_all_route_list()
         stn_list = []
         for route_data in route_list:
-            stn_list.append(get_station_data(route_data['routeId']))
-            print(f"{route_data['routeId']}번 노선의 데이터를 추가했습니다")
+            data = get_station_data(route_data['routeId'])
+            if data is not None and not isinstance(data, str):
+                stn_list.append(data)
         return stn_list
 
     except Exception as err:

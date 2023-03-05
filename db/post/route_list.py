@@ -1,7 +1,7 @@
 from api.route import get_all_route_list
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import test_table
+from db.models import route_list
 from dotenv import load_dotenv
 
 Session = sessionmaker(bind=engine)
@@ -12,25 +12,20 @@ load_dotenv()
 
 # 각 노선의 아이디와 이름 DB저장
 def add_route_list():
-
     try:
-        all_route_list = get_all_route_list()
-
-        for route_data in all_route_list:
-            route = test_table(
-                no=route_data['no'],
-                routeNm=route_data['routeNm'],
-                routeAbrv=route_data['routeAbrv'],
-                routeId=route_data['routeId']
+        route_list_data = get_all_route_list()
+        for data in route_list_data:
+            result = route_list(
+                routeNm=data['routeNm'],
+                routeAbrv=data['routeAbrv'],
+                routeId=data['routeId']
             )
-            session.add(route)
+            session.add(result)
         session.commit()
-        print('DB 저장 완료')
+        print('데이터 저장 완료')
 
     except Exception as err:
         return f"{err}"
 
     finally:
         session.close()
-
-print(add_route_list())

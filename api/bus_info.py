@@ -22,7 +22,7 @@ def get_arrival_buses(stn_name, stn_id):
             xmldict = xmltodict.parse(content)
             data = xmldict['ServiceResult']['msgBody']
             if data is None:
-                arrive_list = '데이터가 없습니다'
+                arrive_list.append(f"{station['routeId']}번 데이터가 없습니다")
 
             elif isinstance(data['itemList'], dict):
                 # data['itemList']가 리스트로 묶여 있지 않으면 에러 발생

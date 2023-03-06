@@ -30,15 +30,17 @@ def get_vehicle_data(route_name):
                 vehicle_list.append(vehicle_dict)
 
             elif isinstance(data['itemList'], list):
-                for bus in data['itemList']:
+                for vehicle in data['itemList']:
                     vehicle_dict = {
                         'routeId': route_list['routeId'],
-                        'vehId': bus['vehId'],
-                        'plainNo': bus['plainNo'],
-                        'gpsX': bus['gpsX'],
-                        'gpsY': bus['gpsY']
+                        'vehId': vehicle['vehId'],
+                        'plainNo': vehicle['plainNo'],
+                        'gpsX': vehicle['gpsX'],
+                        'gpsY': vehicle['gpsY']
                     }
                     vehicle_list.append(vehicle_dict)
+        else:
+            vehicle_list.append(None)
 
         return vehicle_list
 
@@ -52,33 +54,9 @@ def get_all_vehicle_data():
         route_list = get_all_route_list()
         vehicle_list = []
         for route_data in route_list:
-            url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?" \
-                  f"serviceKey={os.getenv('key')}&busRouteId={route_data['routeId']}"
-            content = requests.get(url).content
-            xmldict = xmltodict.parse(content)
-            data = xmldict['ServiceResult']['msgBody']
-            if data:
-                if isinstance(data['itemList'], dict):
-                    vehicle_dict = {
-                        'routeId': route_data['routeId'],
-                        'vehId': data['itemList']['vehId'],
-                        'plainNo': data['itemList']['plainNo'],
-                        'gpsX': data['itemList']['gpsX'],
-                        'gpsY': data['itemList']['gpsY']
-                    }
-                    vehicle_list.append(vehicle_dict)
-
-                elif isinstance(data['itemList'], list):
-                    for vehicle in data['itemList']:
-                        vehicle_dict = {
-                            'routeId': route_data['routeId'],
-                            'vehId': vehicle['vehId'],
-                            'plainNo': vehicle['plainNo'],
-                            'gpsX': vehicle['gpsX'],
-                            'gpsY': vehicle['gpsY']
-                        }
-                        vehicle_list.append(vehicle_dict)
-
+            data = get_vehicle_data(route_data['routeNm'])
+            if data is not None and not isinstance(data, str):
+                vehicle_list.append(data)
         return vehicle_list
 
     except Exception as err:

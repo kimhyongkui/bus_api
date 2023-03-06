@@ -2,7 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 import os
-from api.route import get_all_route_list
+from db.get.db_data import get_all_route_list
 
 load_dotenv()
 
@@ -34,12 +34,10 @@ def get_route_data(route_id):
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_all_route_data():
     try:
-        route_list = get_all_route_list()
         route_data_list = []
-        for route_data in route_list:
-            data = get_route_data(route_data['routeId'])
-            if data is not None and not isinstance(data, str):
-                route_data_list.append(data)
+        for route_id in get_all_route_list():
+            data = get_route_data(route_id['routeId'])
+            route_data_list.extend(data)
         return route_data_list
 
     except Exception as err:

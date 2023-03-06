@@ -1,5 +1,7 @@
-from api.station import get_all_station_data, get_station_data
+from api.station import get_station_data
+from db.get.db_data import get_route_list
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import IntegrityError
 from db.connection import engine
 from db.models import station, test3
 from dotenv import load_dotenv
@@ -37,28 +39,66 @@ def add_station(route_id):
         session.close()
 
 
+# # 모든 노선의 정류소 DB저장
+# def add_station_all():
+#     try:
+#         stn_all_list = get_all_station_data()
+#         for data in stn_all_list:
+#             result = test3(
+#                 routeId=data['routeId'],
+#                 routeNm=data['routeNm'],
+#                 routeAbrv=data['routeAbrv'],
+#                 stnId=data['stnId'],
+#                 stnNm=data['stnNm'],
+#                 arsId=data['arsId'],
+#                 direction=data['direction'],
+#                 gpsX=data['gpsX'],
+#                 gpsY=data['gpsY']
+#             )
+#             session.add(result)
+#             print('데이터 저장 완료')
+#         session.commit()
+#
+#     except Exception as err:
+#         return f"{err}"
+#
+#     finally:
+#         session.close()
+
 # 모든 노선의 정류소 DB저장
 def add_station_all():
-    try:
-        stn_all_list = get_all_station_data()
-        for data in stn_all_list:
-            result = station(
-                routeId=data['routeId'],
-                routeNm=data['routeNm'],
-                routeAbrv=data['routeAbrv'],
-                stnId=data['stnId'],
-                stnNm=data['stnNm'],
-                arsId=data['arsId'],
-                direction=data['direction'],
-                gpsX=data['gpsX'],
-                gpsY=data['gpsY']
-            )
-            session.add(result)
-            print('데이터 저장 완료')
-        session.commit()
+    # try:
+        for route_id in get_route_list():
+            result = get_station_data(route_id['routeId'])
+            records = []
+            for data in result:
+                record = test3(
+                    routeId=data['routeId'],
+                    routeNm=data['routeNm'],
+                    routeAbrv=data['routeAbrv'],
+                    stnId=data['stnId'],
+                    stnNm=data['stnNm'],
+                    arsId=data['arsId'],
+                    direction=data['direction'],
+                    gpsX=data['gpsX'],
+                    gpsY=data['gpsY']
+                )
+                records.append(record)
+            try:
+                session.add_all(records)
+                session.commit()
+                print(f"{route_id['routeId']} 데이터 저장 완료")
+            except IntegrityError:
+                session.rollback()
+                print(f"{route_id['routeId']} 데이터 저장 실패: 중복 데이터가 존재합니다.")
 
-    except Exception as err:
-        return f"{err}"
+        print('진짜 저장 끝')
+    #
+    # except Exception as err:
+    #     session.rollback()
+    #     return f"{err}"
+    #
+    # finally:
+    #     session.close()
 
-    finally:
-        session.close()
+add_station_all()

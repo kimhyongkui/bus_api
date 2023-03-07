@@ -29,7 +29,7 @@ def add_route_data(route_id):
         print('데이터 저장 완료')
 
     except Exception as err:
-        return f"{err}"
+        raise Exception(str(err))
 
     finally:
         session.close()
@@ -62,7 +62,7 @@ def add_all_route_data():
 
     except Exception as err:
         session.rollback()
-        return f"{err}"
+        raise Exception(str(err))
 
     finally:
         session.close()

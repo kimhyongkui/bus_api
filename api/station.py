@@ -2,7 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 import os
-from api.route import get_all_route_list
+from db.get.db_data import get_route_list
 
 load_dotenv()
 
@@ -14,7 +14,10 @@ def get_station_data(route_id):
               f"serviceKey={os.getenv('key')}&busRouteId={route_id}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
-        data = xmldict['ServiceResult']['msgBody']['itemList']
+        try:
+            data = xmldict['ServiceResult']['msgBody']['itemList']
+        except TypeError:
+            data = []
         stn_list = []
         for station in data:
             stn_dict = {
@@ -32,15 +35,18 @@ def get_station_data(route_id):
         return stn_list
 
     except Exception as err:
-        return f"{err}, 노선 ID를 확인하세요"
+        raise Exception(str(err))
+
+# print(get_station_data(229000030))
 
 
 # 모든 정류소 데이터 얻기
 def get_all_station_data():
     try:
         stn_data_list = []
-        for route_id in get_all_route_list():
+        for route_id in get_route_list():
             data = get_station_data(route_id['routeId'])
+            print(route_id['routeId'])
             stn_data_list.extend(data)
         return stn_data_list
 

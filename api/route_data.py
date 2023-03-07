@@ -2,7 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 import os
-from db.get.db_data import get_all_route_list
+from db.get.db_data import get_route_list
 
 load_dotenv()
 
@@ -35,7 +35,7 @@ def get_route_data(route_id):
 def get_all_route_data():
     try:
         route_data_list = []
-        for route_id in get_all_route_list():
+        for route_id in get_route_list():
             data = get_route_data(route_id['routeId'])
             route_data_list.extend(data)
         return route_data_list

@@ -12,7 +12,7 @@ def get_stn_data(stn_name, stn_id):
     try:
         result = session.query(route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
         if not result:
-            return JSONResponse(content=result, status_code=status.HTTP_204_NO_CONTENT)
+            return JSONResponse(content={"message": "데이터가 없습니다"}, status_code=status.HTTP_204_NO_CONTENT)
         else:
             data_list = []
             for data in result:
@@ -31,7 +31,6 @@ def get_stn_data(stn_name, stn_id):
 
     finally:
         session.close()
-
     return result
 
 
@@ -39,7 +38,7 @@ def get_route_data(route_name):
     try:
         result = session.query(route_data).filter(route_data.routeNm.like(f"%{route_name}%")).all()
         if not result:
-            result = JSONResponse(content={"message": "데이터가 없습니다"}, status_code=status.HTTP_204_NO_CONTENT)
+            result = JSONResponse(content={"message": "데이터가 없습니다"}, status_code=status.HTTP_201_CREATED)
         else:
             data_list = []
             for data in result:
@@ -51,10 +50,10 @@ def get_route_data(route_name):
                     'stnId': data.stnId
                 }
                 data_list.append(data_dict)
-            result = data_list
+            result = JSONResponse(content=data_list, status_code=status.HTTP_200_OK)
 
     except Exception as err:
-        result = f"{err}, 다시 검색하세요"
+        result = JSONResponse(content={"message": f"{err}, 다시 검색하세요"}, status_code=status.HTTP_404_NOT_FOUND)
 
     finally:
         session.close()

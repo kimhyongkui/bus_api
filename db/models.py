@@ -43,19 +43,7 @@ class vehicle(Base):
     vehId = Column(Integer, primary_key=True, nullable=False)
     plainNo = Column(VARCHAR(45), nullable=False)
 
-class test1(Base):
-    __tablename__ = "test1"
 
-    no = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    routeId = Column(Integer, nullable=False)
-    routeNm = Column(VARCHAR(45), nullable=False)
-    routeAbrv = Column(VARCHAR(45), nullable=False)
-    stnId = Column(Integer, nullable=False)
-    stnNm = Column(VARCHAR(45), nullable=False)
-    arsId = Column(VARCHAR(45), nullable=True)
-    direction = Column(VARCHAR(45), nullable=True)
-    gpsX = Column(Float, nullable=False)
-    gpsY = Column(Float, nullable=False)
 
 class test2(Base):
     __tablename__ = "test2"
@@ -64,8 +52,8 @@ class test2(Base):
     vehId = Column(Integer, primary_key=True, nullable=False)
     plainNo = Column(VARCHAR(45), nullable=False)
 
-class test3(Base):
-    __tablename__ = "test3"
+class test1(Base):
+    __tablename__ = "test1"
 
     no = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     routeId = Column(Integer, nullable=False)

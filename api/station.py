@@ -37,8 +37,6 @@ def get_station_data(route_id):
     except Exception as err:
         raise Exception(str(err))
 
-# print(get_station_data(229000030))
-
 
 # 모든 정류소 데이터 얻기
 def get_all_station_data():
@@ -46,7 +44,6 @@ def get_all_station_data():
         stn_data_list = []
         for route_id in get_route_list():
             data = get_station_data(route_id['routeId'])
-            print(route_id['routeId'])
             stn_data_list.extend(data)
         return stn_data_list
 

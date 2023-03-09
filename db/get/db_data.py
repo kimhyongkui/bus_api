@@ -2,7 +2,6 @@ from sqlalchemy.orm import sessionmaker
 from db.connection import engine
 from db.models import route_data, route_list, station
 from fastapi import status, HTTPException
-from fastapi.responses import JSONResponse
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -12,7 +11,7 @@ def get_stn_data(stn_name, stn_id):
     try:
         result = session.query(route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
         if not result:
-            raise HTTPException(status_code=204, detail="Data가 없음")
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
         else:
             data_list = []
             for data in result:
@@ -27,20 +26,21 @@ def get_stn_data(stn_name, stn_id):
             result = data_list
         return result
 
+    except HTTPException as err:
+        raise err
+
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
 
-# print(get_stn_data('가좌역', 113000496))
-print(get_stn_data('가좌역', 11300049))
 
 def get_route_data(route_name):
     try:
         result = session.query(route_data).filter(route_data.routeNm.like(f"%{route_name}%")).all()
         if not result:
-            result = JSONResponse(content={"message": "데이터가 없습니다"}, status_code=status.HTTP_201_CREATED)
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
         else:
             data_list = []
             for data in result:
@@ -52,15 +52,17 @@ def get_route_data(route_name):
                     'stnId': data.stnId
                 }
                 data_list.append(data_dict)
-            result = JSONResponse(content=data_list, status_code=status.HTTP_200_OK)
+            result = data_list
+        return result
+
+    except HTTPException as err:
+        raise err
 
     except Exception as err:
-        result = JSONResponse(content={"message": f"{err}, 다시 검색하세요"}, status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
-
-    return result
 
 
 def get_route_list(route_name=None):
@@ -70,7 +72,7 @@ def get_route_list(route_name=None):
         if route_name:
             result = query.filter_by(routeNm=route_name).first()
             if not result:
-                result = '데이터가 없습니다. 다시 검색하세요'
+                raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
 
             else:
                 result_dict = {
@@ -90,14 +92,16 @@ def get_route_list(route_name=None):
                     'routeId': data.routeId
                 })
             result = data_list
+        return result
+
+    except HTTPException as err:
+        raise err
 
     except Exception as err:
-        result = f"{err}, 노선 이름을 확인하세요"
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
-
-    return result
 
 
 def get_stn_name(stn_name):
@@ -105,7 +109,7 @@ def get_stn_name(stn_name):
         result = session.query(station). \
             filter(station.stnNm.like(f"%{stn_name}%")).group_by(station.stnId).all()
         if not result:
-            result = '데이터가 없습니다.'
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
         else:
             data_list = []
             for data in result:
@@ -117,11 +121,13 @@ def get_stn_name(stn_name):
                 }
                 data_list.append(data_dict)
             result = data_list
+            return result
+
+    except HTTPException as err:
+        raise err
 
     except Exception as err:
-        result = f"{err}, 다시 검색하세요"
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
-
-    return result

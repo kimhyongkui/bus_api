@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status
-from api.bus_info import get_arrival_buses
+from api.arrival_bus_info import get_arrival_buses
 
 router = APIRouter(prefix="/arrival")
 
@@ -9,3 +9,5 @@ router = APIRouter(prefix="/arrival")
 def arrival_buses(stn_name: str, stn_id: int):
     result = get_arrival_buses(stn_name, stn_id)
     return result
+
+# print(arrival_buses('가좌역', 11300049))

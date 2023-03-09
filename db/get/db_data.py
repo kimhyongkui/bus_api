@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
 from db.models import route_data, route_list, station
-from fastapi import status
+from fastapi import status, HTTPException
 from fastapi.responses import JSONResponse
 
 Session = sessionmaker(bind=engine)
@@ -12,7 +12,7 @@ def get_stn_data(stn_name, stn_id):
     try:
         result = session.query(route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
         if not result:
-            return JSONResponse(content={"message": "데이터가 없습니다"}, status_code=status.HTTP_204_NO_CONTENT)
+            raise HTTPException(status_code=204, detail="Data가 없음")
         else:
             data_list = []
             for data in result:
@@ -25,14 +25,16 @@ def get_stn_data(stn_name, stn_id):
                 }
                 data_list.append(data_dict)
             result = data_list
+        return result
 
     except Exception as err:
-        result = f"{err}, 정류소 이름 또는 ID를 확인하세요"
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
-    return result
 
+# print(get_stn_data('가좌역', 113000496))
+print(get_stn_data('가좌역', 11300049))
 
 def get_route_data(route_name):
     try:

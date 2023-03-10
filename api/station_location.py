@@ -20,11 +20,11 @@ def get_spe_stn_list(address, rad):
 
         return stn_list
 
-    except HTTPException as err:
-        raise err
+    except HTTPException:
+        raise
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
 
 # 현재 좌표 입력해서 인근 정류소 구해보기
@@ -44,8 +44,8 @@ def get_cur_stn_list(rad):
 
         return stn_list
 
-    except HTTPException as err:
-        raise err
+    except HTTPException:
+        raise
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))

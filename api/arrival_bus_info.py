@@ -22,12 +22,9 @@ def get_arrival_buses(stn_name, stn_id):
             content = requests.get(url).content
             xmldict = xmltodict.parse(content)
             data = xmldict['ServiceResult']['msgBody']
-            if data is None:
-                raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
-            elif isinstance(data['itemList'], dict):
-                # data['itemList']가 리스트로 묶여 있지 않으면 에러 발생
-                data_list = [data['itemList']]
-                for arrive in data_list:
+
+            if isinstance(data['itemList'], dict):
+                for arrive in [data['itemList']]:
                     arrive_dict = {
                         'routeId': station['routeId'],
                         'routeNm': arrive['rtNm'],
@@ -42,10 +39,14 @@ def get_arrival_buses(stn_name, stn_id):
                         'stnNm2': arrive['stationNm2']
                     }
                     arrive_list.append(arrive_dict)
+
+            elif data is None:
+                raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="데이터가 없습니다")
+
         return arrive_list
 
-    except HTTPException as err:
-        raise err
+    except HTTPException:
+        raise
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))

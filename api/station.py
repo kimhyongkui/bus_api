@@ -3,6 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 import os
 from db.get.db_data import get_route_list
+from fastapi import status, HTTPException
 
 load_dotenv()
 
@@ -14,38 +15,46 @@ def get_station_data(route_id):
               f"serviceKey={os.getenv('key')}&busRouteId={route_id}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
-        try:
-            data = xmldict['ServiceResult']['msgBody']['itemList']
-        except TypeError:
-            data = []
+        data = xmldict['ServiceResult']['msgBody']
         stn_list = []
-        for station in data:
-            stn_dict = {
-                'routeId': route_id,
-                'routeNm': station['busRouteNm'],
-                'routeAbrv': station['busRouteAbrv'],
-                'stnId': station['station'],
-                'stnNm': station['stationNm'],
-                'arsId': station['arsId'],
-                'direction': station['direction'],
-                'gpsX': station['gpsX'],
-                'gpsY': station['gpsY']
-            }
-            stn_list.append(stn_dict)
+        if data:
+            for station in data['itemList']:
+                stn_dict = {
+                    'routeId': route_id,
+                    'routeNm': station['busRouteNm'],
+                    'routeAbrv': station['busRouteAbrv'],
+                    'stnId': station['station'],
+                    'stnNm': station['stationNm'],
+                    'arsId': station['arsId'],
+                    'direction': station['direction'],
+                    'gpsX': station['gpsX'],
+                    'gpsY': station['gpsY']
+                }
+                stn_list.append(stn_dict)
+
+        else:
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="데이터가 없습니다")
+
         return stn_list
 
+    except HTTPException as err:
+        raise err
+
     except Exception as err:
-        raise Exception(str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
 
 # 모든 정류소 데이터 얻기
 def get_all_station_data():
-    try:
-        stn_data_list = []
-        for route_id in get_route_list():
+    stn_data_list = []
+    for route_id in get_route_list():
+        try:
             data = get_station_data(route_id['routeId'])
             stn_data_list.extend(data)
-        return stn_data_list
+            print(route_id['routeId'])
 
-    except Exception as err:
-        return f"{err}, 노선 ID를 확인하세요"
+        except HTTPException as err:
+            print(f"{route_id['routeId']}:{err.detail}")
+            continue
+
+    return stn_data_list

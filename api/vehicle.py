@@ -1,7 +1,6 @@
 import requests
 import xmltodict
 from dotenv import load_dotenv
-from api.route import get_all_route_list
 from db.get.db_data import get_route_list
 from fastapi import status, HTTPException
 import os
@@ -19,7 +18,9 @@ def get_vehicle_data(route_name):
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']
         vehicle_list = []
+
         if data:
+
             if isinstance(data['itemList'], dict):
                 vehicle_dict = {
                     'routeId': route_list['routeId'],
@@ -41,27 +42,28 @@ def get_vehicle_data(route_name):
                     }
                     vehicle_list.append(vehicle_dict)
         else:
-            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="데이터가 없습니다")
 
         return vehicle_list
 
-    except HTTPException as err:
-        raise err
+    except HTTPException:
+        raise
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
 
 
 # 전체 노선의 버스 조회
 def get_all_vehicle_data():
-    try:
-        route_list = get_all_route_list()
-        vehicle_list = []
-        for route_data in route_list:
+    vehicle_list = []
+    for route_data in get_route_list():
+        try:
             data = get_vehicle_data(route_data['routeNm'])
-            if data is not None and not isinstance(data, str):
-                vehicle_list.append(data)
-        return vehicle_list
+            vehicle_list.extend(data)
+            print(route_data['routeId'])
 
-    except Exception as err:
-        return f"{err}, 노선 이름을 확인하세요"
+        except HTTPException as err:
+            print(f"{route_data['routeId']}:{err.detail}")
+            continue
+
+    return vehicle_list

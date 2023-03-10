@@ -1,6 +1,7 @@
 import requests
 import xmltodict
 from dotenv import load_dotenv
+from fastapi import status, HTTPException
 import os
 
 load_dotenv()
@@ -24,4 +25,4 @@ def get_all_route_list():
         return route_list
 
     except Exception as err:
-        return f"{err}"
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"{err}")

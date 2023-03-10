@@ -3,6 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 import os
 from db.get.db_data import get_route_list
+from fastapi import status, HTTPException
 
 load_dotenv()
 
@@ -25,20 +26,27 @@ def get_route_data(route_id):
                 'stnId': route_data['stId']
             }
             route_data_list.append(route_data_dict)
+
         return route_data_list
 
+    except TypeError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='잘못된 매개변수 입력')
+
     except Exception as err:
-        return f"{err}, 노선ID를 확인하세요"
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
 
 # 모든 경유노선의 전체정류소 데이터 얻기
 def get_all_route_data():
-    try:
-        route_data_list = []
-        for route_id in get_route_list():
+    route_data_list = []
+    for route_id in get_route_list():
+        try:
             data = get_route_data(route_id['routeId'])
             route_data_list.extend(data)
-        return route_data_list
+            print(route_id['routeId'])
 
-    except Exception as err:
-        return f"{err}, 오류가 난 노선ID를 확인하세요"
+        except HTTPException as err:
+            print(f"{route_id['routeId']}:{err.detail}")
+            continue
+
+    return route_data_list

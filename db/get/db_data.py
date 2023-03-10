@@ -11,7 +11,7 @@ def get_stn_data(stn_name, stn_id):
     try:
         result = session.query(route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
         if not result:
-            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:
             data_list = []
             for data in result:
@@ -30,7 +30,7 @@ def get_stn_data(stn_name, stn_id):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()
@@ -40,7 +40,7 @@ def get_route_data(route_name):
     try:
         result = session.query(route_data).filter(route_data.routeNm.like(f"%{route_name}%")).all()
         if not result:
-            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:
             data_list = []
             for data in result:
@@ -59,7 +59,7 @@ def get_route_data(route_name):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()
@@ -72,7 +72,7 @@ def get_route_list(route_name=None):
         if route_name:
             result = query.filter_by(routeNm=route_name).first()
             if not result:
-                raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
 
             else:
                 result_dict = {
@@ -98,7 +98,7 @@ def get_route_list(route_name=None):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()
@@ -109,7 +109,7 @@ def get_stn_name(stn_name):
         result = session.query(station). \
             filter(station.stnNm.like(f"%{stn_name}%")).group_by(station.stnId).all()
         if not result:
-            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:
             data_list = []
             for data in result:
@@ -127,7 +127,7 @@ def get_stn_name(stn_name):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()

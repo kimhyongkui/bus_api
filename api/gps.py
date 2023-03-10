@@ -1,6 +1,7 @@
 import requests
 import json
 from geopy.geocoders import Nominatim
+from fastapi import status, HTTPException
 
 
 # 지오코딩 : 지역이름을 적으면 좌표가 나온다
@@ -9,14 +10,15 @@ def specific_location(address):
         location = Nominatim(user_agent='South Korea')
         geo = location.geocode(address)
         if geo is None:
-            gps = {"gpsY": "null", "gpsX": "null"}
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+
         else:
             gps = {"gpsY": str(geo.latitude), "gpsX": str(geo.longitude)}
 
-    except Exception:
-        gps = {"gpsY": "null", "gpsX": "null"}
+        return gps
 
-    return gps
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 # 현재위치
@@ -24,12 +26,12 @@ def current_location():
     try:
         here_req = requests.get("http://www.geoplugin.net/json.gp")
         if here_req.status_code != 200:
-            current_gps = {"gpsY": "null", "gpsX": "null"}
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
         else:
             location = json.loads(here_req.text)
             current_gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
 
-    except Exception:
-        current_gps = {"gpsY": "null", "gpsX": "null"}
+        return current_gps
 
-    return current_gps
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

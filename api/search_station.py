@@ -2,6 +2,7 @@ import requests
 import xmltodict
 from dotenv import load_dotenv
 import os
+from fastapi import status, HTTPException
 
 load_dotenv()
 
@@ -41,7 +42,7 @@ def search_station(gps_x, gps_y, radius):
 
     # 매개변수 값이 잘못되었거나 data의 값이 없을때
     except TypeError:
-        return 'Null'
+        raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
 
     except Exception as err:
-        return err
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

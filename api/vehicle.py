@@ -3,6 +3,7 @@ import xmltodict
 from dotenv import load_dotenv
 from api.route import get_all_route_list
 from db.get.db_data import get_route_list
+from fastapi import status, HTTPException
 import os
 
 load_dotenv()
@@ -40,12 +41,15 @@ def get_vehicle_data(route_name):
                     }
                     vehicle_list.append(vehicle_dict)
         else:
-            vehicle_list.append(None)
+            raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
 
         return vehicle_list
 
+    except HTTPException as err:
+        raise err
+
     except Exception as err:
-        return f"{err}, 노선 이름을 확인하세요"
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 # 전체 노선의 버스 조회

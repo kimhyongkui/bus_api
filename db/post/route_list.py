@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from db.connection import engine
 from db.models import route_list
 from dotenv import load_dotenv
+from fastapi import status, HTTPException
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -13,8 +14,7 @@ load_dotenv()
 # 각 노선의 아이디와 이름 DB저장
 def add_route_list():
     try:
-        route_list_data = get_all_route_list()
-        for data in route_list_data:
+        for data in get_all_route_list():
             result = route_list(
                 routeNm=data['routeNm'],
                 routeAbrv=data['routeAbrv'],
@@ -24,8 +24,11 @@ def add_route_list():
         session.commit()
         print('데이터 저장 완료')
 
+    except HTTPException:
+        raise
+
     except Exception as err:
-        return f"{err}"
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()

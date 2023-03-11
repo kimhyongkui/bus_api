@@ -1,10 +1,9 @@
-from api.route_data import get_route_data
-from db.get.db_data import get_route_list
+from api.route_data import get_route_data, get_all_route_data
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import IntegrityError
 from db.connection import engine
 from db.models import route_data
 from dotenv import load_dotenv
+from fastapi import status, HTTPException
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -28,8 +27,11 @@ def add_route_data(route_id):
         session.commit()
         print('데이터 저장 완료')
 
+    except HTTPException:
+        raise
+
     except Exception as err:
-        raise Exception(str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()
@@ -38,31 +40,27 @@ def add_route_data(route_id):
 # 모든 노선의 정류소 DB저장
 def add_all_route_data():
     try:
-        for route_id in get_route_list():
-            result = get_route_data(route_id['routeId'])
-            records = []
-            for data in result:
-                record = route_data(
-                    routeId=data['routeId'],
-                    routeNm=data['routeNm'],
-                    stnOrd=data['stnOrd'],
-                    stnNm=data['stnNm'],
-                    stnId=data['stnId']
-                )
-                records.append(record)
-            try:
-                session.add_all(records)
-                session.commit()
-                print(f"{route_id['routeId']} 데이터 저장 완료")
-            except IntegrityError:
-                session.rollback()
-                print(f"{route_id['routeId']} 데이터 저장 실패: 중복 데이터가 존재합니다.")
-
+        route_all_list = get_all_route_data()
+        for data in route_all_list:
+            result = route_data(
+                routeId=data['routeId'],
+                routeNm=data['routeNm'],
+                stnOrd=data['stnOrd'],
+                stnNm=data['stnNm'],
+                stnId=data['stnId']
+            )
+            if not session.query(route_data).\
+                    filter(route_data.routeId == data['routeId'], route_data.stnOrd == data['stnOrd']).\
+                    first():
+                session.add(result)
+        session.commit()
         print('데이터 저장 완료')
 
+    except HTTPException:
+        raise
+
     except Exception as err:
-        session.rollback()
-        raise Exception(str(err))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
     finally:
         session.close()

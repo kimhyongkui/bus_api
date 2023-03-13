@@ -37,8 +37,8 @@ def get_station_data(route_id):
 
         return stn_list
 
-    except HTTPException as err:
-        raise err
+    except HTTPException:
+        raise
 
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))

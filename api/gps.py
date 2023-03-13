@@ -18,6 +18,9 @@ def specific_location(address):
 
         return gps
 
+    except HTTPException:
+        raise
+
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
 
@@ -35,6 +38,9 @@ def current_location():
             current_gps = {"gpsY": str(location["geoplugin_latitude"]), "gpsX": str(location["geoplugin_longitude"])}
 
         return current_gps
+
+    except HTTPException:
+        raise
 
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))

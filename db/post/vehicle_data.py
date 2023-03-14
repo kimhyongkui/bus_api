@@ -35,7 +35,7 @@ def add_veh_data(route_name):
 
 
 # 모든 노선의 차량 DB저장
-def add_veh_all_data():
+def add_all_veh_data():
     try:
         for data in get_all_vehicle_data():
             result = vehicle(

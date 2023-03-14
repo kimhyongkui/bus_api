@@ -54,7 +54,7 @@ def get_vehicle_data(route_name):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
 
 
-# 전체 노선의 버스 조회
+# 모든 버스 조회
 def get_all_vehicle_data():
     vehicle_list = []
     for route_data in get_route_list():

@@ -12,7 +12,7 @@ load_dotenv()
 
 
 # 특정 노선의 정류소 DB저장
-def add_station(route_id):
+def add_station_data(route_id):
     try:
         for data in get_station_data(route_id):
             result = station(
@@ -41,7 +41,7 @@ def add_station(route_id):
 
 
 # 모든 노선의 정류소 DB저장
-def add_station_all():
+def add_all_station_data():
     try:
         for data in get_all_station_data():
             result = station(

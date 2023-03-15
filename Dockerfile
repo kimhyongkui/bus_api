@@ -11,8 +11,6 @@ WORKDIR /app
 # copy requirements file
 COPY requirements.txt /app/
 
-RUN apt-get update && apt-get install -y python3.10-dev
-
 # install requirements
 RUN pip install -r requirements.txt
 

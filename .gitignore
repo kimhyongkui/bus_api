@@ -134,7 +134,6 @@ env.bak/
 venv.bak/
 /Scripts/
 /__pycache__/
-/Scripts/
 /.idea/
 .gitignore/
 

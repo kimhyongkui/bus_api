@@ -10,6 +10,5 @@ def route_data(route_name: str):
     try:
         result = get_route_data(route_name)
         return result
-
     except Exception:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")

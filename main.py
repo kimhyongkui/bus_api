@@ -12,7 +12,7 @@ app.include_router(bus_location.router, prefix="/bus-api")
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        host="127.0.0.1",
+        host="0.0.0.0",
         reload=True,
-        port=8000
+        port=8080
     )

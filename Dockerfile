@@ -22,3 +22,5 @@ CMD [ "python", "main.py" ]
 
 # expose port
 EXPOSE 8000
+
+ENV DB_HOST =

@@ -42,5 +42,8 @@ def current_location():
     except HTTPException:
         raise
 
+    except TimeoutError:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="geoplugin 접속 오류")
+
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))

@@ -6,7 +6,7 @@ import os
 
 load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://root:{os.getenv('user_pwd')}@127.0.0.1/prac"
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://root:{os.getenv('user_pwd')}@{os.getenv('DB_HOST')}/prac"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

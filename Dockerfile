@@ -20,7 +20,6 @@ COPY . /app/
 # command to run on container start
 CMD [ "python", "main.py" ]
 
-# expose port
-EXPOSE 8000
 
-ENV DB_HOST =
+ENV DB_HOST = <RDS_IP>
+ENV DB_PORT = <RDS_PORT>

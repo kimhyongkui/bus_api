@@ -11,5 +11,5 @@ def realtime_bus_loc(route_name: str):
         result = get_vehicle_data(route_name)
         return result
 
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

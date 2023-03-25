@@ -12,7 +12,7 @@ def search_station(gps_x, gps_y, radius):
     try:
         stn_list = []
         url = f"http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?" \
-              f"serviceKey={os.getenv('key')}&tmX={gps_x}&tmY={gps_y}&radius={radius}"
+              f"serviceKey={os.getenv('KEY')}&tmX={gps_x}&tmY={gps_y}&radius={radius}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']['itemList']
@@ -43,9 +43,8 @@ def search_station(gps_x, gps_y, radius):
         return stn_list
 
     # 매개변수 값이 잘못되었거나 data의 값이 없을때
-    except TypeError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
+    except TypeError as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
-

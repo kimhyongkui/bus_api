@@ -126,6 +126,7 @@ celerybeat.pid
 # Environments
 /Backup/
 .env
+docker-compose.yml
 .venv
 env/
 venv/

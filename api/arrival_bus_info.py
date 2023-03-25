@@ -15,7 +15,7 @@ def get_arrival_buses(stn_name, stn_id):
         arrive_list = []
         for station in stn_data:
             url = f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?" \
-                  f"serviceKey={os.getenv('key')}" \
+                  f"serviceKey={os.getenv('KEY')}" \
                   f"&stId={station['stnId']}" \
                   f"&busRouteId={station['routeId']}" \
                   f"&ord={station['stnOrd']}"

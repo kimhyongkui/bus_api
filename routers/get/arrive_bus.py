@@ -11,5 +11,5 @@ def arrival_buses(stn_name: str, stn_id: int):
         result = get_arrival_buses(stn_name, stn_id)
         return result
 
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

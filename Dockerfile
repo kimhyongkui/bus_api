@@ -19,7 +19,3 @@ COPY . /app/
 
 # command to run on container start
 CMD [ "python", "main.py" ]
-
-
-ENV DB_HOST = <RDS_IP>
-ENV DB_PORT = <RDS_PORT>

@@ -12,8 +12,8 @@ def specific_gps_stn(address: str, rad: int):
         result = get_spe_stn_list(address, rad)
         return result
 
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 # 현재 위치 기반 인근 정류소
@@ -26,8 +26,8 @@ def current_gps_stn(rad: int):
     except TimeoutError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="geoplugin 접속 오류")
 
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 # 정류소 데이터 조회
@@ -37,5 +37,5 @@ def stn_data(stn_name: str):
         result = get_stn_name(stn_name)
         return result
 
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="에러 발생")
+    except Exception as err:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

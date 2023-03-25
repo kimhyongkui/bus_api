@@ -13,7 +13,7 @@ def get_vehicle_data(route_name):
     try:
         route_list = get_route_list(route_name)
         url = f"http://ws.bus.go.kr/api/rest/buspos/getBusPosByRtid?" \
-              f"serviceKey={os.getenv('key')}&busRouteId={route_list['routeId']}"
+              f"serviceKey={os.getenv('KEY')}&busRouteId={route_list['routeId']}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']

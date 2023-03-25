@@ -9,7 +9,7 @@ load_dotenv()
 
 def get_all_route_list():
     try:
-        url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={os.getenv('key')}"
+        url = f"http://ws.bus.go.kr/api/rest/busRouteInfo/getBusRouteList?ServiceKey={os.getenv('KEY')}"
         content = requests.get(url).content
         xmldict = xmltodict.parse(content)
         data = xmldict['ServiceResult']['msgBody']['itemList']

@@ -22,7 +22,7 @@ def specific_location(address):
         raise
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 # 현재위치
@@ -46,4 +46,4 @@ def current_location():
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="geoplugin 접속 오류")
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

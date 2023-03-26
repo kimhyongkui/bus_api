@@ -47,4 +47,4 @@ def search_station(gps_x, gps_y, radius):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_BAD_REQUEST, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

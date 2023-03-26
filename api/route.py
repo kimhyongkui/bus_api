@@ -25,4 +25,4 @@ def get_all_route_list():
         return route_list
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"{err}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

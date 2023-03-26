@@ -30,7 +30,7 @@ def get_stn_data(stn_name, stn_id):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
@@ -59,7 +59,7 @@ def get_route_data(route_name):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
@@ -98,7 +98,7 @@ def get_route_list(route_name=None):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()
@@ -127,7 +127,7 @@ def get_stn_name(stn_name):
         raise err
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
     finally:
         session.close()

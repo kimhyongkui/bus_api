@@ -7,9 +7,5 @@ router = APIRouter(prefix="/route")
 # 버스 노선 검색
 @router.get('/route-data/{route_name}', tags=["버스 노선 검색"], status_code=status.HTTP_200_OK)
 def route_data(route_name: str):
-    try:
-        result = get_route_data(route_name)
-        return result
-
-    except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+    result = get_route_data(route_name)
+    return result

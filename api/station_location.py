@@ -21,7 +21,7 @@ def get_spe_stn_list(address, rad):
         return stn_list
 
     except HTTPException:
-        raise
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="매개변수가 잘못되었거나, 인근에 정류소가 없습니다")
 
     except Exception as err:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
@@ -45,7 +45,7 @@ def get_cur_stn_list(rad):
         return stn_list
 
     except HTTPException:
-        raise
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="매개변수가 잘못되었거나, 인근에 정류소가 없습니다")
 
     except TimeoutError:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="geoplugin 접속 오류")

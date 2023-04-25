@@ -1,6 +1,8 @@
+from fastapi import status, HTTPException
 from sqlalchemy import VARCHAR, Column, Integer, Float
+from sqlalchemy.orm import validates
 from db.connection import Base
-
+import re
 
 class route_data(Base):
     __tablename__ = "route_data"

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import route_data, route_list, station
+from db.models import Route_data, Route_list, Station
 from fastapi import status, HTTPException
 
 Session = sessionmaker(bind=engine)
@@ -9,7 +9,7 @@ session = Session()
 
 def get_stn_data(stn_name, stn_id):
     try:
-        result = session.query(route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
+        result = session.query(Route_data).filter_by(stnNm=f"{stn_name}", stnId=f"{stn_id}").all()
         if not result:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:
@@ -38,7 +38,7 @@ def get_stn_data(stn_name, stn_id):
 
 def get_route_data(route_name):
     try:
-        result = session.query(route_data).filter(route_data.routeNm.like(f"%{route_name}%")).all()
+        result = session.query(Route_data).filter(Route_data.routeNm.like(f"%{route_name}%")).all()
         if not result:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:
@@ -67,7 +67,7 @@ def get_route_data(route_name):
 
 def get_route_list(route_name=None):
     try:
-        query = session.query(route_list)
+        query = session.query(Route_list)
 
         if route_name:
             result = query.filter_by(routeNm=route_name).first()
@@ -106,8 +106,8 @@ def get_route_list(route_name=None):
 
 def get_stn_name(stn_name):
     try:
-        result = session.query(station). \
-            filter(station.stnNm.like(f"%{stn_name}%")).group_by(station.stnId).all()
+        result = session.query(Station). \
+            filter(Station.stnNm.like(f"%{stn_name}%")).group_by(Station.stnId).all()
         if not result:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="잘못된 매개변수 입력")
         else:

@@ -1,7 +1,7 @@
 from api.station import get_station_data, get_all_station_data
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import station
+from db.models import Station
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
 
@@ -15,7 +15,7 @@ load_dotenv()
 def add_station_data(route_id):
     try:
         for data in get_station_data(route_id):
-            result = station(
+            result = Station(
                 routeId=data['routeId'],
                 routeNm=data['routeNm'],
                 routeAbrv=data['routeAbrv'],
@@ -44,7 +44,7 @@ def add_station_data(route_id):
 def add_all_station_data():
     try:
         for data in get_all_station_data():
-            result = station(
+            result = Station(
                 routeId=data['routeId'],
                 routeNm=data['routeNm'],
                 routeAbrv=data['routeAbrv'],

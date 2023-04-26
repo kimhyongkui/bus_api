@@ -1,7 +1,7 @@
 from api.route import get_all_route_list
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import route_list
+from db.models import Route_list
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
 
@@ -15,7 +15,7 @@ load_dotenv()
 def add_route_list():
     try:
         for data in get_all_route_list():
-            result = route_list(
+            result = Route_list(
                 routeNm=data['routeNm'],
                 routeAbrv=data['routeAbrv'],
                 routeId=data['routeId']

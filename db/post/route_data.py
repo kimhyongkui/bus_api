@@ -1,7 +1,7 @@
 from api.route_data import get_route_data, get_all_route_data
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import route_data
+from db.models import Route_data
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
 
@@ -16,7 +16,7 @@ def add_route_data(route_id):
     try:
         route_data_data = get_route_data(route_id)
         for data in route_data_data:
-            result = route_data(
+            result = Route_data(
                 routeId=data['routeId'],
                 routeNm=data['routeNm'],
                 stnOrd=data['stnOrd'],
@@ -42,15 +42,15 @@ def add_all_route_data():
     try:
         route_all_list = get_all_route_data()
         for data in route_all_list:
-            result = route_data(
+            result = Route_data(
                 routeId=data['routeId'],
                 routeNm=data['routeNm'],
                 stnOrd=data['stnOrd'],
                 stnNm=data['stnNm'],
                 stnId=data['stnId']
             )
-            if not session.query(route_data).\
-                    filter(route_data.routeId == data['routeId'], route_data.stnOrd == data['stnOrd']).\
+            if not session.query(Route_data).\
+                    filter(Route_data.routeId == data['routeId'], Route_data.stnOrd == data['stnOrd']).\
                     first():
                 session.add(result)
         session.commit()

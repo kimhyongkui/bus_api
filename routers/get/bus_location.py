@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status
 from api.vehicle import get_vehicle_data
 
 router = APIRouter(prefix="/bus-location")

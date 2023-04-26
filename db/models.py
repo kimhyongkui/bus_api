@@ -1,10 +1,8 @@
-from fastapi import status, HTTPException
 from sqlalchemy import VARCHAR, Column, Integer, Float
-from sqlalchemy.orm import validates
 from db.connection import Base
-import re
 
-class route_data(Base):
+
+class Route_data(Base):
     __tablename__ = "route_data"
 
     routeId = Column(Integer, primary_key=True, nullable=False)
@@ -14,7 +12,7 @@ class route_data(Base):
     stnId = Column(Integer, nullable=False)
 
 
-class route_list(Base):
+class Route_list(Base):
     __tablename__ = "route_list"
 
     no = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -23,7 +21,7 @@ class route_list(Base):
     routeId = Column(Integer, nullable=False)
 
 
-class station(Base):
+class Station(Base):
     __tablename__ = "station"
 
     no = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -38,7 +36,7 @@ class station(Base):
     gpsY = Column(Float, nullable=False)
 
 
-class vehicle(Base):
+class Vehicle(Base):
     __tablename__ = "vehicle"
 
     routeId = Column(Integer, nullable=False)

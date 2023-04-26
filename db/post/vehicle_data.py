@@ -1,7 +1,7 @@
 from api.vehicle import get_vehicle_data, get_all_vehicle_data
 from sqlalchemy.orm import sessionmaker
 from db.connection import engine
-from db.models import vehicle
+from db.models import Vehicle
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
 
@@ -15,7 +15,7 @@ load_dotenv()
 def add_veh_data(route_name):
     try:
         for data in get_vehicle_data(route_name):
-            result = vehicle(
+            result = Vehicle(
                 routeId=data['routeId'],
                 vehId=data['vehId'],
                 plainNo=data['plainNo']
@@ -38,12 +38,12 @@ def add_veh_data(route_name):
 def add_all_veh_data():
     try:
         for data in get_all_vehicle_data():
-            result = vehicle(
+            result = Vehicle(
                 routeId=data['routeId'],
                 vehId=data['vehId'],
                 plainNo=data['plainNo']
             )
-            if not session.query(vehicle).filter_by(vehId=data['vehId']).first():
+            if not session.query(Vehicle).filter_by(vehId=data['vehId']).first():
                 session.add(result)
         session.commit()
         print('데이터 저장 완료')

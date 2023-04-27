@@ -5,7 +5,7 @@ router = APIRouter(prefix="/route")
 
 
 # 버스 노선 검색
-@router.get('/route-data/{route_name}', tags=["버스 노선 검색"], status_code=status.HTTP_200_OK)
+@router.get('/route-data/{route_name}', tags=["버스 노선 검색"])
 def route_data(route_name: str):
     result = get_route_data(route_name)
     return result

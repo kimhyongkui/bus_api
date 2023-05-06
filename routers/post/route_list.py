@@ -5,7 +5,7 @@ from app.auth import get_admin
 router = APIRouter(prefix="/route")
 
 
-@router.post('/route_list', tags=["노선"], dependencies=[Depends(get_admin)])
+@router.post('/route-list', tags=["노선"], dependencies=[Depends(get_admin)])
 def route_list():
     result = add_route_list()
     return result

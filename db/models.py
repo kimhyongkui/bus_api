@@ -1,4 +1,4 @@
-    from sqlalchemy import VARCHAR, Column, Integer, Float, Boolean
+from sqlalchemy import VARCHAR, Column, Integer, Float, Boolean
 from db.connection import Base
 
 

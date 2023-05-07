@@ -1,4 +1,4 @@
-from sqlalchemy import VARCHAR, Column, Integer, Float
+    from sqlalchemy import VARCHAR, Column, Integer, Float, Boolean
 from db.connection import Base
 
 
@@ -42,3 +42,11 @@ class Vehicle(Base):
     routeId = Column(Integer, nullable=False)
     vehId = Column(Integer, primary_key=True, nullable=False)
     plainNo = Column(VARCHAR(45), nullable=False)
+
+
+class Account(Base):
+    __tablename__ = "account"
+
+    user_id = Column(VARCHAR(50), nullable=False, primary_key=True)
+    pwd = Column(VARCHAR(100), nullable=False)
+    permission = Column(Boolean, nullable=False)

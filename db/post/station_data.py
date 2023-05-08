@@ -4,6 +4,8 @@ from db.connection import engine
 from db.models import Station
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
+from fastapi.responses import JSONResponse
+from db.get.db_data import get_route_list
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -28,7 +30,7 @@ def add_station_data(route_id):
             )
             session.add(result)
         session.commit()
-        print('데이터 저장 완료')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 
     except HTTPException:
         raise
@@ -40,24 +42,64 @@ def add_station_data(route_id):
         session.close()
 
 
-# 모든 노선의 정류소 DB저장
-def add_all_station_data():
+# # 모든 노선의 정류소 DB저장
+# def add_all_station_data():
+#     try:
+#         for data in get_all_station_data():
+#             result = Station(
+#                 routeId=data['routeId'],
+#                 routeNm=data['routeNm'],
+#                 routeAbrv=data['routeAbrv'],
+#                 stnId=data['stnId'],
+#                 stnNm=data['stnNm'],
+#                 arsId=data['arsId'],
+#                 direction=data['direction'],
+#                 gpsX=data['gpsX'],
+#                 gpsY=data['gpsY']
+#             )
+#             session.add(result)
+#         session.commit()
+#         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
+#
+#     except HTTPException:
+#         raise
+#
+#     except Exception as err:
+#         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(err))
+#
+#     finally:
+#         session.close()
+
+def add_all_station_data2():
     try:
-        for data in get_all_station_data():
-            result = Station(
-                routeId=data['routeId'],
-                routeNm=data['routeNm'],
-                routeAbrv=data['routeAbrv'],
-                stnId=data['stnId'],
-                stnNm=data['stnNm'],
-                arsId=data['arsId'],
-                direction=data['direction'],
-                gpsX=data['gpsX'],
-                gpsY=data['gpsY']
-            )
-            session.add(result)
+        for route_id in get_route_list():
+            stn_data = get_station_data(route_id['routeId'])
+            for data in stn_data:
+                result = Station(
+                    routeId=data['routeId'],
+                    routeNm=data['routeNm'],
+                    routeAbrv=data['routeAbrv'],
+                    stnId=data['stnId'],
+                    stnNm=data['stnNm'],
+                    arsId=data['arsId'],
+                    direction=data['direction'],
+                    gpsX=data['gpsX'],
+                    gpsY=data['gpsY']
+                )
+                if not session.query(Station).filter_by(
+                        routeId=data['routeId'],
+                        routeNm=data['routeNm'],
+                        routeAbrv=data['routeAbrv'],
+                        stnId=data['stnId'],
+                        stnNm=data['stnNm'],
+                        arsId=data['arsId'],
+                        direction=data['direction'],
+                        gpsX=data['gpsX'],
+                        gpsY=data['gpsY']
+                ).first():
+                    session.add(result)
         session.commit()
-        print('데이터 저장 완료')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 
     except HTTPException:
         raise

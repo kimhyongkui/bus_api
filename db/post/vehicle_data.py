@@ -4,6 +4,7 @@ from db.connection import engine
 from db.models import Vehicle
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
+from fastapi.responses import JSONResponse
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -22,7 +23,7 @@ def add_veh_data(route_name):
             )
             session.add(result)
         session.commit()
-        print('데이터 저장 완료')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 
     except HTTPException:
         raise
@@ -46,7 +47,7 @@ def add_all_veh_data():
             if not session.query(Vehicle).filter_by(vehId=data['vehId']).first():
                 session.add(result)
         session.commit()
-        print('데이터 저장 완료')
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 
     except HTTPException:
         raise

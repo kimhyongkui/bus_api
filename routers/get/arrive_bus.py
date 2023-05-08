@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from api.arrival_bus_info import get_arrival_buses
 
 router = APIRouter(prefix="/arrival")

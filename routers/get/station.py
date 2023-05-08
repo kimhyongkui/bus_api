@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from api.station_location import get_spe_stn_list, get_cur_stn_list
 from db.get.db_data import get_stn_name
 

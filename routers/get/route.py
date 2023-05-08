@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from db.get.db_data import get_route_data
 
 router = APIRouter(prefix="/route")

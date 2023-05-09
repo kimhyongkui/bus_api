@@ -21,7 +21,12 @@ def add_route_list():
                 routeAbrv=data['routeAbrv'],
                 routeId=data['routeId']
             )
-            session.add(result)
+            if not session.query(Route_list).filter_by(
+                    routeNm=data['routeNm'],
+                    routeAbrv=data['routeAbrv'],
+                    routeId=data['routeId']
+            ).first():
+                session.add(result)
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 

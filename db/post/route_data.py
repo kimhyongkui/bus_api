@@ -57,7 +57,14 @@ def add_all_route_data():
                 stnNm=data['stnNm'],
                 stnId=data['stnId']
             )
-            session.add(result)
+            if session.query(Route_data).filter_by(
+                    routeId=data['routeId'],
+                    routeNm=data['routeNm'],
+                    stnOrd=data['stnOrd'],
+                    stnNm=data['stnNm'],
+                    stnId=data['stnId']
+            ).first():
+                session.add(result)
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 

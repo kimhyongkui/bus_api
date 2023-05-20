@@ -28,7 +28,18 @@ def add_station_data(route_id):
                 gpsX=data['gpsX'],
                 gpsY=data['gpsY']
             )
-            session.add(result)
+            if not session.query(Station).filter_by(
+                    routeId=data['routeId'],
+                    routeNm=data['routeNm'],
+                    routeAbrv=data['routeAbrv'],
+                    stnId=data['stnId'],
+                    stnNm=data['stnNm'],
+                    arsId=data['arsId'],
+                    direction=data['direction'],
+                    gpsX=data['gpsX'],
+                    gpsY=data['gpsY']
+            ).first():
+                session.add(result)
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 
@@ -45,6 +56,7 @@ def add_station_data(route_id):
 # 모든 노선의 정류소 DB저장
 def add_all_station_data():
     try:
+        count = 0
         for data in get_all_station_data():
             result = Station(
                 routeId=data['routeId'],
@@ -69,6 +81,9 @@ def add_all_station_data():
                     gpsY=data['gpsY']
             ).first():
                 session.add(result)
+            count += 1
+            if count % 10000 == 0:
+                session.commit()
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 

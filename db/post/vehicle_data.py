@@ -21,7 +21,12 @@ def add_veh_data(route_name):
                 vehId=data['vehId'],
                 plainNo=data['plainNo']
             )
-            session.add(result)
+            if not session.query(Vehicle).filter_by(
+                    routeId=data['routeId'],
+                    vehId=data['vehId'],
+                    plainNo=data['plainNo']
+            ).first():
+                session.add(result)
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 

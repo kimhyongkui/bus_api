@@ -48,6 +48,7 @@ def add_route_data(route_id):
 # 모든 노선의 정류소 DB저장
 def add_all_route_data():
     try:
+        count = 0
         route_all_list = get_all_route_data()
         for data in route_all_list:
             result = Route_data(
@@ -57,7 +58,7 @@ def add_all_route_data():
                 stnNm=data['stnNm'],
                 stnId=data['stnId']
             )
-            if session.query(Route_data).filter_by(
+            if not session.query(Route_data).filter_by(
                     routeId=data['routeId'],
                     routeNm=data['routeNm'],
                     stnOrd=data['stnOrd'],
@@ -65,6 +66,9 @@ def add_all_route_data():
                     stnId=data['stnId']
             ).first():
                 session.add(result)
+            count += 1
+            if count % 10000 == 0:
+                session.commit()
         session.commit()
         return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "데이터 저장 완료"})
 

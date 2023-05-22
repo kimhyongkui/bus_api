@@ -5,13 +5,13 @@ from app.auth import get_admin
 router = APIRouter(prefix="/vehicle")
 
 
-@router.post('/route-data', tags=["버스"], dependencies=[Depends(get_admin)])
+@router.post('/vehicle-data', tags=["버스"], dependencies=[Depends(get_admin)])
 def vehicle_data(route_name):
     result = add_veh_data(route_name)
     return result
 
 
-@router.post('/route-data/all', tags=["버스"], dependencies=[Depends(get_admin)])
+@router.post('/vehicle-data/all', tags=["버스"], dependencies=[Depends(get_admin)])
 def all_vehicle_data():
     result = add_all_veh_data()
     return result

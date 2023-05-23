@@ -5,7 +5,6 @@ from db.models import Station
 from dotenv import load_dotenv
 from fastapi import status, HTTPException
 from fastapi.responses import JSONResponse
-from db.get.db_data import get_route_list
 
 Session = sessionmaker(bind=engine)
 session = Session()

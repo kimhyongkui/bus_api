@@ -1,7 +1,7 @@
 from jose import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from db.post.login import SECRET_KEY, ALGORITHM
+from tokens.create_token import SECRET_KEY, ALGORITHM
 from datetime import datetime
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/bus-api/login")

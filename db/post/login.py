@@ -3,35 +3,14 @@ from db.connection import engine
 from db.models import Account
 from fastapi import HTTPException, status
 from app.password import verify_password
-from datetime import datetime, timedelta
-from dotenv import load_dotenv
-from jose import jwt
-import os
-
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+from datetime import timedelta
+from tokens.create_token import create_access_token, create_refresh_token
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
-
-def create_access_token(data: dict, expires_delta: timedelta):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + expires_delta
-    to_encode.update({"exp": expire})
-    encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encode_jwt
-
-
-def create_refresh_token(data: dict, expires_delta: timedelta):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + expires_delta
-    to_encode.update({"exp": expire})
-    encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encode_jwt
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+REFRESH_TOKEN_EXPIRE_DAYS = 30
 
 
 def login(user_id, pwd):
@@ -48,8 +27,18 @@ def login(user_id, pwd):
             data={"user_id": user.user_id},
             expires_delta=access_token_expires
         )
+        refresh_token_expires = timedelta(minutes=REFRESH_TOKEN_EXPIRE_DAYS)
+        refresh_token = create_refresh_token(
+            data={"user_id": user.user_id},
+            expires_delta=refresh_token_expires
+        )
 
-        return {"access_token": access_token, "token_type": "bearer", "user_id": user.user_id}
+        return {
+            "access_token": access_token,
+            "refresh_token": refresh_token,
+            "token_type": "bearer",
+            "user_id": user.user_id
+        }
 
     except HTTPException as err:
         raise err

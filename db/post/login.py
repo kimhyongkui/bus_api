@@ -5,12 +5,15 @@ from fastapi import HTTPException, status
 from app.password import verify_password
 from datetime import timedelta
 from tokens.create_token import create_access_token, create_refresh_token
+import redis
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 30
+
+redis_client = redis.Redis(host='localhost', port=6379)
 
 
 def login(user_id, pwd):
@@ -32,6 +35,9 @@ def login(user_id, pwd):
             data={"user_id": user.user_id},
             expires_delta=refresh_token_expires
         )
+
+        redis_client.set(access_token, user.user_id, ex=ACCESS_TOKEN_EXPIRE_MINUTES * 60)
+        redis_client.set(refresh_token, user.user_id, ex=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60)
 
         return {
             "access_token": access_token,

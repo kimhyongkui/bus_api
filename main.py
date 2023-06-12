@@ -25,11 +25,11 @@ app.include_router(login.router, prefix="/bus-api")
 def main():
     environment = os.getenv("ENVIRONMENT")
     if environment == "local":
-        # 로컬 환경 설정
+        # 로컬 환경
         host = "localhost"
         port = 8000
     else:
-        # 배포 환경 설정
+        # 배포 환경
         host = os.getenv("SERVER_HOST")
         port = int(os.getenv("SERVER_PORT"))
 

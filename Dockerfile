@@ -1,23 +1,26 @@
 # base image
 FROM python:3.10-slim-buster
 
-# set environment variable
+# 환경변수 설정
 ENV PYTHONUNBUFFERED=1
+ENV ENVIRONMENT="dev"
+ENV DB_HOST=${RDS_DB_HOST}
+ENV USER_PWD=${RDS_PWD}
 
-# create and set working directory
+# 작업 디렉토리 생성 및 설정
 RUN mkdir /app
 WORKDIR /app
 
-# copy requirements file
+# requirements 파일 복사
 COPY requirements.txt /app/
 
-# install requirements
+# requirements 설치
 RUN pip install -r requirements.txt
 
-# copy app files
+# app 파일 복사
 COPY . /app/
 
-# command to run on container start
+# 컨테이너 시작시 실행할 명령어
 CMD [ "python", "main.py" ]
 
 

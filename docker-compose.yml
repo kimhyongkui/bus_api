@@ -4,6 +4,8 @@ services:
     image: hyongkui/bus_api:latest
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       - USER=${RDS_USER}
       - DB_HOST=${RDS_DB_HOST}

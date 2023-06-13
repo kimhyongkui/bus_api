@@ -4,9 +4,6 @@ FROM python:3.10-slim-buster
 # 환경변수 설정
 ENV PYTHONUNBUFFERED=1
 ENV ENVIRONMENT="dev"
-ENV USER=$RDS_USER
-ENV DB_HOST=$RDS_DB_HOST
-ENV USER_PWD=$RDS_PWD
 
 # 작업 디렉토리 생성 및 설정
 RUN mkdir /app

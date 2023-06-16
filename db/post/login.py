@@ -27,11 +27,7 @@ def login(user_id, pwd):
             data={"user_id": user.user_id},
             expires_delta=access_token_expires
         )
-        refresh_token_expires = timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
-        refresh_token = create_refresh_token(
-            data={"user_id": user.user_id},
-            expires_delta=refresh_token_expires
-        )
+
 
         return {
             "access_token": access_token,

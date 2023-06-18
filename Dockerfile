@@ -23,5 +23,3 @@ COPY . /app/
 
 # 컨테이너 시작시 실행할 명령어
 CMD [ "python", "main.py" ]
-
-

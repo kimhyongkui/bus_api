@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Build your application here"
+    - docker build -t your-image-name .
+
+test:
+  stage: test
+  script:
+    - echo "Run your tests here"
+    - docker run your-image-name pytest
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy your application here"
+    - docker push your-registry/your-image-name

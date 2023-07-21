@@ -19,3 +19,14 @@
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"></a>
 ***
 # 핵심 기능
+현재 위치를 기준으로 정류소 조회
+
+특정 지명을 기준으로 정류소 조회
+
+정류소 데이터 조회
+
+버스 노선 검색
+
+정류소에 도착 예정인 버스 조회
+
+특정 노선의 버스들 실시간 위치 조회

@@ -19,14 +19,17 @@
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"></a>
 ***
 # 핵심 기능
-현재 위치를 기준으로 정류소 조회
-
-특정 지명을 기준으로 정류소 조회
+현재 위치or특정지명을 기준으로 정류소 조회
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/53bb6f6a-9b7c-4992-9c46-28ad7a1a5f99)
 
 정류소 데이터 조회
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/52984056-5896-491a-915a-f364922e60ef)
 
 버스 노선 검색
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/1080b0a4-bce7-4324-a173-d7bd30a8f262)
 
 정류소에 도착 예정인 버스 조회
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/655106da-9d7c-4cc1-9ca2-cbdb54fca6fb)
 
 특정 노선의 버스들 실시간 위치 조회
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/d2acdcdb-3aa3-4476-9228-e59e6c107b8c)

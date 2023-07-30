@@ -28,7 +28,7 @@ def main():
     if environment == "local":
         # 로컬 환경 설정
         host = "localhost"
-        port = 8000
+        port = 8080
     else:
         # 배포 환경 설정
         host = os.getenv("SERVER_HOST")

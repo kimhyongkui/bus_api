@@ -32,5 +32,4 @@
 ![image](https://github.com/kimhyongkui/bus_api/assets/78230765/655106da-9d7c-4cc1-9ca2-cbdb54fca6fb)
 
 특정 노선의 버스들 실시간 위치 조회
-
 ![image](https://github.com/kimhyongkui/bus_api/assets/78230765/d2acdcdb-3aa3-4476-9228-e59e6c107b8c)

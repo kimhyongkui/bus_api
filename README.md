@@ -20,16 +20,16 @@
 ***
 # 핵심 기능
 현재 위치or특정지명을 기준으로 정류소 조회
-![image](https://github.com/kimhyongkui/bus_api/assets/78230765/53bb6f6a-9b7c-4992-9c46-28ad7a1a5f99)
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/cf215b7d-5aa3-4569-906f-4a55f5337c02)
 
 정류소 데이터 조회
-![image](https://github.com/kimhyongkui/bus_api/assets/78230765/52984056-5896-491a-915a-f364922e60ef)
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/839e26d2-5524-48ab-a504-d774b2f46cb3)
 
 버스 노선 검색
-![image](https://github.com/kimhyongkui/bus_api/assets/78230765/1080b0a4-bce7-4324-a173-d7bd30a8f262)
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/a40abccb-40b4-4d3f-a8b4-a6c8a3b40330)
 
 정류소에 도착 예정인 버스 조회
-![image](https://github.com/kimhyongkui/bus_api/assets/78230765/655106da-9d7c-4cc1-9ca2-cbdb54fca6fb)
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/1c51a721-808a-4ff1-ba41-f84591135406)
 
 특정 노선의 버스들 실시간 위치 조회
-![image](https://github.com/kimhyongkui/bus_api/assets/78230765/d2acdcdb-3aa3-4476-9228-e59e6c107b8c)
+![image](https://github.com/kimhyongkui/bus_api/assets/78230765/fd36c5dd-5f95-455c-88e1-7873ee399394)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from db.post.route_data import add_route_data, add_all_route_data
-from app.auth import get_admin
+from app.auth.auth import get_admin
 
 router = APIRouter(prefix="/route")
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from db.post.station_data import add_station_data, add_all_station_data
-from app.auth import get_admin
+from app.auth.auth import get_admin
 
 router = APIRouter(prefix="/station")
 

@@ -2,7 +2,7 @@ from sqlalchemy.orm import sessionmaker
 from db.connection import engine
 from db.models import Account
 from fastapi import HTTPException, status
-from app.password import password_hash
+from app.auth.password import password_hash
 from fastapi.responses import JSONResponse
 
 Session = sessionmaker(bind=engine)

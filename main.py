@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from routers.get import station, arrive_bus, bus_location, route
-from routers.post import route_data, route_list, station_data, vehicle, join, login
+from api.routers.get import bus_location, station, route, arrive_bus
+from api.routers.post import route_data, join, login, station_data, vehicle, route_list
 from fastapi import FastAPI
 import uvicorn
 

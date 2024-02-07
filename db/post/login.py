@@ -2,9 +2,9 @@ from sqlalchemy.orm import sessionmaker
 from db.connection import engine
 from db.models import Account
 from fastapi import HTTPException, status
-from app.password import verify_password
+from app.auth.password import verify_password
 from datetime import timedelta
-from tokens.create_token import create_access_token, create_refresh_token
+from app.auth.auth import create_access_token, create_refresh_token
 from dotenv import load_dotenv
 import os
 import redis
